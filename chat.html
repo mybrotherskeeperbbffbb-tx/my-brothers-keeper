@@ -54,10 +54,13 @@
 <script>
   const { createClient } = supabase;
 
+  // ✅ Your Supabase credentials (double-check these)
   const supabaseUrl = "https://xfgbsioinhnfyrhtpcdr.supabase.co";
   const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhmZ2JzaW9pbmhuZnlyaHRwY2RyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjE2OTc0MzAsImV4cCI6MjA3NzI3MzQzMH0.tqVeukQ0uSf4d8G_IR_UE0OZq4aWpUW-velnx3mXzdQ";
+
   const client = createClient(supabaseUrl, supabaseKey);
 
+  // ✅ Send message to Supabase
   async function sendMessage() {
     const content = document.getElementById("msgInput").value.trim();
     if (!content) return;
@@ -84,6 +87,7 @@
     loadMessages();
   }
 
+  // ✅ Load all messages from Supabase
   async function loadMessages() {
     const { data, error } = await client
       .from("messages")
@@ -107,20 +111,16 @@
       .join("");
   }
 
+  // ✅ Load on start and subscribe for updates
   loadMessages();
-
   client
-    
     .channel("chat")
     .on("postgres_changes", { event: "*", schema: "public", table: "messages" }, loadMessages)
     .subscribe();
 </script>
-
-
 </body>
 </html>
 
 
 
-
-updated 
+updated
