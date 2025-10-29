@@ -33,10 +33,25 @@ background-position: center;
 </body>
 </html>
 
-  <!-- Chat Room Button -->
-<div style="text-align:center; margin-top: 30px;">
-  <a href="chat.html" 
-     style="display:inline-block; padding:12px 24px; background-color:#3ca832; color:black; 
-            font-family:'Courier New', monospace; font-weight:bold; border-radius:8px; 
-            text-decoration:none; transition:0.2s;">
-    💚 Enter MBK Chat Room 💚
+  <!-- Chrome Glow Chat Button -->
+<div style="text-align:center; margin-top:40px;">
+  <a href="chat.html"
+     style="
+       display:inline-block;
+       padding:14px 28px;
+       background: linear-gradient(145deg, #3ca832, #1a6618);
+       color:#000;
+       font-family:'Courier New', monospace;
+       font-weight:bold;
+       border-radius:10px;
+       text-decoration:none;
+       box-shadow:0 0 10px #3ca832, inset 0 0 5px #000, 0 0 25px #3ca832;
+       border:2px solid #3ca832;
+       letter-spacing:1px;
+       transition:all 0.25s ease-in-out;
+     "
+     onmouseover="this.style.boxShadow='0 0 20px #52ff4d, inset 0 0 8px #000, 0 0 40px #52ff4d'; this.style.transform='scale(1.05)';"
+     onmouseout="this.style.boxShadow='0 0 10px #3ca832, inset 0 0 5px #000, 0 0 25px #3ca832'; this.style.transform='scale(1)';">
+    💚 ENTER MBK CHAT ROOM 💚
+  </a>
+</div>
