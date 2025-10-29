@@ -22,27 +22,33 @@
   const supabaseUrl = 'https://xfgbsioinhnfyrhtpcdr.supabase.co';
   const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhmZ2JzaW9pbmhuZnlyaHRwY2RyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjE2OTc0MzAsImV4cCI6MjA3NzI3MzQzMH0.tqVeukQ0uSf4d8G_IR_UE0OZq4aWpUW-velnx3mXzdQ';
   const client = createClient(supabaseUrl, supabaseKey);
+async function sendMessage() {
+  const content = document.getElementById("msgInput").value.trim();
+  if (!content) return;
 
- 
-   async function sendMessage() {
-    const content = document.getElementById("msgInput").value.trim();
-    if (!content) return;
+  let nickname = localStorage.getItem("mbk_nickname");
+  if (!nickname) {
+    nickname = prompt("Enter your road name:", "Brother") || "Brother";
+    localStorage.setItem("mbk_nickname", nickname);
+  }
 
-    // Ask once for nickname, remember it in localStorage
-    let nickname = localStorage.getItem("mbk_nickname");
-    if (!nickname) {
-      nickname = prompt("Enter your road name:", "Brother") || "Brother";
-      localStorage.setItem("mbk_nickname", nickname);
-    }
+  const { error } = await client.from("messages").insert({
+    content,
+    user_email: "none",
+    nickname,
+  });
 
-    await client.from("messages").insert({
-      content,
-      user_email: "none",
-      nickname,
-    });
+  if (error) {
+    console.error("Error sending message:", error.message);
+    alert("Could not send message — check console for details.");
+    return;
+  }
 
-    document.getElementById("msgInput").value = "";
-    loadMessages();
+  document.getElementById("msgInput").value = "";
+  loadMessages();
+}
+
+
   }
 async function loadMessages() {
   const { data, error } = await client
