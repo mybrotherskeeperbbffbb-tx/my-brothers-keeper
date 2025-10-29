@@ -86,37 +86,45 @@
       loadMessages();
     }
 
-    async function loadMessages() {
-      const { data, error } = await client
-        .from("messages")
-        .select("*")
-        .order("created_at", { ascending: true });
+ async function loadMessages() {
+  const { data, error } = await client
+    .from("messages")
+    .select("*")
+    .order("created_at", { ascending: true });
 
-      if (error) {
-        console.error("Error loading messages:", error);
-        return;
-      }
+  if (error) {
+    console.error("Error loading messages:", error);
+    return;
+  }
 
-      const list = document.getElementById("messages");
-      list.innerHTML = data
-        .map(
-          (m) => `
-            <p style="color:#3CA832;">
-              <b>${m.nickname || "Brother"}:</b> ${m.content}
-            </p>`
-        )
-        .join("");
+  const list = document.getElementById("messages");
+  list.innerHTML = (data || [])
+    .map(
+      (m) => `
+        <p style="color:#3CA832;">
+          <b>${m.nickname || "Brother"}:</b> ${m.content}
+        </p>
+      `
+    )
+    .join("");
+}
+
+// Load messages on page start
+loadMessages();
+
+// Listen for real-time updates
+client
+  .channel("chat")
+  .on(
+    "postgres_changes",
+    { event: "*", schema: "public", table: "messages" },
+    (payload) => {
+      console.log("New change:", payload);
+      loadMessages();
     }
+  )
+  .subscribe();
+</script>
 
-    loadMessages();
-    client
-      .channel("chat")
-      .on(
-        "postgres_changes",
-        { event: "*", schema: "public", table: "messages" },
-        loadMessages
-      )
-      .subscribe();
-  </script>
 </body>
 </html>
