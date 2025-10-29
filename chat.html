@@ -54,8 +54,7 @@
 <script>
   const { createClient } = supabase;
 
-  const supabaseUrl = "const supabaseUrl = "https://xfgbsoionhnfyrhtpcdr.supabase.co";
-
+  const supabaseUrl = "https://xfgbsioinhnfyrhtpcdr.supabase.co";
   const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhmZ2JzaW9pbmhuZnlyaHRwY2RyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjE2OTc0MzAsImV4cCI6MjA3NzI3MzQzMH0.tqVeukQ0uSf4d8G_IR_UE0OZq4aWpUW-velnx3mXzdQ
   const client = createClient(supabaseUrl, supabaseKey);
 
@@ -69,13 +68,15 @@
       localStorage.setItem("mbk_nickname", nickname);
     }
 
-    const { error } = await client.from("messages").insert([
-      { content, nickname }
-    ]);
+    const { error } = await client.from("messages").insert({
+      content,
+      user_email: "none",
+      nickname,
+    });
 
     if (error) {
-      alert("Could not send message — check console for details.");
       console.error("Error sending message:", error);
+      alert("Could not send message — check console for details.");
       return;
     }
 
@@ -98,10 +99,10 @@
     list.innerHTML = (data || [])
       .map(
         (m) => `
-          <p style="color:#3CA832;">
-            <b>${m.nickname || "Brother"}:</b> ${m.content}
-          </p>
-        `
+        <p style="color:#3CA832;">
+          <b>${m.nickname || "Brother"}:</b> ${m.content}
+        </p>
+      `
       )
       .join("");
   }
@@ -110,13 +111,10 @@
 
   client
     .channel("chat")
-    .on(
-      "postgres_changes",
-      { event: "*", schema: "public", table: "messages" },
-      loadMessages
-    )
+    .on("postgres_changes", { event: "*", schema: "public", table: "messages" }, loadMessages)
     .subscribe();
 </script>
+
 
 </body>
 </html>
