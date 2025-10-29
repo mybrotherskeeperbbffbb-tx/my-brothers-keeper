@@ -45,86 +45,79 @@
 </head>
 
 <body>
-  <h2>💚 MBK Chat Room 💚</h2>
-  <div id="messages"></div>
-  <input id="msgInput" placeholder="Type your message..." />
-  <button onclick="sendMessage()">Send</button>
+<h2>💚 MBK Chat Room 💚</h2>
+<div id="messages"></div>
+<input id="msgInput" placeholder="Type your message..." />
+<button onclick="sendMessage()">Send</button>
+
+<!-- Load Supabase -->
 <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
 
+<script>
   const { createClient } = supabase;
 
+  // 🔧 Your Supabase credentials
   const supabaseUrl = "https://xfgbsioinhhryfhtpcdr.supabase.co";
   const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhmZ2JzaW9pbmhuZnlyaHRwY2RyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjE2OTc0MzAsImV4cCI6MjA3NzI3MzQzMH0.tqVeukQ0uSf4d8G_IR_UE0OZq4aWpUW-velnx3mXzdQ
-
   const client = createClient(supabaseUrl, supabaseKey);
 
+  // ✉️ Send message function
+  async function sendMessage() {
+    const content = document.getElementById("msgInput").value.trim();
+    if (!content) return;
 
-
-    async function sendMessage() {
-      const content = document.getElementById("msgInput").value.trim();
-      if (!content) return;
-
-      let nickname = localStorage.getItem("mbk_nickname");
-      if (!nickname) {
-        nickname = prompt("Enter your road name:", "Brother") || "Brother";
-        localStorage.setItem("mbk_nickname", nickname);
-      }
-
-      const { error } = await client.from("messages").insert({
-        content,
-        user_email: "none",
-        nickname,
-      });
-
-      if (error) {
-        console.error("Error sending message:", error.message);
-        alert("Could not send message — check console for details.");
-        return;
-      }
-
-      document.getElementById("msgInput").value = "";
-      loadMessages();
+    let nickname = localStorage.getItem("mbk_nickname");
+    if (!nickname) {
+      nickname = prompt("Enter your road name:", "Brother") || "Brother";
+      localStorage.setItem("mbk_nickname", nickname);
     }
 
- async function loadMessages() {
-  const { data, error } = await client
-    .from("messages")
-    .select("*")
-    .order("created_at", { ascending: true });
+    const { error } = await client.from("messages").insert([
+      { content, nickname }
+    ]);
 
-  if (error) {
-    console.error("Error loading messages:", error);
-    return;
+    if (error) {
+      alert("Could not send message — check console for details.");
+      console.error("Send error:", error);
+      return;
+    }
+
+    document.getElementById("msgInput").value = "";
+    loadMessages();
   }
 
-  const list = document.getElementById("messages");
-  list.innerHTML = (data || [])
-    .map(
-      (m) => `
-        <p style="color:#3CA832;">
-          <b>${m.nickname || "Brother"}:</b> ${m.content}
-        </p>
-      `
-    )
-    .join("");
-}
+  // 💬 Load all messages
+  async function loadMessages() {
+    const { data, error } = await client
+      .from("messages")
+      .select("*")
+      .order("created_at", { ascending: true });
 
-// Load messages on page start
-loadMessages();
-
-// Listen for real-time updates
-client
-  .channel("chat")
-  .on(
-    "postgres_changes",
-    { event: "*", schema: "public", table: "messages" },
-    (payload) => {
-      console.log("New change:", payload);
-      loadMessages();
+    if (error) {
+      console.error("Error loading messages:", error);
+      return;
     }
-  )
-  .subscribe();
-</script>
 
+    const list = document.getElementById("messages");
+    list.innerHTML = (data || [])
+      .map(
+        (m) => `
+          <p style="color:#3CA832;">
+            <b>${m.nickname || "Brother"}:</b> ${m.content}
+          </p>
+        `
+      )
+      .join("");
+  }
+
+  // Load messages initially + live updates
+  loadMessages();
+
+  client
+    .channel("chat")
+    .on("postgres_changes", { event: "*", schema: "public", table: "messages" }, loadMessages)
+    .subscribe();
+</script>
 </body>
 </html>
+
