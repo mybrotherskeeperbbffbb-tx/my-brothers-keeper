@@ -23,45 +23,45 @@
   const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhmZ2JzaW9pbmhuZnlyaHRwY2RyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjE2OTc0MzAsImV4cCI6MjA3NzI3MzQzMH0.tqVeukQ0uSf4d8G_IR_UE0OZq4aWpUW-velnx3mXzdQ';
   const client = createClient(supabaseUrl, supabaseKey);
 
-async function sendMessage() {
-  const content = document.getElementById("msgInput").value.trim();
-  if (!content) return;
+ {<script>
+   async function sendMessage() {
+    const content = document.getElementById("msgInput").value.trim();
+    if (!content) return;
 
-  // Ask once for nickname, remember it in localStorage
-  let nickname = localStorage.getItem("mbk_nickname");
-  if (!nickname) {
-    nickname = prompt("Enter your road name:", "Brother") || "Brother";
-    localStorage.setItem("mbk_nickname", nickname);
+    // Ask once for nickname, remember it in localStorage
+    let nickname = localStorage.getItem("mbk_nickname");
+    if (!nickname) {
+      nickname = prompt("Enter your road name:", "Brother") || "Brother";
+      localStorage.setItem("mbk_nickname", nickname);
+    }
+
+    await client.from("messages").insert({
+      content,
+      user_email: "none",
+      nickname,
+    });
+
+    document.getElementById("msgInput").value = "";
+    loadMessages();
   }
 
-  await client.from("messages").insert({
-    content,
-    user_email: "none",
-    nickname,
-  });
+  async function loadMessages() {
+    const { data } = await client
+      .from("messages")
+      .select("*")
+      .order("created_at", { ascending: true });
 
-  document.getElementById("msgInput").value = "";
-  loadMessages();
-}
+    const list = document.getElementById("messages");
+    list.innerHTML = (data || [])
+      .map(
+        (m) =>
+          // NOTE: backticks ↓↓↓ around the template string
+          ` <p><b style="color:#3CA832;">${m.nickname || "Brother"}:</b> ${m.content}</p> `
+      )
+      .join(""); // join to make one HTML string
+  }
+</script>
 
-
- async function loadMessages() {
-  const { data } = await client
-    .from("messages")
-    .select("*")
-    .order("created_at", { ascending: true });
-
-  const list = document.getElementById("messages");
-  list.innerHTML = data
-    .map(
-      (m) => `
-      <p><b style="color:#3CA832;">${m.nickname || "Brother"}:</b>
-      ${m.content}</p>`
-    )
-    .join("");
-}
- 
-}
 
 
   loadMessages();
