@@ -50,18 +50,14 @@
 <input id="msgInput" placeholder="Type your message..." />
 <button onclick="sendMessage()">Send</button>
 
-<!-- Load Supabase -->
 <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
-
 <script>
   const { createClient } = supabase;
 
-  // 🔧 Your Supabase credentials
   const supabaseUrl = "https://xfgbsioinhhryfhtpcdr.supabase.co";
-  const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhmZ2JzaW9pbmhuZnlyaHRwY2RyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjE2OTc0MzAsImV4cCI6MjA3NzI3MzQzMH0.tqVeukQ0uSf4d8G_IR_UE0OZq4aWpUW-velnx3mXzdQ
+  const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc...";
   const client = createClient(supabaseUrl, supabaseKey);
 
-  // ✉️ Send message function
   async function sendMessage() {
     const content = document.getElementById("msgInput").value.trim();
     if (!content) return;
@@ -78,7 +74,7 @@
 
     if (error) {
       alert("Could not send message — check console for details.");
-      console.error("Send error:", error);
+      console.error("Error sending message:", error);
       return;
     }
 
@@ -86,7 +82,6 @@
     loadMessages();
   }
 
-  // 💬 Load all messages
   async function loadMessages() {
     const { data, error } = await client
       .from("messages")
@@ -110,14 +105,18 @@
       .join("");
   }
 
-  // Load messages initially + live updates
   loadMessages();
 
   client
     .channel("chat")
-    .on("postgres_changes", { event: "*", schema: "public", table: "messages" }, loadMessages)
+    .on(
+      "postgres_changes",
+      { event: "*", schema: "public", table: "messages" },
+      loadMessages
+    )
     .subscribe();
 </script>
+
 </body>
 </html>
 
