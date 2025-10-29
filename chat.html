@@ -62,10 +62,14 @@
   }
 </script>
 
-
-
-  loadMessages();
-  client.channel('chat').on('postgres_changes', { event: '*', schema: 'public', table: 'messages' }, loadMessages).subscribe();
 </script>
+
+<script>
+loadMessages();
+client.channel('chat')
+  .on('postgres_changes', { event: '*', schema: 'public', table: 'messages' }, loadMessages)
+  .subscribe();
+</script>
+
 </body>
 </html>
