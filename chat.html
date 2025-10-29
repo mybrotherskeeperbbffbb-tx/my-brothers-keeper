@@ -1,78 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>MBK Chat</title>
-<script src="https://unpkg.com/@supabase/supabase-js"></script>
-<style>
-  body { background:black; color:#3CA832; font-family:Arial; padding:20px; }
-  #messages { height:70vh; overflow-y:auto; border:1px solid #3CA832; padding:10px; }
-  input, button { margin-top:10px; padding:8px; background:#111; color:#3CA832; border:1px solid #3CA832; }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MBK Chat Room</title>
+  <style>
+    body {
+      background-color: black;
+      color: #3ca832;
+      font-family: "Courier New", monospace;
+      text-align: center;
+      padding: 30px;
+    }
+    #messages {
+      border: 2px solid #3ca832;
+      border-radius: 10px;
+      padding: 10px;
+      height: 400px;
+      overflow-y: scroll;
+      text-align: left;
+      margin-bottom: 20px;
+    }
+    input {
+      padding: 10px;
+      width: 70%;
+      border: 1px solid #3ca832;
+      border-radius: 5px;
+      background-color: black;
+      color: #3ca832;
+    }
+    button {
+      padding: 10px 15px;
+      background-color: #3ca832;
+      color: black;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #52ff4d;
+    }
+  </style>
 </head>
+
 <body>
-<h2>💬 MBK Chat Room</h2>
-<div id="messages"></div>
-<input id="msgInput" placeholder="Type your message..." />
-<button onclick="sendMessage()">Send</button>
+  <h2>💚 MBK Chat Room 💚</h2>
+  <div id="messages"></div>
+  <input id="msgInput" placeholder="Type your message..." />
+  <button onclick="sendMessage()">Send</button>
 
-<script>
-  const { createClient } = supabase;
-  const supabaseUrl = 'https://xfgbsioinhnfyrhtpcdr.supabase.co';
-  const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhmZ2JzaW9pbmhuZnlyaHRwY2RyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjE2OTc0MzAsImV4cCI6MjA3NzI3MzQzMH0.tqVeukQ0uSf4d8G_IR_UE0OZq4aWpUW-velnx3mXzdQ';
-  const client = createClient(supabaseUrl, supabaseKey);
-async function sendMessage() {
-  const content = document.getElementById("msgInput").value.trim();
-  if (!content) return;
-
-  let nickname = localStorage.getItem("mbk_nickname");
-  if (!nickname) {
-    nickname = prompt("Enter your road name:", "Brother") || "Brother";
-    localStorage.setItem("mbk_nickname", nickname);
-  }
-
-  const { error } = await client.from("messages").insert({
-    content,
-    user_email: "none",
-    nickname,
-  });
-
-  if (error) {
-    console.error("Error sending message:", error.message);
-    alert("Could not send message — check console for details.");
-    return;
-  }
-
-  document.getElementById("msgInput").value = "";
-  loadMessages();
-}
-
-
-  }
-async function loadMessages() {
-  const { data, error } = await client
-    .from("messages")
-    .select("*")
-    .order("created_at", { ascending: true });
-
-  if (error) {
-    console.error("Error loading messages:", error);
-    return;
-  }
-
-  const list = document.getElementById("messages");
-  list.innerHTML = data
-    .map(
-      (m) => `
-        <p style="color:#3CA832;">
-          <b>${m.nickname || "Brother"}:</b> ${m.content}
-        </p>`
-    )
-    .join("");
-  </script>
-
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
+    const { createClient } = supabase;
+    const supabaseUrl = "https://xfgbsiolnhnfyrrhtpcdr.supabase.co";
+    const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsImlhdCI6MTY5ODc3MzAwMCwiZXhwIjoyMDA0MTMzMDAwfQ.pqKoyr5yNbtAcYi6Hk4R2sXnU8T5TqZBAMaM3J3hso";
+    const client = createClient(supabaseUrl, supabaseKey);
+
+    async function sendMessage() {
+      const content = document.getElementById("msgInput").value.trim();
+      if (!content) return;
+
+      let nickname = localStorage.getItem("mbk_nickname");
+      if (!nickname) {
+        nickname = prompt("Enter your road name:", "Brother") || "Brother";
+        localStorage.setItem("mbk_nickname", nickname);
+      }
+
+      const { error } = await client.from("messages").insert({
+        content,
+        user_email: "none",
+        nickname,
+      });
+
+      if (error) {
+        console.error("Error sending message:", error.message);
+        alert("Could not send message — check console for details.");
+        return;
+      }
+
+      document.getElementById("msgInput").value = "";
+      loadMessages();
+    }
+
+    async function loadMessages() {
+      const { data, error } = await client
+        .from("messages")
+        .select("*")
+        .order("created_at", { ascending: true });
+
+      if (error) {
+        console.error("Error loading messages:", error);
+        return;
+      }
+
+      const list = document.getElementById("messages");
+      list.innerHTML = data
+        .map(
+          (m) => `
+            <p style="color:#3CA832;">
+              <b>${m.nickname || "Brother"}:</b> ${m.content}
+            </p>`
+        )
+        .join("");
+    }
+
     loadMessages();
     client
       .channel("chat")
@@ -85,4 +117,3 @@ async function loadMessages() {
   </script>
 </body>
 </html>
-
