@@ -29,13 +29,22 @@
     list.innerHTML = data.map(m => `<p><b>${m.user_email || 'Anon'}:</b> ${m.content}</p>`).join('');
   }
 
-  async function sendMessage() {
-    const content = document.getElementById('msgInput').value;
-    if(!content) return;
-    await client.from('messages').insert({ content });
-    document.getElementById('msgInput').value = '';
-    loadMessages();
-  }
+  async function loadMessages() {
+  const { data } = await client
+    .from("messages")
+    .select("*")
+    .order("created_at", { ascending: true });
+
+  const list = document.getElementById("messages");
+  list.innerHTML = data
+    .map(
+      (m) => `
+      <p><b style="color:#3CA832;">${m.nickname || "Brother"}:</b>
+      ${m.content}</p>`
+    )
+    .join("");
+}
+
 
   loadMessages();
   client.channel('chat').on('postgres_changes', { event: '*', schema: 'public', table: 'messages' }, loadMessages).subscribe();
