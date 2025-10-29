@@ -44,32 +44,39 @@
     document.getElementById("msgInput").value = "";
     loadMessages();
   }
+async function loadMessages() {
+  const { data, error } = await client
+    .from("messages")
+    .select("*")
+    .order("created_at", { ascending: true });
 
-  async function loadMessages() {
-    const { data } = await client
-      .from("messages")
-      .select("*")
-      .order("created_at", { ascending: true });
-
-    const list = document.getElementById("messages");
-    list.innerHTML = (data || [])
-      .map(
-        (m) =>
-          // NOTE: backticks ↓↓↓ around the template string
-          ` <p><b style="color:#3CA832;">${m.nickname || "Brother"}:</b> ${m.content}</p> `
-      )
-      .join(""); // join to make one HTML string
+  if (error) {
+    console.error("Error loading messages:", error);
+    return;
   }
-</script>
 
-</script>
+  const list = document.getElementById("messages");
+  list.innerHTML = data
+    .map(
+      (m) => `
+        <p style="color:#3CA832;">
+          <b>${m.nickname || "Brother"}:</b> ${m.content}
+        </p>`
+    )
+    .join("");
+  </script>
 
-<script>
-loadMessages();
-client.channel('chat')
-  .on('postgres_changes', { event: '*', schema: 'public', table: 'messages' }, loadMessages)
-  .subscribe();
-</script>
-
+  <script>
+    loadMessages();
+    client
+      .channel("chat")
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "messages" },
+        loadMessages
+      )
+      .subscribe();
+  </script>
 </body>
 </html>
+
