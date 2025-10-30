@@ -1,28 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>MBK • Crew Bios</title>
-  <meta name="theme-color" content="#3CA832" />
-
-  <!-- Minimal, clean, light mode -->
-  <style>
-    :root{
-      --bg:#ffffff;
-      --text:#0e1116;
-      --muted:#667085;
-      --od:#3CA832;            /* OD Green accent */
-      --card:#f7f8fa;
-      --ring:#d0d5dd;
-      --chrome:linear-gradient(135deg,#e7e7e7 0%,#ffffff 30%,#bfbfbf 60%,#ffffff 100%);
-    }
-    *{box-sizing:border-box}
-    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif}
-    a{color:var(--od);text-decoration:none}
-    .wrap{max-width:1000px;margin:auto;padding:20px}
-    header{
-      display:flex;align-items:center;gap:14px;justify-content:space-between;margin-bottom:14px
-    }
-    .brand{
-      display:flex;align-items:center;gap
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>MBK • Crew Bios</title>
+<meta name="theme-color" content="#3CA832" />
+<style>
+:root{--od:#3CA832;--bg:#000;--chrome:linear-gradient(135deg,#bfbfbf 0%,#ffffff 30%,#e7e7e7 70%,#bfbfbf 100%);}
+body{margin:0;background:var(--bg);color:var(--od);font-family:"Courier New",monospace;text-align:center;}
+nav{background:black;border-bottom:2px solid var(--od);display:flex;justify-content:center;gap:25px;padding:14px 0;font-weight:bold;font-size:16px;}
+nav a{color:var(--od);text-decoration:none;transition:0.2s;}
+nav a:hover{text-shadow:0 0 8px var(--od);}
+main{max-width:900px;margin:30px auto;padding:0 20px;}
+.card{background:#111;border:2px solid var(--od);border-radius:10px;padding:20px;margin-bottom:20px;}
+img{border-radius:50%;border:2px solid var(--od);width:100px;height:100px;object-fit:cover;margin-bottom:10px;}
+h2{background:var(--chrome);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html">Home</a>
+  <a href="bios.html">Bios</a>
+  <a href="about.html">About</a>
+  <a href="admin.html">Admin</a>
+</nav>
+<main>
+  <h2>Meet the Brotherhood</h2>
+  <div class="card">
+    <img src="icon-192.png" alt="Brother 1" />
+    <h3>Thirsty</h3>
+    <p>Founder • OD Chrome Soul • Keeps the fire burning for MBK.</p>
+  </div>
+  <div class="card">
+    <img src="icon-192.png" alt="Brother 2" />
+    <h3>EZ</h3>
+    <p>Right-hand man • Loyalty before luxury • Always down for the ride.</p>
+  </div>
+  <div class="card">
+    <img src="icon-192.png" alt="Brother 3" />
+    <h3>Sassy</h3>
+    <p>MBK Support • Strength & grace in one • Family forever.</p>
+  </div>
+</main>
+</body>
+</html>
