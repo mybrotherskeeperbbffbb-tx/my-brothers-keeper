@@ -1,100 +1,138 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MBK | About Us</title>
-  <meta name="theme-color" content="#3CA832" />
-  <link rel="icon" href="favicon.ico.png" type="image/png">
-  <link rel="apple-touch-icon" href="appbadge.png">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About MBK</title>
   <style>
     body {
-      background: url('background.jpg') no-repeat center center fixed;
-      background-size: cover;
-      font-family: "Courier New", monospace;
-      color: #3CA832;
-      text-align: center;
       margin: 0;
-      padding: 40px 20px;
+      padding: 0;
+      background: black url('MBK-Background.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #3CA832;
+      font-family: "Courier New", monospace;
+      text-align: center;
+    }
+
+    nav {
+      width: 100%;
+      background: linear-gradient(145deg, #1a1a1a, #2b2b2b);
+      border-bottom: 2px solid #3CA832;
+      box-shadow: 0 0 25px #3CA832;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 20px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+    }
+
+    nav .logo {
+      font-size: 1.8em;
+      font-weight: bold;
+      background: linear-gradient(90deg, #bfbfbf, #e6e6e6, #8a8a8a);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 15px #3CA832;
+      letter-spacing: 2px;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 25px;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav ul li a {
+      color: #3CA832;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1.1em;
+      letter-spacing: 1px;
+      transition: all 0.3s ease;
+      text-shadow: 0 0 10px #000;
+      padding: 6px 12px;
+      border-radius: 6px;
+    }
+
+    nav ul li a:hover {
+      color: black;
+      background: #3CA832;
+      box-shadow: 0 0 25px #3CA832;
+    }
+
+    main {
+      margin-top: 130px;
+      padding: 30px;
     }
 
     h1 {
-      font-size: 3em;
-      text-shadow: 0 0 25px #3CA832, 0 0 15px #000;
-      margin-bottom: 25px;
-    }
-
-    .content {
-      max-width: 900px;
-      margin: auto;
-      background: rgba(0, 0, 0, 0.65);
-      border: 2px solid #3CA832;
-      border-radius: 12px;
-      padding: 25px 30px;
-      box-shadow: 0 0 30px #000;
-    }
-
-    h2 {
-      color: #ccc;
-      margin-top: 25px;
-      text-shadow: 0 0 10px #000;
+      font-size: 2.4em;
+      text-shadow: 0 0 25px #3CA832;
     }
 
     p {
-      color: #ddd;
-      line-height: 1.6;
       font-size: 1.1em;
-      margin-top: 10px;
-      text-shadow: 0 0 6px #000;
+      color: #d3ffd3;
+      max-width: 800px;
+      margin: 15px auto;
+      text-shadow: 0 0 15px #3CA832;
+      line-height: 1.6;
     }
 
-    .motto {
-      font-size: 1.3em;
-      color: #3CA832;
-      text-shadow: 0 0 10px #3CA832;
-      font-weight: bold;
-      margin-top: 25px;
-      border-top: 1px solid #3CA832;
-      padding-top: 15px;
+    .quote {
+      font-style: italic;
+      font-size: 1.2em;
+      margin-top: 20px;
+      text-shadow: 0 0 25px #52ff4d;
     }
 
-    a {
-      display: inline-block;
-      margin-top: 25px;
-      text-decoration: none;
-      color: #3CA832;
-      font-weight: bold;
-      border: 2px solid #3CA832;
-      padding: 10px 20px;
-      border-radius: 8px;
-      transition: all 0.3s ease;
-    }
-
-    a:hover {
-      background: #3CA832;
-      color: #000;
-      box-shadow: 0 0 25px #3CA832;
+    footer {
+      margin-top: 60px;
+      font-size: 0.9em;
+      opacity: 0.6;
     }
   </style>
 </head>
 
 <body>
-  <h1>Our Story • Our Bond</h1>
+  <nav>
+    <div class="logo">MBK</div>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="bio.html">Brotherhood</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="about.html">About Us</a></li>
+      <li><a href="admin.html">Admin</a></li>
+      <li><a href="chat.html">Chat</a></li>
+    </ul>
+  </nav>
 
-  <div class="content">
-    <p>My Brothers Keeper isn’t just a name — it’s a code. Born from loyalty, steel, and the open road, MBK is a brotherhood built on respect, resilience, and realness. We stand shoulder to shoulder through every storm, every victory, and every mile.</p>
+  <main>
+    <h1>About My Brother’s Keeper</h1>
+    <p>
+      Born from the ashes of hard rides, long nights, and unbreakable loyalty — My Brother’s Keeper
+      is more than a name. It’s a bond forged in respect, earned through honor, and sealed in chrome.
+    </p>
+    <p>
+      Every patch, every ride, every handshake carries the weight of that promise:
+      we stand together, ride together, and never leave a brother behind.
+    </p>
+    <p>
+      MBK is more than a crew — it’s a family, built on strength, compassion, and unity.
+      When one of us rises, we all rise.
+    </p>
 
-    <p>We are not defined by colors or clubs — we’re defined by our commitment to each other and the values we ride for. Chrome, grit, and loyalty run through our veins. Every member is a link in a chain that can’t be broken.</p>
+    <div class="quote">
+      “Ride for the brotherhood. Live for the code.” — BBFFBB
+    </div>
+  </main>
 
-    <h2>Our Mission</h2>
-    <p>To protect, to support, and to uplift our brothers and community. Whether through rides, charity work, or standing by one another — we move as one, for the good of all.</p>
-
-    <h2>Our Creed</h2>
-    <p>Brotherhood above all. Family before fame. Steel over ego. Once a keeper, always a keeper.</p>
-
-    <div class="motto">“Ride Together. Stand Together. Live Free.”</div>
-  </div>
-
-  <a href="index.html">⬅ Back to Home</a>
+  <footer>© 2025 MBK | BBFFBB</footer>
 </body>
 </html>
