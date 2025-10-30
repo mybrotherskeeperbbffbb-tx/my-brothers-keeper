@@ -3,145 +3,120 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Admin Lock | My Brother’s Keeper</title>
-  <link rel="icon" href="favicon.ico.png" />
+  <title>Admin | My Brother’s Keeper</title>
   <style>
     body {
-      margin: 0;
-      background: url('background.jpg') center center / cover no-repeat fixed;
-      font-family: 'Impact', 'Arial Black', sans-serif;
+      background: url('background.jpg') no-repeat center center fixed;
+      background-size: cover;
+      font-family: "Courier New", monospace;
+      color: white;
       text-align: center;
-      color: #3ca832;
-      overflow: hidden;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-shadow: 0 0 10px #ffffff, 0 0 40px #00ff66;
     }
 
     nav {
-      background: rgba(0,0,0,0.85);
-      padding: 18px;
-      font-size: 26px;
-      width: 100%;
-      position: absolute;
+      background: rgba(0, 0, 0, 0.8);
+      padding: 10px 0;
+      position: sticky;
       top: 0;
-      left: 0;
-      box-shadow: 0 0 20px #ffffff;
+      z-index: 10;
     }
+
     nav a {
-      color: #ffffff;
-      margin: 0 25px;
+      color: #00ff00;
       text-decoration: none;
+      margin: 0 15px;
       font-weight: bold;
-      text-shadow: 0 0 10px #00ff66;
+      font-size: 1.2em;
     }
+
     nav a:hover {
-      color: #00ff66;
-      text-shadow: 0 0 15px #00ff66;
+      color: #fff;
+      text-shadow: 0 0 8px #00ff00;
     }
 
-    #lock-area {
-      position: relative;
-      width: 250px;
-      height: 250px;
-      background: radial-gradient(circle at center, #0a0a0a, #000000 80%);
-      border-radius: 50%;
-      box-shadow: 0 0 60px #00ff66, inset 0 0 20px #ffffff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    h1 {
+      font-size: 3em;
+      margin-top: 40px;
+      text-shadow: 0 0 15px #00ff00;
     }
 
-    #key {
-      width: 100px;
-      height: 100px;
-      background: linear-gradient(145deg, #3ca832, #1f5f17);
-      border-radius: 50%;
-      box-shadow: 0 0 20px #00ff66, 0 0 40px #00ff66;
-      cursor: grab;
-      user-select: none;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 40px;
+    .admin-box {
+      background: rgba(0, 0, 0, 0.7);
+      width: 300px;
+      margin: 100px auto;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px #00ff00;
+    }
+
+    input {
+      display: block;
+      width: 90%;
+      margin: 10px auto;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      background: black;
+      color: #00ff00;
+      text-align: center;
+    }
+
+    button {
+      background: #00ff00;
       color: black;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
       font-weight: bold;
-      text-shadow: 0 0 20px #ffffff;
-      transition: transform 0.2s ease;
-    }
-    #key:active {
-      cursor: grabbing;
-      transform: scale(1.1);
+      cursor: pointer;
+      transition: background 0.3s;
     }
 
-    #status {
-      margin-top: 60px;
-      font-size: 36px;
-      text-shadow: 0 0 20px #ffffff, 0 0 40px #00ff66;
+    button:hover {
+      background: #fff;
+      color: black;
+    }
+
+    footer {
+      margin-top: 50px;
+      background: rgba(0, 0, 0, 0.8);
+      padding: 20px;
+      font-size: 1em;
+      color: #00ff00;
     }
   </style>
 </head>
 <body>
   <nav>
     <a href="index.html">Home</a>
-    <a href="bios.html">Brotherhood</a>
+    <a href="brotherhood.html">Brotherhood</a>
     <a href="gallery.html">Gallery</a>
     <a href="about.html">About Us</a>
     <a href="admin.html">Admin</a>
     <a href="chat.html">Chat</a>
   </nav>
 
-  <h1 style="font-size:80px;margin-bottom:50px;">🔒 Admin Access</h1>
+  <h1>Admin Access</h1>
 
-  <div id="lock-area">
-    <div id="key">🔑</div>
+  <div class="admin-box">
+    <p>Authorized members only</p>
+    <input type="password" id="key" placeholder="Enter Access Key" />
+    <button onclick="checkKey()">Enter</button>
   </div>
 
-  <div id="status">Drag the key to unlock</div>
-
-  <audio id="engine-sound" src="engine.mp3" preload="auto"></audio>
-
   <script>
-    const key = document.getElementById('key');
-    const lock = document.getElementById('lock-area');
-    const status = document.getElementById('status');
-    const sound = document.getElementById('engine-sound');
-
-    let dragging = false;
-
-    key.addEventListener('mousedown', () => dragging = true);
-    document.addEventListener('mouseup', () => dragging = false);
-
-    document.addEventListener('mousemove', (e) => {
-      if (dragging) {
-        key.style.position = 'absolute';
-        key.style.left = e.pageX - 50 + 'px';
-        key.style.top = e.pageY - 50 + 'px';
+    function checkKey() {
+      const key = document.getElementById('key').value.trim();
+      if (key === "MBK2025") {
+        alert("Access granted. Welcome, Brother.");
+      } else {
+        alert("Access denied.");
       }
-    });
-
-    lock.addEventListener('mouseenter', () => {
-      if (dragging) {
-        dragging = false;
-        sound.play();
-        sound.currentTime = 0;
-        status.innerHTML = "Engine Roaring... Unlocking 🔓";
-        key.style.display = 'none';
-        setTimeout(() => {
-          sound.play();
-        }, 2000);
-        setTimeout(() => {
-          window.location.href = "chat.html";
-        }, 5000);
-      }
-    });
+    }
   </script>
 
-  <footer style="margin-top:100px;font-size:26px;color:#000;text-shadow:0 0 10px #fff;">
-    © 2025 MBK | Private Admin Access
+  <footer>
+    © 2025 MBK | BFFB
   </footer>
 </body>
 </html>
