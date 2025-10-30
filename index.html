@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My Brother's Keeper</title>
+  <title>My Brother’s Keeper | Home</title>
   <meta name="theme-color" content="#3CA832" />
   <style>
     :root {
@@ -15,11 +15,10 @@
     body {
       margin: 0;
       font-family: "Courier New", monospace;
-      background: var(--bg) url('background.jpg') no-repeat center center fixed;
-      background-size: cover;
+      background: var(--bg) url('background.jpg') center top / cover no-repeat fixed;
       color: var(--od);
-      padding: 0;
       text-align: center;
+      overflow-x: hidden;
     }
 
     nav {
@@ -59,7 +58,7 @@
       color: #3CA832;
       text-decoration: none;
       font-weight: bold;
-      font-size: 1.1em;
+      font-size: 1.5em;
       letter-spacing: 1px;
       transition: all 0.3s ease;
       text-shadow: 0 0 10px #000;
@@ -74,27 +73,57 @@
     }
 
     main {
-      margin-top: 120px;
+      margin-top: 160px;
       padding: 40px 20px;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+      background: rgba(0,0,0,0.7);
+      border-radius: 20px;
+      box-shadow: 0 0 30px #3CA832;
     }
 
     h1 {
-      font-size: 2.5em;
+      font-size: 3em;
       color: #52ff4d;
       text-shadow: 0 0 25px #3CA832;
-      margin-bottom: 10px;
+      margin-bottom: 15px;
+    }
+
+    h2 {
+      color: #e6e6e6;
+      font-weight: 400;
+      margin-bottom: 25px;
+      font-size: 1.4em;
     }
 
     p {
-      font-size: 1.1em;
-      color: #d3ffd3;
-      text-shadow: 0 0 10px #3CA832;
-      max-width: 700px;
-      margin: 0 auto;
+      color: #e6e6e6;
+      line-height: 1.8em;
+      font-size: 1.2em;
+      margin-bottom: 30px;
+    }
+
+    button {
+      background-color: #3CA832;
+      color: black;
+      border: none;
+      padding: 15px 25px;
+      font-size: 1.2em;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 20px #3CA832;
+    }
+
+    button:hover {
+      background-color: #52ff4d;
+      box-shadow: 0 0 35px #52ff4d;
     }
 
     footer {
-      margin-top: 80px;
+      margin-top: 60px;
       font-size: 0.9em;
       opacity: 0.6;
       color: #3CA832;
@@ -102,6 +131,7 @@
     }
   </style>
 </head>
+
 <body>
   <nav>
     <div class="logo">MBK</div>
@@ -116,24 +146,39 @@
   </nav>
 
   <main>
-    <h1>Welcome to <span style="color:#3CA832;">My Brother’s Keeper</span></h1>
-    <p>The Brotherhood. The Bond. The Bloodline.</p>
+    <img src="logo.png" alt="MBK Logo" style="width:180px; border-radius:50%; margin-bottom:25px; border:2px solid #3CA832; box-shadow:0 0 25px #3CA832;">
+    <h1>Welcome to My Brother’s Keeper</h1>
+    <h2>Where Family, Love, and Brotherhood Still Mean Something</h2>
+
+    <p>
+      My Brother’s Keeper isn’t a club — it’s a family.  
+      We stand together not for fame or power, but for each other.  
+      We help feed the hungry, comfort the broken, support our veterans, and carry the dreams of those we’ve lost.  
+      What started as one man’s vision became a movement built on love, loyalty, and compassion.  
+    </p>
+
+    <p>
+      Every heartbeat of this page echoes the promise we made —  
+      *to watch over one another and to honor our fallen brother by living the way he did — with heart.*  
+      This is more than a name. It’s who we are.  
+    </p>
+
+    <button onclick="location.href='about.html'">Our Mission</button>
   </main>
 
-  <footer>© 2025 MBK | BBFFBB</footer>
+  <footer>© 2025 My Brother’s Keeper | BBFFBB</footer>
 
-  <!-- Engine sound (tap to start, mobile safe) -->
-  <audio id="engineSound" loop>
+  <!-- Engine Sound -->
+  <audio id="engineSound">
     <source src="engine.mp3" type="audio/mpeg">
   </audio>
 
   <script>
     const sound = document.getElementById('engineSound');
-    sound.volume = 0.3;
-
-    // Start engine sound on first user interaction
     document.body.addEventListener('click', () => {
+      sound.volume = 0.5;
       sound.play();
+      setTimeout(() => sound.pause(), 3500);
     }, { once: true });
   </script>
 </body>
