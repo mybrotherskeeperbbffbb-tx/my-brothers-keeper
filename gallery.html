@@ -3,15 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MBK Gallery</title>
+  <title>Gallery | My Brother’s Keeper</title>
+  <meta name="theme-color" content="#3CA832" />
   <style>
+    :root {
+      --od: #3CA832;
+      --bg: #000;
+      --chrome: linear-gradient(135deg, #bfbfbf, #e6e6e6, #8a8a8a);
+    }
+
     body {
       margin: 0;
-      padding: 0;
-      background: black url('MBK-Background.jpg') no-repeat center center fixed;
-      background-size: cover;
-      color: #3CA832;
       font-family: "Courier New", monospace;
+      background: var(--bg) url('background.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: var(--od);
       text-align: center;
     }
 
@@ -33,7 +39,7 @@
     nav .logo {
       font-size: 1.8em;
       font-weight: bold;
-      background: linear-gradient(90deg, #bfbfbf, #e6e6e6, #8a8a8a);
+      background: var(--chrome);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       text-shadow: 0 0 15px #3CA832;
@@ -68,40 +74,57 @@
 
     main {
       margin-top: 120px;
-      padding: 10px;
+      padding: 40px 20px;
     }
 
     h1 {
-      font-size: 2.2em;
+      font-size: 2.5em;
+      color: #52ff4d;
       text-shadow: 0 0 25px #3CA832;
+      margin-bottom: 30px;
     }
 
-    .gallery {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 20px;
-      margin-top: 20px;
+      max-width: 1000px;
+      margin: 0 auto;
     }
 
-    .gallery img {
-      width: 260px;
-      height: auto;
-      border-radius: 12px;
+    .gallery-item {
       border: 2px solid #3CA832;
-      box-shadow: 0 0 25px #3CA832;
-      transition: all 0.3s ease;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 0 20px #3CA832;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      background: rgba(0, 0, 0, 0.7);
     }
 
-    .gallery img:hover {
+    .gallery-item:hover {
       transform: scale(1.05);
       box-shadow: 0 0 40px #52ff4d;
     }
 
+    .gallery-item img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      border-bottom: 1px solid #3CA832;
+    }
+
+    .caption {
+      padding: 10px;
+      color: #d3ffd3;
+      text-shadow: 0 0 10px #3CA832;
+    }
+
     footer {
-      margin-top: 40px;
-      font-size: 0.8em;
+      margin-top: 60px;
+      font-size: 0.9em;
       opacity: 0.6;
+      color: #3CA832;
+      text-shadow: 0 0 10px #3CA832;
     }
   </style>
 </head>
@@ -119,19 +142,38 @@
   </nav>
 
   <main>
-    <h1>MBK Media Gallery</h1>
-    <p>Brothers in chrome. Memories in motion.</p>
+    <h1>The Gallery</h1>
+    <div class="gallery-grid">
+      <div class="gallery-item">
+        <img src="background.jpg" alt="Brotherhood Emblem">
+        <div class="caption">The Brotherhood Seal</div>
+      </div>
 
-    <div class="gallery">
-      <img src="ride1.jpg" alt="Ride 1">
-      <img src="ride2.jpg" alt="Ride 2">
-      <img src="event1.jpg" alt="Event 1">
-      <img src="event2.jpg" alt="Event 2">
-      <img src="family1.jpg" alt="Family 1">
-      <img src="logo.jpg" alt="Logo Display">
+      <div class="gallery-item">
+        <img src="appbadge.png" alt="MBK Badge">
+        <div class="caption">MBK Chrome Badge</div>
+      </div>
+
+      <div class="gallery-item">
+        <img src="Splash.jpg" alt="Brotherhood Splash">
+        <div class="caption">Mama Tried – Brotherhood Legacy</div>
+      </div>
     </div>
   </main>
 
   <footer>© 2025 MBK | BBFFBB</footer>
+
+  <!-- Engine sound -->
+  <audio id="engineSound" loop>
+    <source src="engine.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    const sound = document.getElementById('engineSound');
+    sound.volume = 0.3;
+    document.body.addEventListener('click', () => {
+      sound.play();
+    }, { once: true });
+  </script>
 </body>
 </html>
