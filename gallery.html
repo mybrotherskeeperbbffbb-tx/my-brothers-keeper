@@ -1,97 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MBK | Gallery</title>
-  <meta name="theme-color" content="#3CA832" />
-  <link rel="icon" href="favicon.ico.png" type="image/png">
-  <link rel="apple-touch-icon" href="appbadge.png">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MBK Gallery</title>
   <style>
-    body {
-      background: url('background.jpg') no-repeat center center fixed;
-      background-size: cover;
-      font-family: "Courier New", monospace;
-      color: #3CA832;
-      text-align: center;
-      margin: 0;
-      padding: 30px 15px;
-    }
-
-    h1 {
-      font-size: 3em;
-      text-shadow: 0 0 20px #3CA832, 0 0 10px #000;
-      margin-bottom: 20px;
-    }
-
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 15px;
-      max-width: 1000px;
-      margin: auto;
-    }
-
-    .gallery-grid img {
-      width: 100%;
-      height: 250px;
-      object-fit: cover;
-      border-radius: 10px;
-      border: 2px solid #3CA832;
-      box-shadow: 0 0 15px #000;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .gallery-grid img:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 25px #3CA832;
-    }
-
-    .caption {
-      color: #ccc;
-      font-size: 1em;
-      margin-top: 5px;
-    }
-
-    a {
-      display: inline-block;
-      margin-top: 25px;
-      text-decoration: none;
-      color: #3CA832;
-      font-weight: bold;
-      border: 2px solid #3CA832;
-      padding: 10px 20px;
-      border-radius: 8px;
-      transition: all 0.3s ease;
-    }
-
-    a:hover {
-      background: #3CA832;
-      color: #000;
-      box-shadow: 0 0 25px #3CA832;
-    }
+    body { background: black; color: #3CA832; font-family: monospace; text-align:center; margin:0; padding-top:90px; }
+    img { width:250px; height:auto; border-radius:10px; margin:10px; box-shadow:0 0 15px #3CA832; transition:all 0.3s; }
+    img:hover { transform:scale(1.05); box-shadow:0 0 30px #52ff4d; }
   </style>
 </head>
-
 <body>
-  <h1>MBK Gallery</h1>
-  <p>Moments forged in brotherhood, chrome, and loyalty.</p>
+  <nav>
+    <div class="logo">MBK</div>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="bio.html">Brotherhood</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="about.html">About Us</a></li>
+      <li><a href="admin.html">Admin</a></li>
+      <li><a href="chat.html">Chat</a></li>
+    </ul>
+  </nav>
 
-  <div class="gallery-grid">
-    <div>
-      <img src="gallery1.jpg" alt="Ride 1">
-      <div class="caption">Toy Run 2025</div>
-    </div>
-    <div>
-      <img src="gallery2.jpg" alt="Ride 2">
-      <div class="caption">Southside Meet</div>
-    </div>
-    <div>
-      <img src="gallery3.jpg" alt="Ride 3">
-      <div class="caption">Band of Brothers BBQ</div>
-    </div>
-  </div>
-
-  <a href="index.html">⬅ Back to Home</a>
+  <h1>MBK Media Gallery</h1>
+  <p>Brothers in chrome and honor.</p>
+  <img src="MBK1.jpg" alt="Brotherhood Image">
+  <img src="MBK2.jpg" alt="Brotherhood Image">
+  <img src="MBK3.jpg" alt="Brotherhood Image">
 </body>
 </html>
