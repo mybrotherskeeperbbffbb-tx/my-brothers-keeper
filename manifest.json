@@ -1,17 +1,13 @@
 {
-  "name": "My Brother's Keeper",
+  "name": "My Brother’s Keeper",
   "short_name": "MBK",
-  "description": "A family of brothers and sisters dedicated to love, loyalty, and helping our communities.",
+  "description": "Family • Loyalty • Legacy — A brotherhood dedicated to charity, unity, and remembrance.",
   "start_url": "index.html",
   "display": "standalone",
   "background_color": "#000000",
-  "theme_color": "#00ff66",
+  "theme_color": "#3ca832",
+  "orientation": "portrait",
   "icons": [
-    {
-      "src": "favicon-48x48.ico",
-      "sizes": "48x48",
-      "type": "image/x-icon"
-    },
     {
       "src": "appbadge.png",
       "sizes": "192x192",
