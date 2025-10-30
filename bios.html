@@ -1,70 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bios - My Brothers Keeper</title>
-<meta name="theme-color" content="#3CA832" />
-<style>
-body {
-  margin: 0;
-  padding: 20px;
-  background: black url('background.jpg') no-repeat center center fixed;
-  background-size: cover;
-  color: #3CA832;
-  font-family: "Courier New", monospace;
-}
-h1 {
-  text-align: center;
-  text-shadow: 0 0 10px #00ff00;
-}
-.bio {
-  background: rgba(0, 0, 0, 0.6);
-  border: 1px solid #3CA832;
-  padding: 15px;
-  margin: 15px auto;
-  border-radius: 10px;
-  max-width: 700px;
-  box-shadow: 0 0 10px #3CA832;
-}
-.bio h2 {
-  margin: 0;
-  color: #00ff00;
-}
-.bio p {
-  margin-top: 10px;
-  color: #ccc;
-}
-a {
-  display: block;
-  text-align: center;
-  margin-top: 25px;
-  color: #00ff00;
-  text-decoration: none;
-}
-a:hover {
-  text-decoration: underline;
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MBK | Crew Bios</title>
+  <meta name="theme-color" content="#3CA832" />
+  <link rel="icon" href="favicon.ico.png" type="image/png">
+  <link rel="apple-touch-icon" href="appbadge.png">
+  <style>
+    body {
+      background: url('background.jpg') no-repeat center center fixed;
+      background-size: cover;
+      font-family: "Courier New", monospace;
+      color: #3CA832;
+      text-align: center;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      font-size: 3em;
+      text-shadow: 0 0 20px #3CA832, 0 0 10px #000;
+      margin-bottom: 20px;
+    }
+
+    .bio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .bio-card {
+      background: rgba(0,0,0,0.7);
+      border: 2px solid #3CA832;
+      border-radius: 10px;
+      padding: 15px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .bio-card:hover {
+      transform: scale(1.03);
+      box-shadow: 0 0 25px #3CA832;
+    }
+
+    .bio-card img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 10px;
+      border: 2px solid #3CA832;
+    }
+
+    .bio-name {
+      font-size: 1.5em;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    .bio-desc {
+      color: #ccc;
+      font-size: 1em;
+      margin-top: 5px;
+    }
+
+    a {
+      display: inline-block;
+      margin-top: 20px;
+      text-decoration: none;
+      color: #3CA832;
+      font-weight: bold;
+      border: 2px solid #3CA832;
+      padding: 8px 16px;
+      border-radius: 8px;
+      transition: all 0.3s;
+    }
+
+    a:hover {
+      background: #3CA832;
+      color: #000;
+    }
+  </style>
 </head>
+
 <body>
-  <h1>Meet the Brothers</h1>
+  <h1>Meet the Brotherhood</h1>
 
-  <div class="bio">
-    <h2>Thirsty</h2>
-    <p>Founder, leader, and the heart of the Brotherhood — known for his loyalty, strength, and drive to keep the family together.</p>
+  <div class="bio-grid">
+    <div class="bio-card">
+      <img src="member1.jpg" alt="Member 1">
+      <div class="bio-name">Thirsty</div>
+      <div class="bio-desc">Founder of MBK. A brother forged in chrome and loyalty. The heart behind the movement.</div>
+    </div>
+
+    <div class="bio-card">
+      <img src="member2.jpg" alt="Member 2">
+      <div class="bio-name">EZ</div>
+      <div class="bio-desc">Always ready to ride, always ready to rise. The calm before the storm.</div>
+    </div>
+
+    <div class="bio-card">
+      <img src="member3.jpg" alt="Member 3">
+      <div class="bio-name">Blue</div>
+      <div class="bio-desc">Creative spark of the crew, turning ideas into fire and metal.</div>
+    </div>
   </div>
 
-  <div class="bio">
-    <h2>Buston Brandon</h2>
-    <p>The enforcer — steady, fearless, and always has your back when things get heavy.</p>
-  </div>
-
-  <div class="bio">
-    <h2>EZ</h2>
-    <p>Silent but deadly on the throttle. Keeps the road smooth and the crew grounded.</p>
-  </div>
-
-  <a href="index.html">⬅ Back Home</a>
+  <a href="index.html">⬅ Back to Home</a>
 </body>
 </html>
