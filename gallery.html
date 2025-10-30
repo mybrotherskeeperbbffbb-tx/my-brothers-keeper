@@ -1,84 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MBK | Gallery</title>
-  <link rel="icon" href="favicon.ico">
-  <meta name="theme-color" content="#3CA832">
-  <style>
-    body {
-      background-color: black;
-      color: #3CA832;
-      font-family: 'Courier New', monospace;
-      text-align: center;
-      padding: 20px;
-    }
-    h1 {
-      font-size: 2em;
-      color: #3CA832;
-      text-shadow: 0 0 15px #3CA832;
-    }
-    .gallery {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 15px;
-      margin-top: 25px;
-    }
-    .gallery img {
-      border: 2px solid #3CA832;
-      border-radius: 10px;
-      width: 200px;
-      height: 200px;
-      object-fit: cover;
-      box-shadow: 0 0 10px #3CA832;
-      transition: transform 0.3s ease;
-    }
-    .gallery img:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 20px #3CA832;
-    }
-    .upload-section {
-      border: 1px dashed #3CA832;
-      border-radius: 10px;
-      padding: 20px;
-      margin: 30px auto;
-      width: 80%;
-      background-color: rgba(60,168,50,0.1);
-    }
-    .upload-section input {
-      background-color: black;
-      border: 1px solid #3CA832;
-      color: #3CA832;
-      padding: 10px;
-      border-radius: 5px;
-    }
-    a {
-      color: #3CA832;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    a:hover {
-      text-shadow: 0 0 10px #3CA832;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gallery - My Brothers Keeper</title>
+<meta name="theme-color" content="#3CA832" />
+<style>
+body {
+  margin: 0;
+  padding: 20px;
+  background: black url('background.jpg') no-repeat center center fixed;
+  background-size: cover;
+  color: #3CA832;
+  font-family: "Courier New", monospace;
+  text-align: center;
+}
+h1 {
+  text-shadow: 0 0 10px #00ff00;
+}
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 15px;
+  margin-top: 30px;
+}
+.gallery img {
+  width: 100%;
+  border-radius: 10px;
+  border: 2px solid #3CA832;
+  box-shadow: 0 0 15px #3CA832;
+  transition: transform 0.3s ease;
+}
+.gallery img:hover {
+  transform: scale(1.05);
+}
+a {
+  display: block;
+  margin-top: 30px;
+  color: #00ff00;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+</style>
 </head>
 <body>
-  <h1>💚 MBK Gallery 💚</h1>
+  <h1>Brotherhood Gallery</h1>
 
   <div class="gallery">
-    <img src="key-sample.png" alt="Photo 1">
-    <img src="splash.png" alt="Photo 2">
-    <img src="favicon.ico" alt="Photo 3">
+    <img src="Splash.jpg" alt="Brotherhood Ride">
+    <img src="splash.png" alt="Green Chrome Logo">
+    <img src="key-sample.png" alt="Emblem Design">
   </div>
 
-  <div class="upload-section">
-    <h3>Upload a New Photo (Admin Approval Required)</h3>
-    <input type="file" accept="image/*">
-    <p><em>Uploads are reviewed before appearing in the gallery.</em></p>
-  </div>
-
-  <p><a href="index.html">⬅ Back to Home</a></p>
+  <a href="index.html">⬅ Back Home</a>
 </body>
 </html>
