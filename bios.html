@@ -1,46 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>MBK • Crew Bios</title>
-<meta name="theme-color" content="#3CA832" />
-<style>
-:root{--od:#3CA832;--bg:#000;--chrome:linear-gradient(135deg,#bfbfbf 0%,#ffffff 30%,#e7e7e7 70%,#bfbfbf 100%);}
-body{margin:0;background:var(--bg);color:var(--od);font-family:"Courier New",monospace;text-align:center;}
-nav{background:black;border-bottom:2px solid var(--od);display:flex;justify-content:center;gap:25px;padding:14px 0;font-weight:bold;font-size:16px;}
-nav a{color:var(--od);text-decoration:none;transition:0.2s;}
-nav a:hover{text-shadow:0 0 8px var(--od);}
-main{max-width:900px;margin:30px auto;padding:0 20px;}
-.card{background:#111;border:2px solid var(--od);border-radius:10px;padding:20px;margin-bottom:20px;}
-img{border-radius:50%;border:2px solid var(--od);width:100px;height:100px;object-fit:cover;margin-bottom:10px;}
-h2{background:var(--chrome);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MBK | Crew Bios</title>
+  <link rel="icon" href="favicon.ico">
+  <meta name="theme-color" content="#3CA832">
+  <style>
+    body {
+      background-color: black;
+      color: #3CA832;
+      font-family: 'Courier New', monospace;
+      text-align: center;
+      padding: 30px;
+    }
+    h1 {
+      font-size: 2em;
+      color: #3CA832;
+      text-shadow: 0 0 15px #3CA832;
+    }
+    .bio-card {
+      border: 1px solid #3CA832;
+      border-radius: 10px;
+      padding: 15px;
+      margin: 15px auto;
+      width: 80%;
+      background-color: rgba(60,168,50,0.1);
+    }
+    .bio-card img {
+      border-radius: 10px;
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border: 2px solid #3CA832;
+    }
+    p {
+      color: #ccc;
+    }
+    a {
+      color: #3CA832;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    a:hover {
+      text-shadow: 0 0 10px #3CA832;
+    }
+  </style>
 </head>
 <body>
-<nav>
-  <a href="index.html">Home</a>
-  <a href="bios.html">Bios</a>
-  <a href="about.html">About</a>
-  <a href="admin.html">Admin</a>
-</nav>
-<main>
-  <h2>Meet the Brotherhood</h2>
-  <div class="card">
-    <img src="icon-192.png" alt="Brother 1" />
+  <h1>💚 MBK Crew Bios 💚</h1>
+
+  <div class="bio-card">
+    <img src="key-sample.png" alt="Member Photo">
     <h3>Thirsty</h3>
-    <p>Founder • OD Chrome Soul • Keeps the fire burning for MBK.</p>
+    <p>Founder & Brother in Chrome. Built on loyalty, lived on the road.</p>
   </div>
-  <div class="card">
-    <img src="icon-192.png" alt="Brother 2" />
+
+  <div class="bio-card">
+    <img src="key-sample.png" alt="Member Photo">
     <h3>EZ</h3>
-    <p>Right-hand man • Loyalty before luxury • Always down for the ride.</p>
+    <p>Keeper of the keys and laughter. Always rolling, always loud.</p>
   </div>
-  <div class="card">
-    <img src="icon-192.png" alt="Brother 3" />
-    <h3>Sassy</h3>
-    <p>MBK Support • Strength & grace in one • Family forever.</p>
+
+  <div class="bio-card">
+    <img src="key-sample.png" alt="Member Photo">
+    <h3>Buston Brandon</h3>
+    <p>Brother of fire and metal. Dedicated to the ride and the bond.</p>
   </div>
-</main>
+
+  <p><a href="index.html">⬅ Back to Home</a></p>
 </body>
 </html>
