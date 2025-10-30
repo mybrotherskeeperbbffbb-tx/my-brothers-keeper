@@ -122,25 +122,31 @@ background-position: center;
   </a>
 </div>
   <script>
-  // Wait 2 seconds, then fade out splash
-  window.addEventListener("load", () => {
-    const splash = document.getElementById("splash");
-    splash.style.transition = "opacity 1.5s ease-out";
-    splash.style.opacity = "1";
-    splash.animate(
-      [
-        { filter: "brightness(100%)" },
-        { filter: "brightness(200%)" },
-        { filter: "brightness(100%)" }
-      ],
-      { duration: 1500, iterations: 2 }
-    );
-    setTimeout(() => {
-      splash.style.opacity = "0";
-      setTimeout(() => splash.remove(), 1500);
-    }, 2000);
-  });
-  </script>
+// Wait 2 seconds, then fade out splash
+window.addEventListener("load", () => {
+  const splash = document.getElementById("splash");
+  splash.style.transition = "opacity 1.5s ease-out";
+  splash.style.opacity = "1";
+
+  // 🎧 Add hum sound on splash load
+  const audio = new Audio("hum.mp3");
+  audio.volume = 0.4; // soft chrome hum
+  audio.play().catch(err => console.log("Autoplay blocked:", err));
+
+  splash.animate(
+    [
+      { filter: "brightness(100%)" },
+      { filter: "brightness(200%)" },
+      { filter: "brightness(100%)" }
+    ],
+    { duration: 1500, iterations: 2 }
+  );
+  setTimeout(() => {
+    splash.style.opacity = "0";
+    setTimeout(() => splash.remove(), 1500);
+  }, 2000);
+});
+</script>
 </body>
 </html>
 
