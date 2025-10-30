@@ -2,61 +2,143 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MBK Chat Room</title>
-  <meta name="theme-color" content="#3CA832" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Brothers Keeper | MBK</title>
+  <meta name="theme-color" content="#3CA832">
+  <link rel="icon" href="favicon.ico">
+  <link rel="manifest" href="manifest.json">
   <style>
     :root {
       --od: #3CA832;
+      --chrome: linear-gradient(135deg, #bfbfbf, #f0f0f0, #8f8f8f);
       --bg: #000;
-      --chrome: linear-gradient(135deg,#bfbfbf 0%,#ffffff 30%,#e7e7e7 70%,#bfbfbf 100%);
     }
+
     body {
-      margin: 0; font-family:"Courier New",monospace;
-      background: var(--bg); color: var(--od); text-align:center;
-      padding: 20px;
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--od);
+      font-family: 'Courier New', monospace;
+      text-align: center;
+      overflow-x: hidden;
     }
+
+    header {
+      background: var(--chrome);
+      -webkit-background-clip: text;
+      color: transparent;
+      font-weight: bold;
+      font-size: 2.2em;
+      padding: 20px 0;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      text-shadow: 0 0 15px var(--od);
+    }
+
     nav {
-      background: black; border-bottom:2px solid var(--od);
-      display:flex; justify-content:center; gap:25px; padding:14px 0;
-      font-weight:bold; font-size:16px;
+      margin: 20px 0;
     }
+
     nav a {
-      color: var(--od); text-decoration:none; transition:0.2s;
+      text-decoration: none;
+      color: var(--od);
+      border: 1px solid var(--od);
+      padding: 10px 15px;
+      margin: 5px;
+      border-radius: 10px;
+      background: rgba(60,168,50,0.1);
+      transition: 0.3s;
     }
-    nav a:hover { text-shadow:0 0 8px var(--od); }
-    #messages {
-      border:2px solid var(--od); border-radius:10px;
-      padding:10px; height:400px; overflow-y:scroll;
-      text-align:left; margin:20px auto; max-width:700px;
-      background:#111;
+
+    nav a:hover {
+      background: var(--od);
+      color: #000;
+      box-shadow: 0 0 20px var(--od);
     }
-    input {
-      padding:10px; width:70%; border:1px solid var(--od);
-      border-radius:5px; background:black; color:var(--od);
+
+    main {
+      margin-top: 30px;
+      padding: 0 20px;
     }
-    button {
-      padding:10px 15px; background:var(--od); color:black;
-      border:none; border-radius:5px; font-weight:bold; cursor:pointer;
+
+    h2 {
+      color: var(--od);
+      font-size: 1.6em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
     }
-    button:hover { background:#52ff4d; }
+
+    p {
+      font-size: 1.1em;
+      line-height: 1.6em;
+      color: #ccc;
+    }
+
+    footer {
+      border-top: 1px solid #222;
+      margin-top: 40px;
+      padding: 15px;
+      font-size: 0.9em;
+      color: #666;
+    }
+
+    /* subtle motorcycle startup animation for page load */
+    @keyframes rumble {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(3px); }
+      50% { transform: translateX(-3px); }
+      75% { transform: translateX(2px); }
+    }
+
+    body.startup {
+      animation: rumble 0.4s ease-in-out 3;
+    }
   </style>
 </head>
 <body>
+  <header>My Brothers Keeper</header>
+
   <nav>
-    <a href="index.html">Home</a>
-    <a href="bios.html">Bios</a>
-    <a href="about.html">About</a>
+    <a href="bios.html">Crew Bios</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="about.html">About Us</a>
     <a href="admin.html">Admin</a>
   </nav>
 
-  <h2>💚 MBK Chat Room 💚</h2>
-  <div id="messages"></div>
-  <input id="msgInput" placeholder="Type your message..." />
-  <button onclick="sendMessage()">Send</
+  <main>
+    <h2>Welcome to MBK</h2>
+    <p>
+      Brotherhood built on loyalty, respect, and the open road.  
+      This is our space to connect, share, and roar together — one throttle, one heart.
+    </p>
+    <p>
+      Tap a link above to explore.  
+      <br><br>
+      When the private lock opens, the engine will roar.  
+      Until then... keep your chrome clean and your spirit loud.
+    </p>
+  </main>
 
-    
+  <footer>
+    © 2025 My Brothers Keeper | Built with heart and chrome.
+  </footer>
+
+  <audio id="engine" src="engine.mp3" preload="auto"></audio>
+  <script>
+    // Add the motorcycle "rumble" effect on load
+    document.body.classList.add('startup');
+
+    // Optional: start the engine sound when page opens
+    const engine = document.getElementById('engine');
+    window.addEventListener('load', () => {
+      engine.volume = 0.4;
+      engine.play().catch(() => {});
+    });
+  </script>
+</body>
+</html>    
 
 
 
