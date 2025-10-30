@@ -1,122 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Gallery | My Brother’s Keeper</title>
-  <link rel="icon" href="favicon.ico.png">
   <style>
     body {
-      margin: 0;
-      background: url('background.jpg') center center / cover no-repeat fixed;
-      font-family: 'Impact', 'Arial Black', sans-serif;
-      color: #000000;
+      background: url('background.jpg') no-repeat center center fixed;
+      background-size: cover;
+      font-family: "Courier New", monospace;
+      color: white;
       text-align: center;
-      padding: 40px;
-      text-shadow: 0 0 10px #ffffff, 0 0 30px #ffffff, 0 0 60px #ffffff;
     }
+
     nav {
-      background: rgba(0,0,0,0.85);
-      padding: 18px;
-      font-size: 26px;
-      box-shadow: 0 0 20px #ffffff;
+      background: rgba(0, 0, 0, 0.8);
+      padding: 10px 0;
+      position: sticky;
+      top: 0;
+      z-index: 10;
     }
+
     nav a {
-      color: #ffffff;
-      margin: 0 25px;
+      color: #00ff00;
       text-decoration: none;
+      margin: 0 15px;
       font-weight: bold;
-      text-shadow: 0 0 10px #00ff66;
+      font-size: 1.2em;
     }
+
     nav a:hover {
-      color: #00ff66;
-      text-shadow: 0 0 15px #00ff66;
+      color: #fff;
+      text-shadow: 0 0 8px #00ff00;
     }
+
     h1 {
-      font-size: 80px;
-      margin-top: 60px;
-      text-shadow: 0 0 20px #ffffff, 0 0 60px #ffffff;
+      font-size: 3em;
+      margin-top: 40px;
+      text-shadow: 0 0 15px #00ff00;
     }
+
     .gallery {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 40px;
-      margin-top: 60px;
+      margin: 40px auto;
+      gap: 20px;
+      max-width: 1000px;
     }
-    .gallery-item {
-      position: relative;
-      overflow: hidden;
-      border-radius: 20px;
-      box-shadow: 0 0 25px #ffffff;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .gallery-item img {
-      width: 350px;
-      height: 350px;
+
+    .gallery img {
+      width: 300px;
+      height: 200px;
+      border-radius: 10px;
+      border: 2px solid #00ff00;
+      box-shadow: 0 0 15px #00ff00;
+      transition: transform 0.3s;
       object-fit: cover;
-      border-radius: 20px;
-      box-shadow: 0 0 25px #00ff66;
     }
-    .gallery-item:hover {
-      transform: scale(1.08);
-      box-shadow: 0 0 35px #00ff66, 0 0 55px #ffffff;
+
+    .gallery img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 25px #00ff00;
     }
-    .caption {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: rgba(0, 0, 0, 0.6);
-      color: #ffffff;
-      font-size: 28px;
-      padding: 12px;
-      border-radius: 0 0 20px 20px;
-      text-shadow: 0 0 8px #00ff66, 0 0 20px #ffffff;
-    }
+
     footer {
-      margin-top: 100px;
-      font-size: 26px;
-      opacity: 0.8;
-      color: #000000;
-      text-shadow: 0 0 12px #ffffff;
+      margin-top: 50px;
+      background: rgba(0, 0, 0, 0.8);
+      padding: 20px;
+      font-size: 1em;
+      color: #00ff00;
     }
   </style>
 </head>
 <body>
   <nav>
     <a href="index.html">Home</a>
-    <a href="bios.html">Brotherhood</a>
+    <a href="brotherhood.html">Brotherhood</a>
     <a href="gallery.html">Gallery</a>
     <a href="about.html">About Us</a>
     <a href="admin.html">Admin</a>
     <a href="chat.html">Chat</a>
   </nav>
 
-  <h1>MBK Gallery</h1>
+  <h1>Gallery of Memories</h1>
+  <p>Our brothers, our rides, our moments — frozen in time.</p>
 
   <div class="gallery">
-    <div class="gallery-item">
-      <img src="background.jpg" alt="MBK Legacy">
-      <div class="caption">Our Legacy</div>
-    </div>
-
-    <div class="gallery-item">
-      <img src="splash.png" alt="Brotherhood">
-      <div class="caption">Brotherhood Forever</div>
-    </div>
-
-    <div class="gallery-item">
-      <img src="appbadge.png" alt="Honor">
-      <div class="caption">Honor and Respect</div>
-    </div>
-
-    <div class="gallery-item">
-      <img src="thumbnail.png" alt="Unity">
-      <div class="caption">Unity & Loyalty</div>
-    </div>
+    <img src="Splash.jpg" alt="Brotherhood Image 1" />
+    <img src="background.jpg" alt="Brotherhood Image 2" />
+    <img src="appbadge.png" alt="Brotherhood Image 3" />
   </div>
 
-  <footer>© 2025 MBK | Family • Loyalty • Legacy</footer>
+  <footer>
+    © 2025 MBK | BFFB
+  </footer>
 </body>
 </html>
