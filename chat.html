@@ -5,13 +5,141 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>MBK Chat Room</title>
   <style>
-    body { background:black; color:#3CA832; font-family:monospace; text-align:center; margin:0; padding-top:90px; }
-    #messages { border:2px solid #3CA832; border-radius:10px; width:80%; margin:auto; height:400px; overflow-y:scroll; padding:10px; text-align:left; }
-    input,button { margin-top:10px; padding:10px; border-radius:5px; }
-    button { background:#3CA832; color:black; font-weight:bold; border:none; cursor:pointer; }
-    button:hover { background:#52ff4d; box-shadow:0 0 15px #3CA832; }
+    body {
+      margin: 0;
+      padding: 0;
+      background: black url('MBK-Background.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #3CA832;
+      font-family: "Courier New", monospace;
+      text-align: center;
+    }
+
+    nav {
+      width: 100%;
+      background: linear-gradient(145deg, #1a1a1a, #2b2b2b);
+      border-bottom: 2px solid #3CA832;
+      box-shadow: 0 0 25px #3CA832;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 20px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+    }
+
+    nav .logo {
+      font-size: 1.8em;
+      font-weight: bold;
+      background: linear-gradient(90deg, #bfbfbf, #e6e6e6, #8a8a8a);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 15px #3CA832;
+      letter-spacing: 2px;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 25px;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav ul li a {
+      color: #3CA832;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1.1em;
+      letter-spacing: 1px;
+      transition: all 0.3s ease;
+      text-shadow: 0 0 10px #000;
+      padding: 6px 12px;
+      border-radius: 6px;
+    }
+
+    nav ul li a:hover {
+      color: black;
+      background: #3CA832;
+      box-shadow: 0 0 25px #3CA832;
+    }
+
+    main {
+      margin-top: 140px;
+    }
+
+    h1 {
+      font-size: 2.2em;
+      text-shadow: 0 0 25px #3CA832;
+    }
+
+    #messages {
+      width: 80%;
+      max-width: 600px;
+      margin: 25px auto;
+      background: rgba(0,0,0,0.7);
+      border: 2px solid #3CA832;
+      border-radius: 10px;
+      padding: 15px;
+      height: 400px;
+      overflow-y: auto;
+      text-align: left;
+      box-shadow: 0 0 25px #3CA832;
+    }
+
+    .msg {
+      margin: 8px 0;
+      padding: 8px;
+      border-bottom: 1px solid rgba(60,168,50,0.3);
+    }
+
+    .nickname {
+      font-weight: bold;
+      color: #52ff4d;
+    }
+
+    input {
+      width: 60%;
+      padding: 10px;
+      border: 1px solid #3CA832;
+      border-radius: 5px;
+      background: black;
+      color: #3CA832;
+    }
+
+    button {
+      padding: 10px 15px;
+      margin-left: 8px;
+      background-color: #3CA832;
+      color: black;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #52ff4d;
+    }
+
+    footer {
+      margin-top: 40px;
+      font-size: 0.9em;
+      opacity: 0.6;
+    }
+
+    @keyframes vibrate {
+      0% { transform: translate(0); }
+      25% { transform: translate(-1px, 1px); }
+      50% { transform: translate(1px, -1px); }
+      75% { transform: translate(-1px, 1px); }
+      100% { transform: translate(0); }
+    }
   </style>
 </head>
+
 <body>
   <nav>
     <div class="logo">MBK</div>
@@ -25,35 +153,19 @@
     </ul>
   </nav>
 
-  <h2>💬 MBK Private Chat 💬</h2>
-  <div id="messages"></div>
-  <input id="msgInput" placeholder="Type your message..." />
-  <button onclick="sendMessage()">Send</button>
+  <main>
+    <h1>💬 MBK Chat Room 💬</h1>
+    <div id="messages"></div>
+    <input id="msgInput" placeholder="Type your message..." />
+    <button onclick="sendMessage()">Send</button>
+  </main>
+
+  <footer>© 2025 MBK | BBFFBB</footer>
+
+  <audio id="engineSound" src="harley.mp3" preload="auto"></audio>
 
   <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
   <script>
     const { createClient } = supabase;
     const supabaseUrl = "https://xfgbsioinhnfyrhtpcdr.supabase.co";
-    const supabaseKey = "YOUR_SUPABASE_ANON_KEY";
-    const client = createClient(supabaseUrl, supabaseKey);
-
-    async function sendMessage() {
-      const content = document.getElementById("msgInput").value.trim();
-      if (!content) return;
-      const nickname = localStorage.getItem("mbk_nickname") || "Brother";
-      await client.from("messages").insert({ content, nickname });
-      document.getElementById("msgInput").value = "";
-      loadMessages();
-    }
-
-    async function loadMessages() {
-      const { data } = await client.from("messages").select("*").order("created_at");
-      const box = document.getElementById("messages");
-      box.innerHTML = data.map(m => `<p><b>${m.nickname}:</b> ${m.content}</p>`).join("");
-    }
-
-    loadMessages();
-    client.channel("chat").on("postgres_changes", { event: "*", schema: "public", table: "messages" }, loadMessages).subscribe();
-  </script>
-</body>
-</html>
+    const sup
