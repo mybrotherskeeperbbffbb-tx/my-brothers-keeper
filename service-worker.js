@@ -1,4 +1,4 @@
-// My Brother's Keeper - Service Worker
+// My Brother’s Keeper - Service Worker
 const CACHE_NAME = "mbk-v1";
 const urlsToCache = [
   "index.html",
@@ -11,43 +11,36 @@ const urlsToCache = [
   "appbadge.png",
   "engine.mp3",
   "hum.mp3",
-  "favicon.ico"
+  "favicon.ico",
+  "manifest.json"
 ];
 
 // Install service worker and cache everything
 self.addEventListener("install", event => {
   event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => {
-        console.log("Caching files...");
-        return cache.addAll(urlsToCache);
-      })
+    caches.open(CACHE_NAME).then(cache => {
+      console.log("Caching MBK files...");
+      return cache.addAll(urlsToCache);
+    })
   );
 });
 
-// Serve cached files if available
+// Serve from cache if available
 self.addEventListener("fetch", event => {
   event.respondWith(
-    caches.match(event.request)
-      .then(response => {
-        // Return cached version or fetch from network
-        return response || fetch(event.request);
-      })
+    caches.match(event.request).then(response => {
+      return response || fetch(event.request);
+    })
   );
 });
 
-// Update cache when a new service worker activates
+// Clean old caches
 self.addEventListener("activate", event => {
-  const cacheWhitelist = [CACHE_NAME];
   event.waitUntil(
-    caches.keys().then(cacheNames => {
+    caches.keys().then(keys => {
       return Promise.all(
-        cacheNames.map(cacheName => {
-          if (!cacheWhitelist.includes(cacheName)) {
-            console.log("Clearing old cache:", cacheName);
-            return caches.delete(cacheName);
-          }
-        })
+        keys.filter(key => key !== CACHE_NAME)
+            .map(key => caches.delete(key))
       );
     })
   );
