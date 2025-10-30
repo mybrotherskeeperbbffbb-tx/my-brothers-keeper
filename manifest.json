@@ -1,12 +1,11 @@
 {
-  "name": "My Brother's Keeper",
+  "name": "My Brother’s Keeper",
   "short_name": "MBK",
-  "description": "A brotherhood of family, love, and compassion — standing for one another and helping our communities.",
   "start_url": "index.html",
   "display": "standalone",
   "background_color": "#000000",
   "theme_color": "#3CA832",
-  "orientation": "portrait",
+  "description": "My Brother’s Keeper — A family of hearts, helping others, united by loyalty and love.",
   "icons": [
     {
       "src": "appbadge.png",
@@ -14,14 +13,14 @@
       "type": "image/png"
     },
     {
-      "src": "appbadge.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    },
-    {
       "src": "favicon.ico",
       "sizes": "48x48",
       "type": "image/x-icon"
+    },
+    {
+      "src": "thumbnail.png",
+      "sizes": "512x512",
+      "type": "image/png"
     }
   ]
 }
