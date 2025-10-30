@@ -3,15 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>About MBK</title>
+  <title>About Us | My Brother’s Keeper</title>
+  <meta name="theme-color" content="#3CA832" />
   <style>
+    :root {
+      --od: #3CA832;
+      --bg: #000;
+      --chrome: linear-gradient(135deg, #bfbfbf, #e6e6e6, #8a8a8a);
+    }
+
     body {
       margin: 0;
-      padding: 0;
-      background: black url('MBK-Background.jpg') no-repeat center center fixed;
-      background-size: cover;
-      color: #3CA832;
       font-family: "Courier New", monospace;
+      background: var(--bg) url('background.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: var(--od);
       text-align: center;
     }
 
@@ -33,7 +39,7 @@
     nav .logo {
       font-size: 1.8em;
       font-weight: bold;
-      background: linear-gradient(90deg, #bfbfbf, #e6e6e6, #8a8a8a);
+      background: var(--chrome);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       text-shadow: 0 0 15px #3CA832;
@@ -67,39 +73,44 @@
     }
 
     main {
-      margin-top: 130px;
-      padding: 30px;
+      margin-top: 120px;
+      padding: 40px 20px;
     }
 
     h1 {
-      font-size: 2.4em;
+      font-size: 2.5em;
+      color: #52ff4d;
       text-shadow: 0 0 25px #3CA832;
+      margin-bottom: 30px;
     }
 
-    p {
-      font-size: 1.1em;
-      color: #d3ffd3;
+    .content-box {
       max-width: 800px;
-      margin: 15px auto;
-      text-shadow: 0 0 15px #3CA832;
+      margin: 0 auto;
+      background: rgba(0, 0, 0, 0.7);
+      border: 1px solid #3CA832;
+      border-radius: 10px;
+      padding: 30px;
+      box-shadow: 0 0 25px #3CA832;
+      color: #d3ffd3;
       line-height: 1.6;
+      text-shadow: 0 0 10px #3CA832;
     }
 
-    .quote {
-      font-style: italic;
-      font-size: 1.2em;
-      margin-top: 20px;
-      text-shadow: 0 0 25px #52ff4d;
+    .highlight {
+      color: #52ff4d;
+      font-weight: bold;
     }
 
     footer {
-      margin-top: 60px;
+      margin-top: 80px;
       font-size: 0.9em;
       opacity: 0.6;
+      color: #3CA832;
+      text-shadow: 0 0 10px #3CA832;
     }
   </style>
 </head>
-
 <body>
   <nav>
     <div class="logo">MBK</div>
@@ -114,25 +125,38 @@
   </nav>
 
   <main>
-    <h1>About My Brother’s Keeper</h1>
-    <p>
-      Born from the ashes of hard rides, long nights, and unbreakable loyalty — My Brother’s Keeper
-      is more than a name. It’s a bond forged in respect, earned through honor, and sealed in chrome.
-    </p>
-    <p>
-      Every patch, every ride, every handshake carries the weight of that promise:
-      we stand together, ride together, and never leave a brother behind.
-    </p>
-    <p>
-      MBK is more than a crew — it’s a family, built on strength, compassion, and unity.
-      When one of us rises, we all rise.
-    </p>
-
-    <div class="quote">
-      “Ride for the brotherhood. Live for the code.” — BBFFBB
+    <h1>About Us</h1>
+    <div class="content-box">
+      <p>
+        <span class="highlight">My Brother’s Keeper</span> is more than a name — it’s a code.
+        We’re bound not by blood, but by honor, loyalty, and the shared roads that made us brothers.
+        What started as a small crew turned into a brotherhood built on respect, truth, and grit.
+      </p>
+      <p>
+        Every member stands for something: <span class="highlight">Brotherhood. Bond. Bloodline.</span>
+        We believe in giving back, lifting each other up, and never letting a brother fall alone.
+      </p>
+      <p>
+        Our mission goes beyond the ride — we serve our communities, we protect our families,
+        and we represent our colors with pride.
+      </p>
+      <p><em>We are MBK — Bound Forever. Forged by Brotherhood. BBFFBB.</em></p>
     </div>
   </main>
 
   <footer>© 2025 MBK | BBFFBB</footer>
+
+  <!-- Engine sound -->
+  <audio id="engineSound" loop>
+    <source src="engine.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    const sound = document.getElementById('engineSound');
+    sound.volume = 0.3;
+    document.body.addEventListener('click', () => {
+      sound.play();
+    }, { once: true });
+  </script>
 </body>
 </html>
