@@ -1,24 +1,26 @@
 {
   "name": "My Brother's Keeper",
   "short_name": "MBK",
-  "start_url": "./index.html",
+  "description": "A brotherhood of family, love, and compassion — standing for one another and helping our communities.",
+  "start_url": "index.html",
   "display": "standalone",
   "background_color": "#000000",
-  "theme_color": "#00FF00",
+  "theme_color": "#3CA832",
+  "orientation": "portrait",
   "icons": [
     {
-      "src": "icon-192.png",
+      "src": "icon-192x192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "icon-512.png",
+      "src": "icon-512x512.png",
       "sizes": "512x512",
       "type": "image/png"
     },
     {
       "src": "favicon.ico",
-      "sizes": "64x64",
+      "sizes": "48x48",
       "type": "image/x-icon"
     }
   ]
