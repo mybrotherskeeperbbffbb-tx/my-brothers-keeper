@@ -3,143 +3,37 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MBK | Admin Lock</title>
-  <meta name="theme-color" content="#3CA832" />
-  <link rel="icon" href="favicon.ico.png" type="image/png">
-  <link rel="apple-touch-icon" href="appbadge.png">
-
+  <title>MBK Admin</title>
   <style>
-    body {
-      background: url('background.jpg') no-repeat center center fixed;
-      background-size: cover;
-      font-family: "Courier New", monospace;
-      color: #3CA832;
-      text-align: center;
-      margin: 0;
-      padding: 0;
-      height: 100vh;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-    }
-
-    h1 {
-      font-size: 2.8em;
-      text-shadow: 0 0 25px #3CA832, 0 0 10px #000;
-      margin-bottom: 25px;
-    }
-
-    .lock-area {
-      position: relative;
-      width: 180px;
-      height: 180px;
-      border: 3px solid #3CA832;
-      border-radius: 50%;
-      background: radial-gradient(circle at center, #333, #000);
-      box-shadow: 0 0 25px #3CA832;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .lock-area img {
-      width: 100px;
-      height: 100px;
-      user-select: none;
-    }
-
-    .key {
-      margin-top: 40px;
-      width: 120px;
-      height: 50px;
-      border: 2px solid #3CA832;
-      background: linear-gradient(135deg, #8a8a8a, #c0c0c0, #6a6a6a);
-      border-radius: 10px;
-      box-shadow: 0 0 15px #3CA832;
-      cursor: grab;
-      color: black;
-      font-weight: bold;
-      line-height: 50px;
-      text-align: center;
-      user-select: none;
-    }
-
-    .key:active {
-      cursor: grabbing;
-      background: linear-gradient(135deg, #c0c0c0, #8a8a8a);
-    }
-
-    .access {
-      display: none;
-      margin-top: 30px;
-      color: #3CA832;
-      font-weight: bold;
-      text-shadow: 0 0 10px #3CA832;
-    }
-
-    a {
-      text-decoration: none;
-      color: #3CA832;
-      font-weight: bold;
-      border: 2px solid #3CA832;
-      padding: 8px 20px;
-      border-radius: 8px;
-      transition: 0.3s;
-    }
-
-    a:hover {
-      background: #3CA832;
-      color: black;
-      box-shadow: 0 0 25px #3CA832;
-    }
+    body { background:black; color:#3CA832; font-family:monospace; text-align:center; margin:0; padding-top:90px; }
+    button { background:#3CA832; color:black; padding:10px 20px; border:none; border-radius:6px; font-weight:bold; cursor:pointer; }
+    button:hover { background:#52ff4d; box-shadow:0 0 15px #3CA832; }
   </style>
 </head>
-
 <body>
-  <h1>MBK Secure Access</h1>
+  <nav>
+    <div class="logo">MBK</div>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="bio.html">Brotherhood</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="about.html">About Us</a></li>
+      <li><a href="admin.html">Admin</a></li>
+      <li><a href="chat.html">Chat</a></li>
+    </ul>
+  </nav>
 
-  <div class="lock-area" id="lock">
-    <img src="lock.png" alt="Lock" id="lockImg">
-  </div>
+  <h1>Admin Lock Access</h1>
+  <button onclick="revEngine()">Unlock Private Chat 🔑</button>
 
-  <div class="key" draggable="true" id="key">🔑 Key</div>
-
-  <div class="access" id="access">
-    <p>✅ Lock Opened — Welcome, Brother.</p>
-    <a href="chat.html">Enter Private Chat</a>
-  </div>
-
-  <audio id="engineSound" src="engine.mp3"></audio>
+  <audio id="engine" src="engine.mp3"></audio>
 
   <script>
-    const key = document.getElementById("key");
-    const lock = document.getElementById("lock");
-    const access = document.getElementById("access");
-    const engine = document.getElementById("engineSound");
-
-    key.addEventListener("dragstart", (e) => {
-      e.dataTransfer.setData("text/plain", "key");
-    });
-
-    lock.addEventListener("dragover", (e) => {
-      e.preventDefault();
-      lock.style.boxShadow = "0 0 35px #52ff4d";
-    });
-
-    lock.addEventListener("dragleave", () => {
-      lock.style.boxShadow = "0 0 25px #3CA832";
-    });
-
-    lock.addEventListener("drop", () => {
-      lock.innerHTML = "🔓";
-      lock.style.boxShadow = "0 0 40px #3CA832";
-      key.style.display = "none";
-      access.style.display = "block";
-      engine.play();
-      if (navigator.vibrate) navigator.vibrate([200, 100, 300]);
-    });
+    function revEngine() {
+      const sound = document.getElementById('engine');
+      sound.play();
+      setTimeout(() => { window.location.href = 'chat.html'; }, 1800);
+    }
   </script>
 </body>
 </html>
