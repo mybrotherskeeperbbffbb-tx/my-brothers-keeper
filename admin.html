@@ -1,120 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#3CA832" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin | My Brother’s Keeper</title>
-  <link rel="icon" href="favicon.ico" type="image/x-icon" />
-
+  <link rel="icon" href="favicon.ico.png">
   <style>
-    :root {
-      --od: #3CA832;
-      --bg: #000;
-    }
-
     body {
-      margin: 0;
-      font-family: "Courier New", monospace;
-      background: var(--bg) url("background.jpg") no-repeat center center fixed;
-      background-size: cover;
-      color: var(--od);
+      background: url('background.jpg') center center / cover no-repeat fixed;
+      font-family: 'Courier New', monospace;
+      color: #00ff66;
       text-align: center;
-      overflow-x: hidden;
+      text-shadow: 0 0 8px #00ff66;
     }
-
-    nav {
-      background: rgba(0, 0, 0, 0.85);
-      border-bottom: 2px solid var(--od);
-      box-shadow: 0 0 15px var(--od);
-      padding: 10px 0;
-      position: sticky;
-      top: 0;
-      z-index: 999;
-    }
-
-    nav a {
-      color: var(--od);
-      text-decoration: none;
-      margin: 0 18px;
-      font-size: 1.1em;
-      font-weight: bold;
-      transition: 0.3s;
-    }
-
-    nav a:hover {
-      text-shadow: 0 0 12px var(--od);
-    }
-
-    h1 {
-      margin-top: 80px;
-      font-size: 2.3em;
-      text-shadow: 0 0 15px var(--od), 0 0 30px #000;
-      letter-spacing: 2px;
-    }
-
-    .lock-container {
-      margin: 80px auto;
-      width: 200px;
-      height: 200px;
-      position: relative;
-    }
-
-    .lock {
-      width: 180px;
-      height: 180px;
-      background: linear-gradient(145deg, #6a6a6a, #1a1a1a);
-      border-radius: 50%;
-      border: 2px solid var(--od);
-      box-shadow: 0 0 25px var(--od);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin: auto;
-      transition: all 0.5s ease-in-out;
-    }
-
-    .lock:hover {
-      transform: scale(1.05);
-    }
-
-    .key {
-      width: 80px;
-      height: 30px;
-      background: linear-gradient(145deg, #3CA832, #004400);
-      border: 2px solid var(--od);
-      border-radius: 8px;
-      color: black;
-      font-weight: bold;
-      line-height: 30px;
-      text-align: center;
-      margin-top: 30px;
-      box-shadow: 0 0 15px var(--od);
-      cursor: grab;
-    }
-
-    .unlocked {
-      box-shadow: 0 0 30px #00ff00;
-      background: linear-gradient(145deg, #00ff00, #003300);
-    }
-
-    footer {
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-      background: rgba(0, 0, 0, 0.9);
-      color: var(--od);
-      text-align: center;
-      padding: 8px;
-      font-size: 0.8em;
-      border-top: 1px solid var(--od);
-    }
+    nav { background: rgba(0,0,0,0.8); padding: 12px; font-size: 20px; }
+    nav a { color: #00ff66; margin: 0 18px; text-decoration: none; }
+    input { margin: 10px; padding: 10px; border-radius: 8px; border: none; text-align: center; }
+    button { background: #00ff66; color: black; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; }
+    button:hover { background: #00cc55; }
   </style>
 </head>
-
 <body>
   <nav>
-    <strong>MBK</strong> |
     <a href="index.html">Home</a>
     <a href="bios.html">Brotherhood</a>
     <a href="gallery.html">Gallery</a>
@@ -124,57 +31,23 @@
   </nav>
 
   <h1>Admin Access</h1>
+  <p>Authorized members only</p>
 
-  <div class="lock-container">
-    <div id="lock" class="lock">
-      🔒
-    </div>
-    <div id="key" class="key" draggable="true">🔑 Key</div>
-  </div>
-
-  <audio id="engine-sound" src="engine.mp3" preload="auto"></audio>
+  <input type="password" id="keyInput" placeholder="Enter Access Key">
+  <button onclick="checkKey()">Unlock</button>
 
   <script>
-    const lock = document.getElementById("lock");
-    const key = document.getElementById("key");
-    const engine = document.getElementById("engine-sound");
-
-    key.addEventListener("dragstart", (e) => {
-      e.dataTransfer.setData("key", "true");
-    });
-
-    lock.addEventListener("dragover", (e) => {
-      e.preventDefault();
-    });
-
-    lock.addEventListener("drop", (e) => {
-      e.preventDefault();
-      const hasKey = e.dataTransfer.getData("key");
-      if (hasKey) {
-        lock.innerHTML = "🔓";
-        lock.classList.add("unlocked");
-
-        // Play engine sound twice, then stop
-        let playCount = 0;
-        const playTwice = () => {
-          if (playCount < 2) {
-            engine.currentTime = 0;
-            engine.play();
-            playCount++;
-            engine.onended = playTwice;
-          }
-        };
-        playTwice();
-
-        setTimeout(() => {
-          window.location.href = "chat.html";
-        }, 4000);
+    function checkKey() {
+      const key = document.getElementById('keyInput').value.trim();
+      if (key === 'MBK2025') {
+        alert('Access Granted, Brother.');
+        window.location.href = 'chat.html';
+      } else {
+        alert('Invalid Key. Access Denied.');
       }
-    });
+    }
   </script>
 
-  <footer>
-    © 2025 My Brother’s Keeper | Authorized Access Only
-  </footer>
+  <footer>© 2025 MBK | Secure Brotherhood Access</footer>
 </body>
 </html>
