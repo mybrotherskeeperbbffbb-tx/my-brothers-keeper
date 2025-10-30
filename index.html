@@ -3,72 +3,64 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#3CA832" />
-  <title>My Brother's Keeper</title>
-
+  <title>My Brother’s Keeper | Home</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="favicon.ico" />
   <style>
-    :root {
-      --od: #3CA832;
-      --bg: #000;
-      --chrome: linear-gradient(135deg, #bfbfbf, #3CA832, #0f0);
-    }
-
     body {
-      margin: 0;
-      font-family: "Courier New", monospace;
       background: url('background.jpg') no-repeat center center fixed;
       background-size: cover;
-      color: var(--od);
+      color: #00ff00;
+      font-family: "Courier New", monospace;
       text-align: center;
-      padding: 20px;
+      margin: 0;
     }
 
     nav {
-      background: #111;
-      color: var(--od);
-      padding: 10px;
-      box-shadow: 0 0 20px #3CA832;
+      background: rgba(0, 0, 0, 0.9);
+      padding: 10px 0;
       position: sticky;
       top: 0;
       z-index: 10;
+      box-shadow: 0 0 15px #00ff00;
     }
 
     nav a {
-      color: var(--od);
+      color: #00ff00;
       text-decoration: none;
       margin: 0 15px;
-      font-size: 18px;
-      text-shadow: 0 0 5px #3CA832;
-      transition: 0.3s;
+      font-weight: bold;
+      font-size: 1.2em;
     }
 
     nav a:hover {
-      color: #fff;
-      text-shadow: 0 0 10px #0f0;
+      color: white;
+      text-shadow: 0 0 10px #00ff00;
     }
 
     h1 {
-      color: #000;
-      text-shadow: 0 0 10px #fff;
-      font-size: 4em;
-      margin-top: 100px;
+      margin-top: 50px;
+      font-size: 3em;
+      text-shadow: 0 0 15px #00ff00;
     }
 
     h2 {
-      color: #000;
-      text-shadow: 0 0 10px #fff;
-      font-size: 2em;
-      margin-bottom: 50px;
+      font-size: 1.5em;
+      color: #00ff00;
+      text-shadow: 0 0 10px #00ff00;
+      margin-bottom: 20px;
     }
 
     footer {
-      margin-top: 80px;
-      color: var(--od);
-      font-size: 14px;
+      background: rgba(0, 0, 0, 0.9);
+      padding: 20px;
+      font-size: 1em;
+      color: #00ff00;
+      box-shadow: 0 0 10px #00ff00;
+      margin-top: 40px;
     }
   </style>
 </head>
-
 <body>
   <nav>
     <a href="index.html">Home</a>
@@ -77,6 +69,7 @@
     <a href="about.html">About Us</a>
     <a href="admin.html">Admin</a>
     <a href="chat.html">Chat</a>
+    <a href="maintenance.html">Maintenance</a>
   </nav>
 
   <h1>Welcome to My Brother’s Keeper</h1>
@@ -101,14 +94,16 @@
       setTimeout(playRev, 800);
     });
 
-    // This makes the app work offline
+    // Register Service Worker
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('service-worker.js')
-        .then(() => console.log('✅ MBK app ready for offline use'))
-        .catch(err => console.log('❌ Service worker problem:', err));
+        .then(() => console.log('Service Worker registered'))
+        .catch(err => console.log('Service Worker failed:', err));
     }
   </script>
 
-  <footer>© 2025 MBK | BFFB</footer>
+  <footer>
+    © 2025 My Brother’s Keeper | BFFB
+  </footer>
 </body>
 </html>
