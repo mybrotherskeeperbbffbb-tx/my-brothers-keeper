@@ -3,15 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MBK Chat Room</title>
+  <title>Chat Room | My Brother’s Keeper</title>
+  <meta name="theme-color" content="#3CA832" />
   <style>
+    :root {
+      --od: #3CA832;
+      --bg: #000;
+      --chrome: linear-gradient(135deg, #bfbfbf, #e6e6e6, #8a8a8a);
+    }
+
     body {
       margin: 0;
-      padding: 0;
-      background: black url('MBK-Background.jpg') no-repeat center center fixed;
-      background-size: cover;
-      color: #3CA832;
       font-family: "Courier New", monospace;
+      background: var(--bg) url('background.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: var(--od);
       text-align: center;
     }
 
@@ -33,7 +39,7 @@
     nav .logo {
       font-size: 1.8em;
       font-weight: bold;
-      background: linear-gradient(90deg, #bfbfbf, #e6e6e6, #8a8a8a);
+      background: var(--chrome);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       text-shadow: 0 0 15px #3CA832;
@@ -67,79 +73,68 @@
     }
 
     main {
-      margin-top: 140px;
+      margin-top: 120px;
+      padding: 40px 20px;
     }
 
     h1 {
-      font-size: 2.2em;
+      font-size: 2.5em;
+      color: #52ff4d;
       text-shadow: 0 0 25px #3CA832;
+      margin-bottom: 20px;
     }
 
     #messages {
-      width: 80%;
-      max-width: 600px;
-      margin: 25px auto;
-      background: rgba(0,0,0,0.7);
       border: 2px solid #3CA832;
       border-radius: 10px;
-      padding: 15px;
+      padding: 10px;
       height: 400px;
-      overflow-y: auto;
+      overflow-y: scroll;
       text-align: left;
+      margin-bottom: 20px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+      background: rgba(0, 0, 0, 0.7);
       box-shadow: 0 0 25px #3CA832;
     }
 
-    .msg {
-      margin: 8px 0;
-      padding: 8px;
-      border-bottom: 1px solid rgba(60,168,50,0.3);
-    }
-
-    .nickname {
-      font-weight: bold;
-      color: #52ff4d;
-    }
-
     input {
-      width: 60%;
       padding: 10px;
+      width: 70%;
       border: 1px solid #3CA832;
       border-radius: 5px;
-      background: black;
+      background-color: black;
       color: #3CA832;
+      font-size: 1em;
     }
 
     button {
       padding: 10px 15px;
-      margin-left: 8px;
       background-color: #3CA832;
       color: black;
       border: none;
       border-radius: 5px;
       font-weight: bold;
       cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 1em;
     }
 
     button:hover {
       background-color: #52ff4d;
+      box-shadow: 0 0 25px #3CA832;
     }
 
     footer {
-      margin-top: 40px;
+      margin-top: 60px;
       font-size: 0.9em;
       opacity: 0.6;
-    }
-
-    @keyframes vibrate {
-      0% { transform: translate(0); }
-      25% { transform: translate(-1px, 1px); }
-      50% { transform: translate(1px, -1px); }
-      75% { transform: translate(-1px, 1px); }
-      100% { transform: translate(0); }
+      color: #3CA832;
+      text-shadow: 0 0 10px #3CA832;
     }
   </style>
 </head>
-
 <body>
   <nav>
     <div class="logo">MBK</div>
@@ -154,7 +149,7 @@
   </nav>
 
   <main>
-    <h1>💬 MBK Chat Room 💬</h1>
+    <h1>MBK Chat Room</h1>
     <div id="messages"></div>
     <input id="msgInput" placeholder="Type your message..." />
     <button onclick="sendMessage()">Send</button>
@@ -162,10 +157,77 @@
 
   <footer>© 2025 MBK | BBFFBB</footer>
 
-  <audio id="engineSound" src="harley.mp3" preload="auto"></audio>
+  <!-- Engine sound -->
+  <audio id="engineSound" loop>
+    <source src="engine.mp3" type="audio/mpeg">
+  </audio>
 
   <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
   <script>
     const { createClient } = supabase;
     const supabaseUrl = "https://xfgbsioinhnfyrhtpcdr.supabase.co";
-    const sup
+    const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhmZ2JzaW9pbmhuZnlyaHRwY2RyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjE2OTc0MzAsImV4cCI6MjA3NzI3MzQzMH0.tqVeukQ0uSf4d8G_IR_UE0OZq4aWpUW-velnx3mXzdQ";
+    const client = createClient(supabaseUrl, supabaseKey);
+
+    const sound = document.getElementById('engineSound');
+    sound.volume = 0.3;
+    document.body.addEventListener('click', () => {
+      sound.play();
+    }, { once: true });
+
+    async function sendMessage() {
+      const content = document.getElementById("msgInput").value.trim();
+      if (!content) return;
+
+      let nickname = localStorage.getItem("mbk_nickname");
+      if (!nickname) {
+        nickname = prompt("Enter your road name:", "Brother") || "Brother";
+        localStorage.setItem("mbk_nickname", nickname);
+      }
+
+      const { error } = await client.from("messages").insert({
+        content,
+        user_email: "none",
+        nickname,
+      });
+
+      if (error) {
+        console.error("Error sending message:", error);
+        alert("Could not send message — check console for details.");
+        return;
+      }
+
+      document.getElementById("msgInput").value = "";
+      loadMessages();
+    }
+
+    async function loadMessages() {
+      const { data, error } = await client
+        .from("messages")
+        .select("*")
+        .order("created_at", { ascending: true });
+
+      if (error) {
+        console.error("Error loading messages:", error);
+        return;
+      }
+
+      const list = document.getElementById("messages");
+      list.innerHTML = (data || [])
+        .map(m => `
+          <p style="color:#3CA832;">
+            <b>${m.nickname || "Brother"}:</b> ${m.content}
+          </p>
+        `)
+        .join("");
+    }
+
+    loadMessages();
+
+    client
+      .channel("chat")
+      .on("postgres_changes", { event: "*", schema: "public", table: "messages" }, loadMessages)
+      .subscribe();
+  </script>
+</body>
+</html>
