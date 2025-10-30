@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Admin Access | My Brother’s Keeper</title>
+  <title>Admin | My Brother’s Keeper</title>
   <meta name="theme-color" content="#3CA832" />
   <style>
     :root {
@@ -14,8 +14,8 @@
 
     body {
       margin: 0;
-      background: var(--bg) url('background.jpg') center top / contain no-repeat fixed;
       font-family: "Courier New", monospace;
+      background: var(--bg) url('background.jpg') center top / contain no-repeat fixed;
       color: var(--od);
       text-align: center;
       overflow-x: hidden;
@@ -75,7 +75,7 @@
     main {
       margin-top: 150px;
       padding: 40px 20px;
-      max-width: 800px;
+      max-width: 900px;
       margin-left: auto;
       margin-right: auto;
       background: rgba(0,0,0,0.7);
@@ -84,55 +84,43 @@
     }
 
     h1 {
+      font-size: 2.5em;
       color: #52ff4d;
       text-shadow: 0 0 25px #3CA832;
-      font-size: 2.5em;
-      margin-bottom: 30px;
+      margin-bottom: 20px;
     }
 
-    #lock-area {
-      margin-top: 50px;
+    #lockArea {
+      margin-top: 40px;
       position: relative;
     }
 
     #lock {
-      width: 200px;
-      height: 200px;
-      background: radial-gradient(circle, #444 0%, #111 90%);
-      border: 4px solid #3CA832;
-      border-radius: 50%;
-      margin: 0 auto;
-      box-shadow: 0 0 30px #3CA832;
-      position: relative;
+      font-size: 5em;
+      cursor: grab;
+      user-select: none;
+      display: inline-block;
+      color: silver;
+      text-shadow: 0 0 25px #3CA832;
+      transition: transform 0.3s ease;
     }
 
     #key {
-      width: 80px;
-      height: 40px;
-      background: var(--chrome);
-      border: 2px solid #3CA832;
-      border-radius: 10px;
-      margin: 50px auto;
+      font-size: 3em;
+      position: relative;
+      top: 30px;
+      color: #3CA832;
       cursor: grab;
-      box-shadow: 0 0 20px #3CA832;
+      user-select: none;
     }
 
-    #key:active {
-      cursor: grabbing;
-      transform: scale(0.95);
-    }
-
-    .hidden-content {
+    #adminPanel {
       display: none;
-      margin-top: 40px;
-      color: #e6e6e6;
-      font-size: 1.1em;
-      line-height: 1.7em;
-      text-align: left;
-      background: rgba(255,255,255,0.05);
-      padding: 25px;
+      margin-top: 30px;
+      background: rgba(0, 0, 0, 0.8);
+      padding: 20px;
       border-radius: 15px;
-      box-shadow: 0 0 20px #3CA832;
+      box-shadow: 0 0 25px #3CA832;
     }
 
     footer {
@@ -144,6 +132,7 @@
     }
   </style>
 </head>
+
 <body>
   <nav>
     <div class="logo">MBK</div>
@@ -158,53 +147,72 @@
   </nav>
 
   <main>
-    <h1>Admin Access</h1>
-    <p>Drag the chrome key to the lock to enter the private MBK chat room.</p>
+    <h1>Private Admin Access</h1>
+    <p>Drag the key to the lock to unlock the Brotherhood’s private room.</p>
 
-    <div id="lock-area">
-      <div id="lock"></div>
-      <div id="key" draggable="true"></div>
+    <div id="lockArea">
+      <span id="lock">🔒</span>
+      <span id="key">🗝️</span>
     </div>
 
-    <div id="private-content" class="hidden-content">
+    <div id="adminPanel">
       <h2>Welcome, Admin.</h2>
-      <p>This private area is reserved for leadership discussions, event planning, and sensitive communications.</p>
-      <p>Always remember: our actions here reflect who we are out there — a family built on loyalty, love, and respect.</p>
+      <p>You have full access to approve posts, photos, and community updates.</p>
+      <ul style="text-align:left; color:#e6e6e6; line-height:1.7em;">
+        <li>✅ Review and approve uploaded photos</li>
+        <li>✅ Manage chat moderation</li>
+        <li>✅ Add or edit mission updates</li>
+        <li>✅ Maintain trust, respect, and family values</li>
+      </ul>
     </div>
   </main>
 
   <footer>© 2025 My Brother’s Keeper | BBFFBB</footer>
 
-  <audio id="engine">
+  <!-- Engine Sound -->
+  <audio id="engineSound">
     <source src="engine.mp3" type="audio/mpeg">
   </audio>
 
   <script>
     const key = document.getElementById("key");
     const lock = document.getElementById("lock");
-    const content = document.getElementById("private-content");
-    const engine = document.getElementById("engine");
+    const adminPanel = document.getElementById("adminPanel");
+    const sound = document.getElementById("engineSound");
+    let dragging = false;
 
-    key.addEventListener("dragstart", (e) => {
-      e.dataTransfer.setData("key", "unlock");
-    });
-
-    lock.addEventListener("dragover", (e) => {
-      e.preventDefault();
-    });
-
-    lock.addEventListener("drop", (e) => {
-      e.preventDefault();
-      if (e.dataTransfer.getData("key") === "unlock") {
-        engine.volume = 0.6;
-        engine.play();
-        navigator.vibrate([200, 100, 200, 300]);
-        setTimeout(() => {
-          content.style.display = "block";
-          window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
-        }, 1500);
+    key.addEventListener("mousedown", () => { dragging = true; });
+    key.addEventListener("mouseup", () => { dragging = false; });
+    key.addEventListener("mousemove", (e) => {
+      if (dragging) {
+        key.style.position = "absolute";
+        key.style.left = e.pageX + "px";
+        key.style.top = e.pageY + "px";
+        const lockRect = lock.getBoundingClientRect();
+        const keyRect = key.getBoundingClientRect();
+        const overlap = !(
+          keyRect.right < lockRect.left ||
+          keyRect.left > lockRect.right ||
+          keyRect.bottom < lockRect.top ||
+          keyRect.top > lockRect.bottom
+        );
+        if (overlap) unlock();
       }
     });
+
+    function unlock() {
+      lock.textContent = "🔓";
+      key.style.display = "none";
+      lock.style.color = "#52ff4d";
+      lock.style.textShadow = "0 0 40px #3CA832";
+      navigator.vibrate(300);
+      sound.volume = 0.6;
+      sound.play();
+      setTimeout(() => {
+        sound.pause();
+        adminPanel.style.display = "block";
+      }, 3500);
+    }
   </script>
 </body>
 </html>
