@@ -1,166 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#3CA832" />
-  <title>Brotherhood | My Brother’s Keeper</title>
-  <link rel="icon" href="favicon.ico" type="image/x-icon" />
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brotherhood Bios | MBK</title>
   <style>
-    :root {
-      --od: #3CA832;
-      --bg: #000;
-    }
-
-    body {
-      margin: 0;
-      font-family: "Courier New", monospace;
-      background: var(--bg) url("background.jpg") no-repeat center center fixed;
-      background-size: cover;
-      color: var(--od);
-      text-align: center;
-      overflow-x: hidden;
-    }
-
-    nav {
-      background: rgba(0, 0, 0, 0.85);
-      border-bottom: 2px solid var(--od);
-      box-shadow: 0 0 15px var(--od);
-      padding: 10px 0;
-      position: sticky;
-      top: 0;
-      z-index: 999;
-    }
-
-    nav a {
-      color: var(--od);
-      text-decoration: none;
-      margin: 0 18px;
-      font-size: 1.1em;
-      font-weight: bold;
-      transition: 0.3s;
-    }
-
-    nav a:hover {
-      text-shadow: 0 0 12px var(--od);
-    }
-
-    h1 {
-      margin-top: 60px;
-      font-size: 2.3em;
-      text-shadow: 0 0 15px var(--od), 0 0 30px #000;
-      letter-spacing: 2px;
-    }
-
-    .crew {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin: 40px auto;
-      gap: 25px;
-      max-width: 1100px;
-    }
-
-    .member {
-      background: rgba(0, 0, 0, 0.8);
-      border: 1px solid var(--od);
-      box-shadow: 0 0 15px var(--od);
-      border-radius: 10px;
-      width: 280px;
-      padding: 15px;
-      text-align: center;
-      transition: transform 0.3s;
-    }
-
-    .member:hover {
-      transform: scale(1.05);
-    }
-
-    .member img {
-      width: 100%;
-      height: 260px;
-      object-fit: cover;
-      border-radius: 8px;
-      border: 1px solid var(--od);
-      box-shadow: 0 0 10px var(--od);
-    }
-
-    .member h2 {
-      color: var(--od);
-      font-size: 1.3em;
-      margin: 10px 0 5px;
-    }
-
-    .member p {
-      color: #e6ffe6;
-      font-size: 1em;
-      line-height: 1.4em;
-    }
-
-    footer {
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-      background: rgba(0, 0, 0, 0.9);
-      color: var(--od);
-      text-align: center;
-      padding: 8px;
-      font-size: 0.8em;
-      border-top: 1px solid var(--od);
-    }
+    body {margin:0;font-family:'Courier New',monospace;color:#00ff66;background:url('background.jpg')center center/cover no-repeat fixed;text-align:center;}
+    nav {background:rgba(0,0,0,0.85);padding:12px;font-size:20px;box-shadow:0 0 15px #00ff66;}
+    nav a {color:#00ff66;margin:0 18px;text-decoration:none;text-shadow:0 0 6px #00ff66;}
+    .bio-card {background:rgba(0,0,0,0.6);margin:30px auto;padding:20px;max-width:600px;border-radius:10px;box-shadow:0 0 10px #00ff66;}
+    h2 {text-shadow:0 0 12px #00ff66;}
   </style>
 </head>
-
 <body>
   <nav>
-    <strong>MBK</strong> |
     <a href="index.html">Home</a>
-    <a href="bios.html">Brotherhood</a>
+    <a href="brotherhood.html">Brotherhood</a>
     <a href="gallery.html">Gallery</a>
     <a href="about.html">About Us</a>
     <a href="admin.html">Admin</a>
     <a href="chat.html">Chat</a>
   </nav>
-
   <h1>The Brotherhood</h1>
-
-  <div class="crew">
-    <div class="member">
-      <img src="brother1.jpg" alt="Brother 1" />
-      <h2>Thirsty</h2>
-      <p>
-        Founder and heart of MBK. A man who leads with loyalty, respect, and love for his brothers and community. His vision built this family.
-      </p>
-    </div>
-
-    <div class="member">
-      <img src="brother2.jpg" alt="Brother 2" />
-      <h2>Sassy</h2>
-      <p>
-        The spirit of MBK. Always the first to smile and the first to stand up when a brother or sister needs support. Her heart keeps the crew grounded.
-      </p>
-    </div>
-
-    <div class="member">
-      <img src="brother3.jpg" alt="Brother 3" />
-      <h2>EZ</h2>
-      <p>
-        Calm under pressure, loyal to the end. Known for his dedication to helping the homeless and making sure every event runs smooth.
-      </p>
-    </div>
-
-    <div class="member">
-      <img src="brother4.jpg" alt="Brother 4" />
-      <h2>Buston Brandon</h2>
-      <p>
-        The voice of laughter and strength. Always bringing life to every ride, gathering, and charity drive.
-      </p>
-    </div>
+  <div class="bio-card">
+    <h2>Thirsty</h2>
+    <p>Founder. Dreamer. Brother. The one who keeps the flame alive. Always leading with loyalty and love.</p>
   </div>
-
-  <footer>
-    © 2025 My Brother’s Keeper | Brotherhood Forever. Family Always.
-  </footer>
+  <div class="bio-card">
+    <h2>EZ</h2>
+    <p>The calm in the storm, the hand on your shoulder, and the voice of reason when the road gets hard.</p>
+  </div>
+  <div class="bio-card">
+    <h2>Nova</h2>
+    <p>Fearless heart, endless compassion. Never backs down from the fight to do good.</p>
+  </div>
+  <footer>© 2025 MBK | Brothers For Brothers</footer>
 </body>
 </html>
