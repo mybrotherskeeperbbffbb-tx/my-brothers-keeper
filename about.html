@@ -3,56 +3,77 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About Us | My Brother’s Keeper</title>
+  <title>Brotherhood | My Brother’s Keeper</title>
   <link rel="icon" href="favicon.ico.png">
   <style>
     body {
       margin: 0;
       background: url('background.jpg') center center / cover no-repeat fixed;
-      font-family: 'Courier New', monospace;
-      color: black;
+      font-family: 'Impact', 'Arial Black', sans-serif;
+      color: #000000;
       text-align: center;
-      padding: 60px 40px;
-      text-shadow: 0 0 25px #ffffff, 0 0 15px #ffffff, 0 0 5px #ffffff;
+      padding: 40px;
+      text-shadow: 0 0 10px #ffffff, 0 0 30px #ffffff, 0 0 60px #ffffff;
     }
     nav {
       background: rgba(0,0,0,0.85);
       padding: 18px;
-      font-size: 28px;
-      box-shadow: 0 0 25px #00ff66;
+      font-size: 26px;
+      box-shadow: 0 0 20px #ffffff;
     }
     nav a {
-      color: #00ff66;
-      margin: 0 24px;
+      color: #ffffff;
+      margin: 0 25px;
       text-decoration: none;
       font-weight: bold;
+      text-shadow: 0 0 10px #00ff66;
     }
     nav a:hover {
-      color: #ffffff;
-      text-shadow: 0 0 12px #00ff66;
+      color: #00ff66;
+      text-shadow: 0 0 15px #00ff66;
     }
     h1 {
-      font-size: 120px;
-      margin-top: 40px;
-      text-shadow: 0 0 30px #ffffff, 0 0 15px #00ff66;
+      font-size: 80px;
+      margin-top: 60px;
+      text-shadow: 0 0 20px #ffffff, 0 0 60px #ffffff;
     }
-    p {
-      max-width: 1200px;
-      margin: 40px auto;
-      line-height: 2.0;
-      font-size: 48px;
-      color: black;
-      background: rgba(255,255,255,0.4);
-      padding: 40px;
+    .bio-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 50px;
+    }
+    .bio-card {
+      background: rgba(255,255,255,0.2);
+      padding: 25px;
       border-radius: 20px;
-      box-shadow: 0 0 40px #ffffff;
+      width: 300px;
+      text-align: center;
+      box-shadow: 0 0 25px #ffffff;
+    }
+    .bio-card img {
+      width: 100%;
+      border-radius: 15px;
+      box-shadow: 0 0 15px #00ff66;
+    }
+    .bio-card h3 {
+      font-size: 40px;
+      margin: 20px 0 10px;
+      text-shadow: 0 0 15px #ffffff;
+    }
+    .bio-card p {
+      font-size: 28px;
+      line-height: 1.4;
+      color: #000000;
+      text-shadow: 0 0 10px #ffffff, 0 0 25px #ffffff;
     }
     footer {
-      margin-top: 120px;
+      margin-top: 100px;
       font-size: 26px;
-      color: black;
-      text-shadow: 0 0 15px #ffffff;
-      opacity: 0.9;
+      opacity: 0.8;
+      color: #000000;
+      text-shadow: 0 0 12px #ffffff;
     }
   </style>
 </head>
@@ -66,34 +87,34 @@
     <a href="chat.html">Chat</a>
   </nav>
 
-  <h1>Our Mission</h1>
+  <h1>Our Brotherhood</h1>
 
-  <p>
-    We are <strong>My Brother’s Keeper</strong> — a family bound by love, loyalty, and a shared heart for compassion.  
-    This is not a club. It’s a brotherhood and sisterhood of real people who care deeply for one another and for our communities.
-  </p>
+  <div class="bio-container">
+    <div class="bio-card">
+      <img src="background.jpg" alt="Brother">
+      <h3>Thirsty</h3>
+      <p>Founder. Visionary. The heart and drive behind MBK’s mission and purpose.</p>
+    </div>
 
-  <p>
-    Each of us has known one another long enough to call each other family.  
-    We’ve shared laughter, tears, and memories that can’t be replaced.  
-    When one of us falls, we all feel it.  
-    That bond is what drives us to do good — not because we have to, but because it’s what he would’ve wanted.
-  </p>
+    <div class="bio-card">
+      <img src="appbadge.png" alt="Brother">
+      <h3>Buston Brandon</h3>
+      <p>Brother with a heart of gold — always first to step up for anyone in need.</p>
+    </div>
 
-  <p>
-    This project, this page, this movement — it’s all dedicated to our fallen brother.  
-    His dream was to see people helping people: feeding the hungry, clothing the homeless,  
-    lifting up veterans, and reaching out to anyone who’s lost their way.
-  </p>
+    <div class="bio-card">
+      <img src="splash.png" alt="Sister">
+      <h3>Athena</h3>
+      <p>The strength and compassion of the group — courage and loyalty embodied.</p>
+    </div>
 
-  <p>
-    We’re not perfect, but we stand united in love, loyalty, and action.  
-    If there’s someone out there in need, we’ll find a way to lend a hand.  
-    For him. For each other. For anyone who could use a reminder that compassion still exists.
-  </p>
+    <div class="bio-card">
+      <img src="thumbnail.png" alt="Brother">
+      <h3>EZ</h3>
+      <p>Quiet force. Loyal, steady, and always watching over the crew.</p>
+    </div>
+  </div>
 
-  <p><strong>Until Valhalla, Brother — this one’s for you.</strong></p>
-
-  <footer>© 2025 MBK | BFFB | Until Valhalla</footer>
+  <footer>© 2025 MBK | BFFB | Family • Loyalty • Legacy</footer>
 </body>
 </html>
