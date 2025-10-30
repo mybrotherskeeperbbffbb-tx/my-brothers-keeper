@@ -122,13 +122,19 @@
 
   <footer>© 2025 MBK | BBFFBB</footer>
 
-  <!-- Engine sound -->
-  <audio id="engineSound" autoplay loop>
+  <!-- Engine sound (tap to start, mobile safe) -->
+  <audio id="engineSound" loop>
     <source src="engine.mp3" type="audio/mpeg">
   </audio>
+
   <script>
     const sound = document.getElementById('engineSound');
     sound.volume = 0.3;
+
+    // Start engine sound on first user interaction
+    document.body.addEventListener('click', () => {
+      sound.play();
+    }, { once: true });
   </script>
 </body>
 </html>
