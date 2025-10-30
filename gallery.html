@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MBK • Gallery</title>
+  <meta name="theme-color" content="#3CA832" />
+
+  <style>
+    :root{
+      --od:#3CA832;
+      --bg:#fff;
+      --ring:#d0d5dd;
+      --chrome:linear-gradient(135deg,#e7e7e7 0%,#ffffff 30%,#bfbfbf 60%,#ffffff 100%);
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,sans-serif;background:var(--bg);color:#111;}
+    a{color:var(--od);text-decoration:none}
+    header{
+      display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--ring)
+    }
+    h1{font-size:22px;margin:0}
+    .btn{
+      padding:10px 14px;border-radius:12px;border:1px solid var(--od);background:var(--od);color:#fff;font-weight:600
+    }
+    main{padding:20px;max-width:1100px;margin:auto}
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+      gap:12px;
+    }
+    figure{
+      margin:0;background:#f7f8fa;border:1px solid var(--ring);
+      border-radius:10px;overflow:hidden;
+      box-shadow:0 1px 3px rgba(16,24,40,.08);
+    }
+    img{
+      width:100%;aspect-ratio:16/10;object-fit:cover;display:block;
+      background:#e9ecef;
+    }
+    figcaption{
+      padding:8px 10px;font-size:14px;background:#fff;color:#444;
+    }
+    footer{
+      text-align:center;padding:20px;font-size:13px;color:#666
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>💚 MBK Gallery 💚</h1>
+    <a href="index.html" class="btn">⬅ Home</a>
+  </header>
+
+  <main>
+    <section id="gallery" class="grid"></section>
+  </main>
+
+  <footer>
+    Add or update photos in <a href="gallery.json" target="_blank">gallery.json</a>
+  </footer>
+
+  <script>
+    const gallery = document.getElementById("gallery");
+
+    async function loadGallery(){
+      try{
+        const res = await fetch("gallery.json", {cache:"no-store"});
+        const data = await res.json();
+        const pics = data.photos || [];
+        render(pics);
+      }catch(e){
+        gallery.innerHTML = "<p>Could not load gallery.json</p>";
+      }
+    }
+
+    function render(pics){
+      if(!pics.length){
+        gallery.innerHTML = `<figure><figcaption>No photos yet. Add some in gallery.json.</figcaption></figure>`;
+        return;
+      }
+      gallery.innerHTML = pics.map(p=>`
+        <figure>
+          <img src="${p.url}" alt="${p.caption||'MBK photo'}" loading="lazy">
+          <figcaption>${p.caption||''}</figcaption>
+        </figure>
+      `).join("");
+    }
+
+    loadGallery();
+  </script>
+</body>
+</html>
