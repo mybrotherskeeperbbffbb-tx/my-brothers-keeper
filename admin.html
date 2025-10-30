@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MBK • Admin Lock</title>
+  <meta name="theme-color" content="#3CA832" />
+
+  <style>
+    :root {
+      --od: #3CA832;
+      --chrome: linear-gradient(135deg, #bfbfbf 0%, #ffffff 30%, #e7e7e7 70%, #bfbfbf 100%);
+      --bg: #000;
+      --ring: #3CA83255;
+      --txt: #e0e0e0;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Courier New", monospace;
+      background: var(--bg);
+      color: var(--txt);
+      text-align: center;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    h1 {
+      font-size: 26px;
+      background: var(--chrome);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 40px;
+      letter-spacing: 1px;
+    }
+
+    .lock-zone {
+      position: relative;
+      width: 280px;
+      height: 80px;
+      border: 2px solid var(--od);
+      border-radius: 40px;
+      overflow: hidden;
+      background: #111;
+      box-shadow: 0 0 10px var(--ring), inset 0 0 10px #003000;
+    }
+
+    .key {
+      width: 80px;
+      height: 80px;
+      background: var(--chrome);
+      border-radius: 50%;
+      border: 2px solid var(--od);
+      position: absolute;
+      left: 0;
+      top: 0;
+      cursor: grab;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 24px;
+      color: var(--od);
+      user-select: none;
+      transition: transform 0.1s ease;
+    }
+
+    .locked-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: var(--od);
+      font-size: 16px;
+      opacity: 0.7;
+    }
+
+    #adminPanel {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      margin-top: 30px;
+      width: 100%;
+      max-width: 600px;
+    }
+
+    textarea {
+      width: 100%;
+      height: 200px;
+      background
