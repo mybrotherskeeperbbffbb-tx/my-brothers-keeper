@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Admin | My Brother’s Keeper</title>
+  <title>Admin Access | My Brother’s Keeper</title>
   <meta name="theme-color" content="#3CA832" />
   <style>
     :root {
@@ -14,11 +14,11 @@
 
     body {
       margin: 0;
+      background: var(--bg) url('background.jpg') center top / contain no-repeat fixed;
       font-family: "Courier New", monospace;
-      background: var(--bg) url('background.jpg') no-repeat center center fixed;
-      background-size: cover;
       color: var(--od);
       text-align: center;
+      overflow-x: hidden;
     }
 
     nav {
@@ -58,7 +58,7 @@
       color: #3CA832;
       text-decoration: none;
       font-weight: bold;
-      font-size: 1.1em;
+      font-size: 1.5em;
       letter-spacing: 1px;
       transition: all 0.3s ease;
       text-shadow: 0 0 10px #000;
@@ -73,88 +73,75 @@
     }
 
     main {
-      margin-top: 120px;
+      margin-top: 150px;
       padding: 40px 20px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+      background: rgba(0,0,0,0.7);
+      border-radius: 20px;
+      box-shadow: 0 0 30px #3CA832;
     }
 
     h1 {
-      font-size: 2.5em;
       color: #52ff4d;
       text-shadow: 0 0 25px #3CA832;
+      font-size: 2.5em;
       margin-bottom: 30px;
     }
 
-    .lock-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      background: rgba(0, 0, 0, 0.7);
-      border: 2px solid #3CA832;
-      border-radius: 12px;
-      box-shadow: 0 0 25px #3CA832;
-      padding: 40px;
-      max-width: 400px;
-      margin: 0 auto;
-    }
-
-    .lock {
-      width: 100px;
-      height: 120px;
-      background: var(--chrome);
-      border: 3px solid #3CA832;
-      border-radius: 10px 10px 5px 5px;
-      box-shadow: 0 0 20px #3CA832;
-      margin-bottom: 20px;
+    #lock-area {
+      margin-top: 50px;
       position: relative;
     }
 
-    .lock::before {
-      content: '';
-      position: absolute;
-      top: -50px;
-      left: 20px;
-      width: 60px;
-      height: 50px;
-      border: 6px solid #3CA832;
-      border-bottom: none;
-      border-radius: 50px 50px 0 0;
-      background: var(--bg);
-      box-shadow: 0 0 10px #3CA832;
+    #lock {
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(circle, #444 0%, #111 90%);
+      border: 4px solid #3CA832;
+      border-radius: 50%;
+      margin: 0 auto;
+      box-shadow: 0 0 30px #3CA832;
+      position: relative;
     }
 
-    button {
-      padding: 12px 20px;
-      background: #3CA832;
-      color: black;
-      border: none;
-      border-radius: 8px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      font-size: 1em;
+    #key {
+      width: 80px;
+      height: 40px;
+      background: var(--chrome);
+      border: 2px solid #3CA832;
+      border-radius: 10px;
+      margin: 50px auto;
+      cursor: grab;
+      box-shadow: 0 0 20px #3CA832;
     }
 
-    button:hover {
-      background: #52ff4d;
-      box-shadow: 0 0 25px #52ff4d;
+    #key:active {
+      cursor: grabbing;
+      transform: scale(0.95);
     }
 
-    #status {
-      margin-top: 20px;
+    .hidden-content {
+      display: none;
+      margin-top: 40px;
+      color: #e6e6e6;
       font-size: 1.1em;
-      color: #52ff4d;
-      text-shadow: 0 0 10px #3CA832;
+      line-height: 1.7em;
+      text-align: left;
+      background: rgba(255,255,255,0.05);
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px #3CA832;
     }
 
     footer {
-      margin-top: 80px;
+      margin-top: 60px;
       font-size: 0.9em;
       opacity: 0.6;
       color: #3CA832;
       text-shadow: 0 0 10px #3CA832;
     }
-
   </style>
 </head>
 <body>
@@ -172,45 +159,52 @@
 
   <main>
     <h1>Admin Access</h1>
-    <div class="lock-container">
-      <div class="lock" id="lock"></div>
-      <button onclick="unlock()">Insert Key</button>
-      <div id="status"></div>
+    <p>Drag the chrome key to the lock to enter the private MBK chat room.</p>
+
+    <div id="lock-area">
+      <div id="lock"></div>
+      <div id="key" draggable="true"></div>
+    </div>
+
+    <div id="private-content" class="hidden-content">
+      <h2>Welcome, Admin.</h2>
+      <p>This private area is reserved for leadership discussions, event planning, and sensitive communications.</p>
+      <p>Always remember: our actions here reflect who we are out there — a family built on loyalty, love, and respect.</p>
     </div>
   </main>
 
-  <footer>© 2025 MBK | BBFFBB</footer>
+  <footer>© 2025 My Brother’s Keeper | BBFFBB</footer>
 
-  <!-- Engine sound -->
-  <audio id="engineSound" loop>
+  <audio id="engine">
     <source src="engine.mp3" type="audio/mpeg">
   </audio>
 
   <script>
-    const sound = document.getElementById('engineSound');
-    sound.volume = 0.3;
+    const key = document.getElementById("key");
+    const lock = document.getElementById("lock");
+    const content = document.getElementById("private-content");
+    const engine = document.getElementById("engine");
 
-    document.body.addEventListener('click', () => {
-      sound.play();
-    }, { once: true });
+    key.addEventListener("dragstart", (e) => {
+      e.dataTransfer.setData("key", "unlock");
+    });
 
-    // Lock/Key simulation
-    function unlock() {
-      const key = prompt("Enter your admin key:");
-      const status = document.getElementById("status");
-      const lock = document.getElementById("lock");
+    lock.addEventListener("dragover", (e) => {
+      e.preventDefault();
+    });
 
-      if (key === "MBK2025") {
-        status.innerText = "Access Granted 🔓";
-        lock.style.borderColor = "#52ff4d";
-        lock.style.boxShadow = "0 0 30px #52ff4d";
-        sound.play();
-      } else {
-        status.innerText = "Access Denied 🔒";
-        lock.style.borderColor = "red";
-        lock.style.boxShadow = "0 0 20px red";
+    lock.addEventListener("drop", (e) => {
+      e.preventDefault();
+      if (e.dataTransfer.getData("key") === "unlock") {
+        engine.volume = 0.6;
+        engine.play();
+        navigator.vibrate([200, 100, 200, 300]);
+        setTimeout(() => {
+          content.style.display = "block";
+          window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+        }, 1500);
       }
-    }
+    });
   </script>
 </body>
 </html>
