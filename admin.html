@@ -1,64 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>MBK • Admin Vault</title>
-<meta name="theme-color" content="#3CA832" />
-<style>
-:root{--od:#3CA832;--chrome:linear-gradient(135deg,#bfbfbf 0%,#ffffff 30%,#e7e7e7 70%,#bfbfbf 100%);}
-body{margin:0;background:#000;color:#e0e0e0;font-family:"Courier New",monospace;text-align:center;}
-nav{background:black;border-bottom:2px solid var(--od);display:flex;justify-content:center;gap:25px;padding:14px 0;font-weight:bold;font-size:16px;}
-nav a{color:var(--od);text-decoration:none;transition:0.2s;}
-nav a:hover{text-shadow:0 0 8px var(--od);}
-h1{background:var(--chrome);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin:40px 0;}
-.lock-zone{position:relative;width:280px;height:80px;border:2px solid var(--od);border-radius:40px;margin:0 auto;background:#111;box-shadow:0 0 10px #003000;}
-.key{width:80px;height:80px;background:var(--chrome);border-radius:50%;border:2px solid var(--od);position:absolute;left:0;top:0;cursor:grab;display:flex;justify-content:center;align-items:center;font-size:28px;color:var(--od);user-select:none;}
-.locked-text{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:var(--od);opacity:0.7;}
-#adminPanel{display:none;max-width:700px;margin:40px auto;text-align:left;}
-textarea{width:100%;height:200px;background:#111;color:var(--od);border:2px solid var(--od);border-radius:10px;padding:10px;}
-button{background:var(--od);color:#000;border:none;padding:10px 20px;margin-top:10px;border-radius:10px;font-weight:bold;cursor:pointer;}
-button:hover{background:#52ff4d;}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MBK | Admin Lock</title>
+  <link rel="icon" href="favicon.ico">
+  <meta name="theme-color" content="#3CA832">
+  <style>
+    body {
+      background-color: black;
+      color: #3CA832;
+      font-family: 'Courier New', monospace;
+      text-align: center;
+      padding: 30px;
+    }
+    h1 {
+      color: #3CA832;
+      text-shadow: 0 0 15px #3CA832;
+    }
+    #lockArea {
+      margin-top: 60px;
+    }
+    #lock {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: radial-gradient(circle at center, #3CA832 20%, #0b2508 80%);
+      border: 3px solid #3CA832;
+      margin: 0 auto;
+      box-shadow: 0 0 25px #3CA832;
+      cursor: grab;
+      transition: transform 0.2s;
+    }
+    #lock.dragging {
+      transform: scale(1.1);
+    }
+    #key {
+      width: 80px;
+      height: 80px;
+      border-radius: 10px;
+      background: linear-gradient(145deg, #3CA832, #183f11);
+      border: 2px solid #3CA832;
+      margin: 50px auto;
+      box-shadow: 0 0 20px #3CA832;
+      cursor: grab;
+      transition: transform 0.2s;
+    }
+    #key.dragging {
+      transform: scale(1.2);
+    }
+    #status {
+      margin-top: 20px;
+      color: #ccc;
+    }
+    audio {
+      display: none;
+    }
+    a {
+      color: #3CA832;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    a:hover {
+      text-shadow: 0 0 10px #3CA832;
+    }
+  </style>
 </head>
 <body>
-<nav>
-  <a href="index.html">Home</a>
-  <a href="bios.html">Bios</a>
-  <a href="about.html">About</a>
-  <a href="admin.html">Admin</a>
-</nav>
+  <h1>🔒 MBK Admin Access 🔑</h1>
+  <p>Drag the key onto the lock to unlock the admin chat room.</p>
 
-<h1>MBK Admin Vault 🗝️</h1>
-<div class="lock-zone" id="lockZone">
-  <div class="locked-text">Drag key →</div>
-  <div class="key" id="key">🗝️</div>
-</div>
-<div id="adminPanel">
-  <h2 style="color:#3CA832;">Private Admin Chat</h2>
-  <textarea id="adminChat" placeholder="Type message..."></textarea>
-  <button onclick="sendMsg()">Send</button>
-  <div id="msgs" style="margin-top:15px;"></div>
-</div>
-<audio id="engine" src="engine.mp3" preload="auto"></audio>
-<script>
-const key=document.getElementById("key"),zone=document.getElementById("lockZone"),
-panel=document.getElementById("adminPanel"),engine=document.getElementById("engine");
-let drag=false;const zoneW=280,keyW=80,unlock=zoneW-keyW-2;
-key.addEventListener("mousedown",()=>drag=true);key.addEventListener("touchstart",()=>drag=true);
-document.addEventListener("mouseup",stop);document.addEventListener("touchend",stop);
-document.addEventListener("mousemove",move);document.addEventListener("touchmove",move);
-function move(e){if(!drag)return;const x=e.touches?e.touches[0].clientX:e.clientX;
-const rect=zone.getBoundingClientRect();const off=Math.min(Math.max(0,x-rect.left-keyW/2),unlock);
-key.style.left=off+"px";}
-function stop(){if(!drag)return;drag=false;
-const l=parseInt(key.style.left)||0;if(l>=unlock-10)openVault();else key.style.left="0px";}
-function openVault(){navigator.vibrate?.(400);engine.currentTime=0;engine.play();
-key.style.left=unlock+"px";zone.style.boxShadow="0 0 25px #3CA832";
-setTimeout(()=>{zone.style.display="none";panel.style.display="block";},1000);}
-function sendMsg(){const box=document.getElementById("adminChat");
-const msg=document.createElement("p");msg.style.color="#3CA832";msg.textContent="Admin: "+box.value;
-document.getElementById("msgs").appendChild(msg);box.value="";}
-</script>
+  <div id="lockArea">
+    <div id="lock"></div>
+    <div id="key"></div>
+  </div>
+  <p id="status">Locked</p>
+
+  <audio id="engineSound" src="engine.mp3"></audio>
+
+  <p><a href="index.html">⬅ Back to Home</a></p>
+
+  <script>
+    const lock = document.getElementById("lock");
+    const key = document.getElementById("key");
+    const status = document.getElementById("status");
+    const engine = document.getElementById("engineSound");
+
+    let dragging = false;
+
+    key.addEventListener("mousedown", () => { dragging = true; key.classList.add("dragging"); });
+    document.addEventListener("mouseup", () => { dragging = false; key.classList.remove("dragging"); });
+    document.addEventListener("mousemove", (e) => {
+      if (dragging) {
+        key.style.position = "absolute";
+        key.style.left = e.pageX - 40 + "px";
+        key.style.top = e.pageY - 40 + "px";
+      }
+    });
+
+    lock.addEventListener("mouseup", () => {
+      if (dragging) {
+        status.textContent = "Access Granted 🚀";
+        lock.style.boxShadow = "0 0 40px #3CA832";
+        lock.style.background = "radial-gradient(circle, #3CA832 50%, #0b2508 100%)";
+        engine.play();
+        navigator.vibrate(200);
+        setTimeout(() => {
+          window.location.href = "chat.html";
+        }, 2500);
+      }
+    });
+  </script>
 </body>
 </html>
