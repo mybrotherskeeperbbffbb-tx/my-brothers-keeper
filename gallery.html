@@ -3,190 +3,142 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gallery | My Brother’s Keeper</title>
   <meta name="theme-color" content="#3CA832" />
+  <title>Gallery | My Brother’s Keeper</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+
   <style>
     :root {
       --od: #3CA832;
       --bg: #000;
-      --chrome: linear-gradient(135deg, #bfbfbf, #e6e6e6, #8a8a8a);
     }
 
     body {
       margin: 0;
       font-family: "Courier New", monospace;
-      background: var(--bg) url('background.jpg') center top / contain no-repeat fixed;
+      background: var(--bg) url("background.jpg") no-repeat center center fixed;
+      background-size: cover;
       color: var(--od);
       text-align: center;
+      overflow-x: hidden;
     }
 
     nav {
-      width: 100%;
-      background: linear-gradient(145deg, #1a1a1a, #2b2b2b);
-      border-bottom: 2px solid #3CA832;
-      box-shadow: 0 0 25px #3CA832;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px 20px;
-      position: fixed;
+      background: rgba(0, 0, 0, 0.85);
+      border-bottom: 2px solid var(--od);
+      box-shadow: 0 0 15px var(--od);
+      padding: 10px 0;
+      position: sticky;
       top: 0;
-      left: 0;
-      z-index: 1000;
+      z-index: 999;
     }
 
-    nav .logo {
-      font-size: 1.8em;
-      font-weight: bold;
-      background: var(--chrome);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      text-shadow: 0 0 15px #3CA832;
-      letter-spacing: 2px;
-    }
-
-    nav ul {
-      list-style: none;
-      display: flex;
-      gap: 25px;
-      margin: 0;
-      padding: 0;
-    }
-
-    nav ul li a {
-      color: #3CA832;
+    nav a {
+      color: var(--od);
       text-decoration: none;
+      margin: 0 18px;
+      font-size: 1.1em;
       font-weight: bold;
-      font-size: 1.5em;
-      letter-spacing: 1px;
-      transition: all 0.3s ease;
-      text-shadow: 0 0 10px #000;
-      padding: 6px 12px;
-      border-radius: 6px;
+      transition: 0.3s;
     }
 
-    nav ul li a:hover {
-      color: black;
-      background: #3CA832;
-      box-shadow: 0 0 25px #3CA832;
-    }
-
-    main {
-      margin-top: 150px;
-      padding: 40px 20px;
-      max-width: 1100px;
-      margin-left: auto;
-      margin-right: auto;
-      background: rgba(0,0,0,0.7);
-      border-radius: 20px;
-      box-shadow: 0 0 30px #3CA832;
+    nav a:hover {
+      text-shadow: 0 0 12px var(--od);
     }
 
     h1 {
-      font-size: 2.5em;
-      color: #52ff4d;
-      text-shadow: 0 0 25px #3CA832;
-      margin-bottom: 30px;
+      margin-top: 60px;
+      font-size: 2.3em;
+      text-shadow: 0 0 15px var(--od), 0 0 30px #000;
+      letter-spacing: 2px;
     }
 
-    .gallery-grid {
+    .gallery {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 20px;
+      padding: 40px;
+      max-width: 1200px;
+      margin: auto;
     }
 
-    .gallery-item {
-      position: relative;
+    .photo {
+      background: rgba(0, 0, 0, 0.8);
+      border: 1px solid var(--od);
+      box-shadow: 0 0 15px var(--od);
+      border-radius: 10px;
       overflow: hidden;
-      border-radius: 15px;
-      box-shadow: 0 0 15px #3CA832;
-      border: 2px solid #3CA832;
-      transition: transform 0.4s ease, box-shadow 0.3s ease;
+      transition: transform 0.3s ease;
     }
 
-    .gallery-item:hover {
+    .photo:hover {
       transform: scale(1.05);
-      box-shadow: 0 0 25px #52ff4d;
     }
 
-    .gallery-item img {
+    .photo img {
       width: 100%;
       height: 250px;
       object-fit: cover;
-      display: block;
+      border-bottom: 1px solid var(--od);
     }
 
-    .caption {
-      background: rgba(0, 0, 0, 0.8);
-      color: #e6e6e6;
+    .photo p {
+      color: #e6ffe6;
       padding: 10px;
       font-size: 1em;
-      position: absolute;
-      bottom: 0;
-      width: 100%;
-      text-shadow: 0 0 8px #000;
     }
 
     footer {
-      margin-top: 60px;
-      font-size: 0.9em;
-      opacity: 0.6;
-      color: #3CA832;
-      text-shadow: 0 0 10px #3CA832;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      color: var(--od);
+      text-align: center;
+      padding: 8px;
+      font-size: 0.8em;
+      border-top: 1px solid var(--od);
     }
   </style>
 </head>
 
 <body>
   <nav>
-    <div class="logo">MBK</div>
-    <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="bio.html">Brotherhood</a></li>
-      <li><a href="gallery.html">Gallery</a></li>
-      <li><a href="about.html">About Us</a></li>
-      <li><a href="admin.html">Admin</a></li>
-      <li><a href="chat.html">Chat</a></li>
-    </ul>
+    <strong>MBK</strong> |
+    <a href="index.html">Home</a>
+    <a href="bios.html">Brotherhood</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="about.html">About Us</a>
+    <a href="admin.html">Admin</a>
+    <a href="chat.html">Chat</a>
   </nav>
 
-  <main>
-    <h1>Family Moments & Memories</h1>
+  <h1>MBK Gallery</h1>
 
-    <div class="gallery-grid">
-      <div class="gallery-item">
-        <img src="gallery1.jpg" alt="Ride day">
-        <div class="caption">Ride Day — wind, laughter, and family.</div>
-      </div>
-
-      <div class="gallery-item">
-        <img src="gallery2.jpg" alt="Community work">
-        <div class="caption">Feeding the hungry — small acts, big hearts.</div>
-      </div>
-
-      <div class="gallery-item">
-        <img src="gallery3.jpg" alt="Fallen brother tribute">
-        <div class="caption">In memory of our fallen — never forgotten.</div>
-      </div>
-
-      <div class="gallery-item">
-        <img src="gallery4.jpg" alt="Brotherhood night">
-        <div class="caption">Brotherhood night — stories, music, and peace.</div>
-      </div>
-
-      <div class="gallery-item">
-        <img src="gallery5.jpg" alt="Helping hands">
-        <div class="caption">Helping hands — together we rise.</div>
-      </div>
+  <div class="gallery">
+    <div class="photo">
+      <img src="gallery1.jpg" alt="Charity Ride">
+      <p>Feeding the homeless – Dallas 2025</p>
     </div>
 
-    <p style="margin-top:40px; font-size:1.2em; color:#e6e6e6; line-height:1.7em;">
-      Every image here tells a story — a moment shared, a life touched, a memory made.  
-      As time moves on, this gallery will continue to grow — a living reflection of the hearts behind MBK.  
-      Because every face, every ride, every act of kindness is part of the same story — *our story*.
-    </p>
-  </main>
+    <div class="photo">
+      <img src="gallery2.jpg" alt="Community Event">
+      <p>Community food drive for veterans – Houston</p>
+    </div>
 
-  <footer>© 2025 My Brother’s Keeper | BBFFBB</footer>
+    <div class="photo">
+      <img src="gallery3.jpg" alt="Brotherhood Moment">
+      <p>Our brotherhood — united for a cause</p>
+    </div>
+
+    <div class="photo">
+      <img src="gallery4.jpg" alt="Fallen Tribute">
+      <p>In memory of our fallen brother — forever riding with us</p>
+    </div>
+  </div>
+
+  <footer>
+    © 2025 My Brother’s Keeper | Brotherhood in Action
+  </footer>
 </body>
 </html>
