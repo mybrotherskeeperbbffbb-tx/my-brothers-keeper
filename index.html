@@ -4,18 +4,24 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>My Brother's Keeper</title>
+  <meta name="theme-color" content="#3CA832" />
   <style>
+    :root {
+      --od: #3CA832;
+      --bg: #000;
+      --chrome: linear-gradient(135deg, #bfbfbf, #e6e6e6, #8a8a8a);
+    }
+
     body {
       margin: 0;
-      padding: 0;
-      background: black url('MBK-Background.jpg') no-repeat center center fixed;
-      background-size: cover;
-      color: #3CA832;
       font-family: "Courier New", monospace;
+      background: var(--bg) url('background.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: var(--od);
+      padding: 0;
       text-align: center;
     }
 
-    /* Navigation bar */
     nav {
       width: 100%;
       background: linear-gradient(145deg, #1a1a1a, #2b2b2b);
@@ -34,7 +40,7 @@
     nav .logo {
       font-size: 1.8em;
       font-weight: bold;
-      background: linear-gradient(90deg, #bfbfbf, #e6e6e6, #8a8a8a);
+      background: var(--chrome);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       text-shadow: 0 0 15px #3CA832;
@@ -67,26 +73,32 @@
       box-shadow: 0 0 25px #3CA832;
     }
 
-    /* Main content */
     main {
-      margin-top: 110px;
+      margin-top: 120px;
+      padding: 40px 20px;
     }
 
     h1 {
       font-size: 2.5em;
+      color: #52ff4d;
       text-shadow: 0 0 25px #3CA832;
       margin-bottom: 10px;
     }
 
     p {
-      font-size: 1.2em;
+      font-size: 1.1em;
+      color: #d3ffd3;
       text-shadow: 0 0 10px #3CA832;
+      max-width: 700px;
+      margin: 0 auto;
     }
 
     footer {
-      margin-top: 60px;
+      margin-top: 80px;
       font-size: 0.9em;
       opacity: 0.6;
+      color: #3CA832;
+      text-shadow: 0 0 10px #3CA832;
     }
   </style>
 </head>
@@ -104,10 +116,19 @@
   </nav>
 
   <main>
-    <h1>Welcome to <span style="color:#52ff4d;">My Brother’s Keeper</span></h1>
+    <h1>Welcome to <span style="color:#3CA832;">My Brother’s Keeper</span></h1>
     <p>The Brotherhood. The Bond. The Bloodline.</p>
   </main>
 
   <footer>© 2025 MBK | BBFFBB</footer>
+
+  <!-- Engine sound -->
+  <audio id="engineSound" autoplay loop>
+    <source src="engine.mp3" type="audio/mpeg">
+  </audio>
+  <script>
+    const sound = document.getElementById('engineSound');
+    sound.volume = 0.3;
+  </script>
 </body>
 </html>
