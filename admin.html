@@ -1,23 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin | My Brother’s Keeper</title>
-  <link rel="icon" href="favicon.ico.png">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Lock | My Brother’s Keeper</title>
+  <link rel="icon" href="favicon.ico.png" />
   <style>
     body {
+      margin: 0;
       background: url('background.jpg') center center / cover no-repeat fixed;
-      font-family: 'Courier New', monospace;
-      color: #00ff66;
+      font-family: 'Impact', 'Arial Black', sans-serif;
       text-align: center;
-      text-shadow: 0 0 8px #00ff66;
+      color: #3ca832;
+      overflow: hidden;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-shadow: 0 0 10px #ffffff, 0 0 40px #00ff66;
     }
-    nav { background: rgba(0,0,0,0.8); padding: 12px; font-size: 20px; }
-    nav a { color: #00ff66; margin: 0 18px; text-decoration: none; }
-    input { margin: 10px; padding: 10px; border-radius: 8px; border: none; text-align: center; }
-    button { background: #00ff66; color: black; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; }
-    button:hover { background: #00cc55; }
+
+    nav {
+      background: rgba(0,0,0,0.85);
+      padding: 18px;
+      font-size: 26px;
+      width: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      box-shadow: 0 0 20px #ffffff;
+    }
+    nav a {
+      color: #ffffff;
+      margin: 0 25px;
+      text-decoration: none;
+      font-weight: bold;
+      text-shadow: 0 0 10px #00ff66;
+    }
+    nav a:hover {
+      color: #00ff66;
+      text-shadow: 0 0 15px #00ff66;
+    }
+
+    #lock-area {
+      position: relative;
+      width: 250px;
+      height: 250px;
+      background: radial-gradient(circle at center, #0a0a0a, #000000 80%);
+      border-radius: 50%;
+      box-shadow: 0 0 60px #00ff66, inset 0 0 20px #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #key {
+      width: 100px;
+      height: 100px;
+      background: linear-gradient(145deg, #3ca832, #1f5f17);
+      border-radius: 50%;
+      box-shadow: 0 0 20px #00ff66, 0 0 40px #00ff66;
+      cursor: grab;
+      user-select: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 40px;
+      color: black;
+      font-weight: bold;
+      text-shadow: 0 0 20px #ffffff;
+      transition: transform 0.2s ease;
+    }
+    #key:active {
+      cursor: grabbing;
+      transform: scale(1.1);
+    }
+
+    #status {
+      margin-top: 60px;
+      font-size: 36px;
+      text-shadow: 0 0 20px #ffffff, 0 0 40px #00ff66;
+    }
   </style>
 </head>
 <body>
@@ -30,24 +94,54 @@
     <a href="chat.html">Chat</a>
   </nav>
 
-  <h1>Admin Access</h1>
-  <p>Authorized members only</p>
+  <h1 style="font-size:80px;margin-bottom:50px;">🔒 Admin Access</h1>
 
-  <input type="password" id="keyInput" placeholder="Enter Access Key">
-  <button onclick="checkKey()">Unlock</button>
+  <div id="lock-area">
+    <div id="key">🔑</div>
+  </div>
+
+  <div id="status">Drag the key to unlock</div>
+
+  <audio id="engine-sound" src="engine.mp3" preload="auto"></audio>
 
   <script>
-    function checkKey() {
-      const key = document.getElementById('keyInput').value.trim();
-      if (key === 'MBK2025') {
-        alert('Access Granted, Brother.');
-        window.location.href = 'chat.html';
-      } else {
-        alert('Invalid Key. Access Denied.');
+    const key = document.getElementById('key');
+    const lock = document.getElementById('lock-area');
+    const status = document.getElementById('status');
+    const sound = document.getElementById('engine-sound');
+
+    let dragging = false;
+
+    key.addEventListener('mousedown', () => dragging = true);
+    document.addEventListener('mouseup', () => dragging = false);
+
+    document.addEventListener('mousemove', (e) => {
+      if (dragging) {
+        key.style.position = 'absolute';
+        key.style.left = e.pageX - 50 + 'px';
+        key.style.top = e.pageY - 50 + 'px';
       }
-    }
+    });
+
+    lock.addEventListener('mouseenter', () => {
+      if (dragging) {
+        dragging = false;
+        sound.play();
+        sound.currentTime = 0;
+        status.innerHTML = "Engine Roaring... Unlocking 🔓";
+        key.style.display = 'none';
+        setTimeout(() => {
+          sound.play();
+        }, 2000);
+        setTimeout(() => {
+          window.location.href = "chat.html";
+        }, 5000);
+      }
+    });
   </script>
 
-  <footer>© 2025 MBK | Secure Brotherhood Access</footer>
+  <footer style="margin-top:100px;font-size:26px;color:#000;text-shadow:0 0 10px #fff;">
+    © 2025 MBK | Private Admin Access
+  </footer>
 </body>
 </html>
