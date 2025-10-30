@@ -1,58 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>My Brothers Keeper</title>
-<meta name="theme-color" content="#3CA832" />
-<style>
-body {
-  margin: 0;
-  padding: 20px;
-  background: black url('background.jpg') no-repeat center center fixed;
-  background-size: cover;
-  color: #3CA832;
-  font-family: "Courier New", monospace;
-  text-align: center;
-}
-h1 {
-  font-size: 2.5em;
-  color: #3CA832;
-  text-shadow: 0 0 15px #00ff00;
-}
-a {
-  display: inline-block;
-  margin: 10px;
-  padding: 10px 25px;
-  text-decoration: none;
-  color: black;
-  background: linear-gradient(135deg, #bfbfbf, #3CA832, #bfbfbf);
-  border-radius: 8px;
-  box-shadow: 0 0 10px #3CA832;
-  font-weight: bold;
-}
-a:hover {
-  background: linear-gradient(135deg, #3CA832, #bfbfbf);
-  color: #000;
-}
-footer {
-  margin-top: 40px;
-  font-size: 0.8em;
-  color: #888;
-}
-</style>
-</head>
-<body>
-  <h1>MY BROTHERS KEEPER</h1>
-  <p>Welcome to the Brotherhood. Choose your path below:</p>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Brothers Keeper</title>
+  <meta name="theme-color" content="#3CA832" />
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
 
-  <a href="about.html">About</a>
-  <a href="bios.html">Bios</a>
-  <a href="gallery.html">Gallery</a>
-  <a href="chat.html">Chat Room</a>
+  <style>
+    :root {
+      --mbk-green: #3CA832;
+      --chrome: linear-gradient(135deg, #bfbfbf, #e6e6e6, #8a8a8a);
+      --shadow: rgba(0, 0, 0, 0.85);
+    }
 
-  <footer>
-    <p>Brotherhood Built by Strength | MBK © 2025</p>
-  </footer>
-</body>
-</html>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: url('background.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: var(--mbk-green);
+      font-family: "Courier New", monospace;
+      text-shadow: 0 0 12px #000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    h1 {
+      font-size: 3.5em;
+      text-align: center;
+      background: var(--chrome);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0
