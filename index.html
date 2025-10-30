@@ -1,94 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Brothers Keeper</title>
-  <link rel="icon" href="favicon.ico">
-  <meta name="theme-color" content="#3CA832">
-  <style>
-    body {
-      margin: 0;
-      background-color: black;
-      color: #3CA832;
-      font-family: 'Courier New', monospace;
-      text-align: center;
-      overflow-x: hidden;
-    }
-    header {
-      padding: 50px 20px 20px;
-      text-shadow: 0 0 25px #3CA832;
-    }
-    h1 {
-      font-size: 2.6em;
-      color: #3CA832;
-      margin-bottom: 10px;
-      letter-spacing: 2px;
-    }
-    p {
-      color: #bbb;
-      margin-bottom: 30px;
-    }
-    nav {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 15px;
-      margin-bottom: 60px;
-    }
-    a.button {
-      display: inline-block;
-      background: linear-gradient(145deg, #3CA832, #194d11);
-      color: black;
-      font-weight: bold;
-      text-decoration: none;
-      padding: 15px 25px;
-      border-radius: 8px;
-      border: 2px solid #3CA832;
-      box-shadow: 0 0 15px #3CA832;
-      transition: all 0.3s ease;
-    }
-    a.button:hover {
-      background: linear-gradient(145deg, #52ff4d, #194d11);
-      box-shadow: 0 0 25px #3CA832;
-      transform: scale(1.05);
-    }
-    footer {
-      color: #777;
-      font-size: 0.9em;
-      margin-top: 80px;
-      padding-bottom: 40px;
-    }
-    .logo {
-      width: 180px;
-      height: 180px;
-      border-radius: 50%;
-      border: 3px solid #3CA832;
-      box-shadow: 0 0 25px #3CA832;
-      margin: 20px auto;
-      background-image: url('appbadge.png');
-      background-size: cover;
-      background-position: center;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Brothers Keeper</title>
+<meta name="theme-color" content="#3CA832" />
+<style>
+body {
+  margin: 0;
+  padding: 20px;
+  background: black url('background.jpg') no-repeat center center fixed;
+  background-size: cover;
+  color: #3CA832;
+  font-family: "Courier New", monospace;
+  text-align: center;
+}
+h1 {
+  font-size: 2.5em;
+  color: #3CA832;
+  text-shadow: 0 0 15px #00ff00;
+}
+a {
+  display: inline-block;
+  margin: 10px;
+  padding: 10px 25px;
+  text-decoration: none;
+  color: black;
+  background: linear-gradient(135deg, #bfbfbf, #3CA832, #bfbfbf);
+  border-radius: 8px;
+  box-shadow: 0 0 10px #3CA832;
+  font-weight: bold;
+}
+a:hover {
+  background: linear-gradient(135deg, #3CA832, #bfbfbf);
+  color: #000;
+}
+footer {
+  margin-top: 40px;
+  font-size: 0.8em;
+  color: #888;
+}
+</style>
 </head>
 <body>
-  <header>
-    <div class="logo"></div>
-    <h1>💚 My Brothers Keeper 💚</h1>
-    <p>Brotherhood • Loyalty • Chrome • OD Green</p>
-  </header>
+  <h1>MY BROTHERS KEEPER</h1>
+  <p>Welcome to the Brotherhood. Choose your path below:</p>
 
-  <nav>
-    <a href="chat.html" class="button">💬 Chat Room</a>
-    <a href="gallery.html" class="button">📸 Gallery</a>
-    <a href="bios.html" class="button">🧍 Crew Bios</a>
-    <a href="about.html" class="button">📜 About Us</a>
-    <a href="admin.html" class="button">🔒 Admin Lock</a>
-  </nav>
+  <a href="about.html">About</a>
+  <a href="bios.html">Bios</a>
+  <a href="gallery.html">Gallery</a>
+  <a href="chat.html">Chat Room</a>
 
   <footer>
-    <p>© 2025 My Brothers Keeper | BBFFBB | Built with Chrome & Loyalty</p>
+    <p>Brotherhood Built by Strength | MBK © 2025</p>
   </footer>
 </body>
 </html>
