@@ -1,39 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>About Us • My Brother’s Keeper</title>
-  <meta name="theme-color" content="#3CA832" />
-
-  <style>
-    :root {
-      --od: #3CA832;
-      --text: #111;
-      --bg: #fff;
-      --ring: #d0d5dd;
-      --muted: #667085;
-      --chrome: linear-gradient(135deg, #e7e7e7 0%, #ffffff 40%, #bfbfbf 70%, #ffffff 100%);
-    }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Inter, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-    }
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 16px 20px;
-      border-bottom: 1px solid var(--ring);
-      background: #fafafa;
-    }
-    h1 {
-      font-size: 24px;
-      margin: 0;
-      background: var(--chrome);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>About MBK</title>
+<meta name="theme-color" content="#3CA832" />
+<style>
+:root{--od:#3CA832;--chrome:linear-gradient(135deg,#bfbfbf 0%,#ffffff 30%,#e7e7e7 70%,#bfbfbf 100%);}
+body{margin:0;font-family:"Courier New",monospace;background:#000;color:#ddd;}
+nav{background:black;border-bottom:2px solid var(--od);display:flex;justify-content:center;gap:25px;padding:14px 0;font-weight:bold;font-size:16px;}
+nav a{color:var(--od);text-decoration:none;transition:0.2s;}
+nav a:hover{text-shadow:0 0 8px var(--od);}
+main{max-width:900px;margin:30px auto;padding:0 20px;line-height:1.6;}
+h1{background:var(--chrome);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-align:center;}
+h2{color:var(--od);}
+blockquote{border-left:3px solid var(--od);padding-left:10px;color:#aaa;font-style:italic;}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html">Home</a>
+  <a href="bios.html">Bios</a>
+  <a href="about.html">About</a>
+  <a href="admin.html">Admin</a>
+</nav>
+<main>
+<h1>My Brother’s Keeper</h1>
+<section>
+<h2>Who We Are</h2>
+<p>We’re a brotherhood forged from loyalty, respect, and road dust. Chrome and grit. Honor and trust.</p>
+</section>
+<section>
+<h2>Mission</h2>
+<p>Ride hard. Live free. Support the brotherhood and the community that raised us.</p>
+<blockquote>“It’s not about the miles you ride — it’s about who rides with you.”</blockquote>
+</section>
+<section>
+<h2>Contact</h2>
+<p>📧 <a href="mailto:mybrotherskeeperbbffbb@gmail.com" style="color:#3CA832;">mybrotherskeeperbbffbb@gmail.com</a></p>
+</section>
+</main>
+</body>
+</html>
