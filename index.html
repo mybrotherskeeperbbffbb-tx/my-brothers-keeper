@@ -1,145 +1,94 @@
-<!-- rebuild -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Brothers Keeper | MBK</title>
-  <meta name="theme-color" content="#3CA832">
+  <title>My Brothers Keeper</title>
   <link rel="icon" href="favicon.ico">
-  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#3CA832">
   <style>
-    :root {
-      --od: #3CA832;
-      --chrome: linear-gradient(135deg, #bfbfbf, #f0f0f0, #8f8f8f);
-      --bg: #000;
-    }
-
     body {
       margin: 0;
-      padding: 0;
-      background: var(--bg);
-      color: var(--od);
+      background-color: black;
+      color: #3CA832;
       font-family: 'Courier New', monospace;
       text-align: center;
       overflow-x: hidden;
     }
-
     header {
-      background: var(--chrome);
-      -webkit-background-clip: text;
-      color: transparent;
-      font-weight: bold;
-      font-size: 2.2em;
-      padding: 20px 0;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      text-shadow: 0 0 15px var(--od);
+      padding: 50px 20px 20px;
+      text-shadow: 0 0 25px #3CA832;
     }
-
-    nav {
-      margin: 20px 0;
-    }
-
-    nav a {
-      text-decoration: none;
-      color: var(--od);
-      border: 1px solid var(--od);
-      padding: 10px 15px;
-      margin: 5px;
-      border-radius: 10px;
-      background: rgba(60,168,50,0.1);
-      transition: 0.3s;
-    }
-
-    nav a:hover {
-      background: var(--od);
-      color: #000;
-      box-shadow: 0 0 20px var(--od);
-    }
-
-    main {
-      margin-top: 30px;
-      padding: 0 20px;
-    }
-
-    h2 {
-      color: var(--od);
-      font-size: 1.6em;
-      text-transform: uppercase;
+    h1 {
+      font-size: 2.6em;
+      color: #3CA832;
       margin-bottom: 10px;
+      letter-spacing: 2px;
     }
-
     p {
-      font-size: 1.1em;
-      line-height: 1.6em;
-      color: #ccc;
+      color: #bbb;
+      margin-bottom: 30px;
     }
-
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 60px;
+    }
+    a.button {
+      display: inline-block;
+      background: linear-gradient(145deg, #3CA832, #194d11);
+      color: black;
+      font-weight: bold;
+      text-decoration: none;
+      padding: 15px 25px;
+      border-radius: 8px;
+      border: 2px solid #3CA832;
+      box-shadow: 0 0 15px #3CA832;
+      transition: all 0.3s ease;
+    }
+    a.button:hover {
+      background: linear-gradient(145deg, #52ff4d, #194d11);
+      box-shadow: 0 0 25px #3CA832;
+      transform: scale(1.05);
+    }
     footer {
-      border-top: 1px solid #222;
-      margin-top: 40px;
-      padding: 15px;
+      color: #777;
       font-size: 0.9em;
-      color: #666;
+      margin-top: 80px;
+      padding-bottom: 40px;
     }
-
-    /* subtle motorcycle startup animation for page load */
-    @keyframes rumble {
-      0%, 100% { transform: translateX(0); }
-      25% { transform: translateX(3px); }
-      50% { transform: translateX(-3px); }
-      75% { transform: translateX(2px); }
-    }
-
-    body.startup {
-      animation: rumble 0.4s ease-in-out 3;
+    .logo {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      border: 3px solid #3CA832;
+      box-shadow: 0 0 25px #3CA832;
+      margin: 20px auto;
+      background-image: url('appbadge.png');
+      background-size: cover;
+      background-position: center;
     }
   </style>
 </head>
 <body>
-  <header>My Brothers Keeper</header>
+  <header>
+    <div class="logo"></div>
+    <h1>💚 My Brothers Keeper 💚</h1>
+    <p>Brotherhood • Loyalty • Chrome • OD Green</p>
+  </header>
 
   <nav>
-    <a href="bios.html">Crew Bios</a>
-    <a href="gallery.html">Gallery</a>
-    <a href="about.html">About Us</a>
-    <a href="admin.html">Admin</a>
+    <a href="chat.html" class="button">💬 Chat Room</a>
+    <a href="gallery.html" class="button">📸 Gallery</a>
+    <a href="bios.html" class="button">🧍 Crew Bios</a>
+    <a href="about.html" class="button">📜 About Us</a>
+    <a href="admin.html" class="button">🔒 Admin Lock</a>
   </nav>
 
-  <main>
-    <h2>Welcome to MBK</h2>
-    <p>
-      Brotherhood built on loyalty, respect, and the open road.  
-      This is our space to connect, share, and roar together — one throttle, one heart.
-    </p>
-    <p>
-      Tap a link above to explore.  
-      <br><br>
-      When the private lock opens, the engine will roar.  
-      Until then... keep your chrome clean and your spirit loud.
-    </p>
-  </main>
-
   <footer>
-    © 2025 My Brothers Keeper | Built with heart and chrome.
+    <p>© 2025 My Brothers Keeper | BBFFBB | Built with Chrome & Loyalty</p>
   </footer>
-
-  <audio id="engine" src="engine.mp3" preload="auto"></audio>
-  <script>
-    // Add the motorcycle "rumble" effect on load
-    document.body.classList.add('startup');
-
-    // Optional: start the engine sound when page opens
-    const engine = document.getElementById('engine');
-    window.addEventListener('load', () => {
-      engine.volume = 0.4;
-      engine.play().catch(() => {});
-    });
-  </script>
 </body>
-</html>    
-
-
-
-    
+</html>
