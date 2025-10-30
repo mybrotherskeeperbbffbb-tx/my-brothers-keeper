@@ -5,7 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Brothers Keeper</title>
   <meta name="theme-color" content="#3CA832" />
-  <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+  <!-- ✅ Icons & App Settings -->
+  <link rel="icon" href="favicon.ico.png" type="image/png">
+  <link rel="apple-touch-icon" href="appbadge.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
   <style>
     :root {
@@ -35,9 +40,59 @@
     }
 
     h1 {
-      font-size: 3.5em;
+      font-size: 3.8em;
       text-align: center;
       background: var(--chrome);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      text-shadow: 0
+      text-shadow: 0 0 25px var(--mbk-green), 0 0 10px #000;
+      letter-spacing: 4px;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    p {
+      color: #ccc;
+      font-size: 1.4em;
+      text-align: center;
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 12px 24px;
+      border-radius: 10px;
+      backdrop-filter: blur(4px);
+    }
+
+    footer {
+      position: absolute;
+      bottom: 20px;
+      text-align: center;
+      color: #888;
+      font-size: 0.9em;
+      background: rgba(0, 0, 0, 0.4);
+      padding: 8px 20px;
+      border-radius: 8px;
+    }
+
+    /* Hide audio controls */
+    audio {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ✅ Background Engine Sound -->
+  <audio autoplay loop>
+    <source src="engine.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <!-- ✅ Main Title -->
+  <h1>MY BROTHERS KEEPER</h1>
+
+  <!-- ✅ Tagline -->
+  <p>Brotherhood • Loyalty • Chrome</p>
+
+  <!-- ✅ Footer -->
+  <footer>© 2025 MBK | Built with Brotherhood & Chrome</footer>
+</body>
+</html>
