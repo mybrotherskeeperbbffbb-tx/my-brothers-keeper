@@ -28,46 +28,54 @@ background-position: center;
   </style>
 </head>
 <body>
-  <!-- OD Green Chrome Glow Chat Button -->
-<style>
-@keyframes shine {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
-}
-</style>
-
-<div style="text-align:center; margin-top:40px;">
-  <a href="chat.html"
+  <div style="text-align:center; margin-top:40px; position:relative;">
+  <a id="mbkButton" href="chat.html"
      style="
        display:inline-block;
-       padding:16px 34px;
-       color:#111;
+       padding:10px 22px;
+       color:#0c0c0c;
        font-family:'Courier New', monospace;
        font-weight:bold;
-       border-radius:14px;
+       border-radius:6px;
        text-decoration:none;
-       border:2px solid #a1b78b;
+       border:1px solid #a1b78b;
        letter-spacing:1px;
-       text-shadow:0 0 8px #5a6f48;
-       background: linear-gradient(120deg,
-         #4b5d3a 0%,
-         #6d8751 25%,
-         #9bb27b 50%,
-         #6d8751 75%,
-         #4b5d3a 100%);
-       background-size: 200% auto;
-       animation: shine 4s linear infinite;
-       box-shadow:
-         0 0 20px #9bb27b,
-         inset 0 0 8px #000,
-         0 0 60px #4b5d3a;
-       transition: all 0.3s ease-in-out;
+       text-shadow:0 0 6px #6b8258,0 0 2px #d0e2b1;
+       background:linear-gradient(120deg,#2a2e25 0%,#4e6040 15%,#6c8054 35%,#9eb67e 50%,#6c8054 65%,#4e6040 85%,#2a2e25 100%);
+       background-size:200% auto;
+       animation:shine 6s linear infinite,pulse 4s ease-in-out infinite;
+       box-shadow:0 0 20px #9bb27b,inset 0 0 10px rgba(255,255,255,0.2),inset 0 -2px 10px rgba(0,0,0,0.8),0 0 60px #4b5d3a;
+       transition:all 0.4s ease-in-out;
+       backdrop-filter:blur(3px);
      "
-     onmouseover="this.style.transform='scale(1.07)'; this.style.boxShadow='0 0 30px #c6d8aa, inset 0 0 10px #000, 0 0 90px #9bb27b';"
-     onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 0 20px #9bb27b, inset 0 0 8px #000, 0 0 60px #4b5d3a';">
-    🪖 ENTER MBK CHAT ROOM 🪖
+     onmouseover="this.style.transform='scale(1.07) rotateX(6deg)'; this.style.boxShadow='0 0 35px #cfe5b6,inset 0 0 15px rgba(255,255,255,0.3),0 0 90px #a9c28e';"
+     onmouseout="this.style.transform='scale(1) rotateX(0deg)'; this.style.boxShadow='0 0 20px #9bb27b,inset 0 0 10px rgba(255,255,255,0.2),0 0 60px #4b5d3a';">
+    🖕 ENTER MBK CHAT ROOM 🖕
   </a>
-</div>
+
+  <!-- mirror reflection -->
+  <div style="
+       position:absolute;
+       left:50%;
+       transform:translateX(-50%) scaleY(-1);
+       top:100%;
+       width:auto;
+       opacity:0.25;
+       filter:blur(2px);
+       height:auto;
+     ">
+    <a href='#' style='pointer-events:none;
+       display:inline-block;
+       padding:10px 22px;
+       color:transparent;
+       font-family:inherit;
+       font-weight:bold;
+       border-radius:6px;
+       background:linear-gradient(120deg,#9eb67e 0%,#6c8054 25%,#4e6040 75%,#2a2e25 100%);
+       box-shadow:0 0 20px #9bb27b,0 0 40px #4b5d3a;'>
+       🖕 ENTER MBK CHAT ROOM 🖕
+    </a>
+  </div>
   
 </body>
 </html>
