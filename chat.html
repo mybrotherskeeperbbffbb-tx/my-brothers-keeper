@@ -3,124 +3,152 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MBK Chat Room</title>
+  <title>MBK | Private Chat</title>
+  <meta name="theme-color" content="#3CA832" />
+  <link rel="icon" href="favicon.ico.png" type="image/png">
+  <link rel="apple-touch-icon" href="appbadge.png">
+
   <style>
     body {
-      background-color: black;
-      color: #3ca832;
+      background: url('background.jpg') no-repeat center center fixed;
+      background-size: cover;
       font-family: "Courier New", monospace;
+      color: #3CA832;
       text-align: center;
-      padding: 30px;
+      margin: 0;
+      padding: 25px;
     }
+
+    h2 {
+      font-size: 2.5em;
+      text-shadow: 0 0 25px #3CA832, 0 0 10px #000;
+      margin-bottom: 20px;
+    }
+
     #messages {
-      border: 2px solid #3ca832;
+      border: 2px solid #3CA832;
       border-radius: 10px;
       padding: 10px;
       height: 400px;
       overflow-y: scroll;
+      background: rgba(0, 0, 0, 0.6);
       text-align: left;
       margin-bottom: 20px;
+      box-shadow: 0 0 25px #000;
     }
+
     input {
       padding: 10px;
       width: 70%;
-      border: 1px solid #3ca832;
+      border: 1px solid #3CA832;
       border-radius: 5px;
       background-color: black;
-      color: #3ca832;
+      color: #3CA832;
+      font-size: 1em;
     }
+
     button {
       padding: 10px 15px;
-      background-color: #3ca832;
+      background-color: #3CA832;
       color: black;
       border: none;
       border-radius: 5px;
       font-weight: bold;
       cursor: pointer;
+      transition: 0.3s;
     }
+
     button:hover {
       background-color: #52ff4d;
+      box-shadow: 0 0 20px #3CA832;
+    }
+
+    footer {
+      color: #888;
+      font-size: 0.9em;
+      margin-top: 20px;
     }
   </style>
 </head>
 
 <body>
-<h2>💚 MBK Chat Room 💚</h2>
-<div id="messages"></div>
-<input id="msgInput" placeholder="Type your message..." />
-<button onclick="sendMessage()">Send</button>
+  <h2>💚 MBK Admin Chat 💚</h2>
+  <div id="messages"></div>
+  <input id="msgInput" placeholder="Type your message..." />
+  <button onclick="sendMessage()">Send</button>
 
-<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
-<script>
-  const { createClient } = supabase;
+  <audio id="engineRev" src="engine.mp3"></audio>
 
-  // ✅ Your Supabase credentials (double-check these)
-  const supabaseUrl = "https://xfgbsioinhnfyrhtpcdr.supabase.co";
-  const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhmZ2JzaW9pbmhuZnlyaHRwY2RyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjE2OTc0MzAsImV4cCI6MjA3NzI3MzQzMH0.tqVeukQ0uSf4d8G_IR_UE0OZq4aWpUW-velnx3mXzdQ";
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+  <script>
+    const { createClient } = supabase;
 
-  const client = createClient(supabaseUrl, supabaseKey);
+    // ✅ Your actual Supabase credentials
+    const supabaseUrl = "https://xfgbsioinhnfyrhtpcdr.supabase.co";
+    const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhmZ2JzaW9pbmhuZnlyaHRwY2RyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjE2OTc0MzAsImV4cCI6MjA3NzI3MzQzMH0.tqVeukQ0uSf4d8G_IR_UE0OZq4aWpUW-velnx3mXzdQ";
+    const client = createClient(supabaseUrl, supabaseKey);
 
-  // ✅ Send message to Supabase
-  async function sendMessage() {
-    const content = document.getElementById("msgInput").value.trim();
-    if (!content) return;
+    const msgInput = document.getElementById("msgInput");
+    const messages = document.getElementById("messages");
+    const revSound = document.getElementById("engineRev");
 
-    let nickname = localStorage.getItem("mbk_nickname");
-    if (!nickname) {
-      nickname = prompt("Enter your road name:", "Brother") || "Brother";
-      localStorage.setItem("mbk_nickname", nickname);
+    async function sendMessage() {
+      const content = msgInput.value.trim();
+      if (!content) return;
+
+      let nickname = localStorage.getItem("mbk_admin_name");
+      if (!nickname) {
+        nickname = prompt("Enter your road name:", "Boss") || "Boss";
+        localStorage.setItem("mbk_admin_name", nickname);
+      }
+
+      const { error } = await client.from("messages").insert({
+        content,
+        user_email: "admin@mbk",
+        nickname,
+      });
+
+      if (error) {
+        console.error("Error sending message:", error);
+        alert("Could not send message — check console for details.");
+        return;
+      }
+
+      msgInput.value = "";
+      revSound.currentTime = 0;
+      revSound.play();
+      loadMessages();
     }
 
-    const { error } = await client.from("messages").insert({
-      content,
-      user_email: "none",
-      nickname,
-    });
+    async function loadMessages() {
+      const { data, error } = await client
+        .from("messages")
+        .select("*")
+        .order("created_at", { ascending: true });
 
-    if (error) {
-      console.error("Error sending message:", error);
-      alert("Could not send message — check console for details.");
-      return;
+      if (error) {
+        console.error("Error loading messages:", error);
+        return;
+      }
+
+      messages.innerHTML = (data || [])
+        .map(
+          (m) => `
+            <p><b style="color:#3CA832">${m.nickname || "Brother"}:</b> ${m.content}</p>
+          `
+        )
+        .join("");
+      messages.scrollTop = messages.scrollHeight;
     }
 
-    document.getElementById("msgInput").value = "";
     loadMessages();
-  }
 
-  // ✅ Load all messages from Supabase
-  async function loadMessages() {
-    const { data, error } = await client
-      .from("messages")
-      .select("*")
-      .order("created_at", { ascending: true });
+    client
+      .channel("chat")
+      .on("postgres_changes", { event: "*", schema: "public", table: "messages" }, loadMessages)
+      .subscribe();
+  </script>
 
-    if (error) {
-      console.error("Error loading messages:", error);
-      return;
-    }
-
-    const list = document.getElementById("messages");
-    list.innerHTML = (data || [])
-      .map(
-        (m) => `
-        <p style="color:#3CA832;">
-          <b>${m.nickname || "Brother"}:</b> ${m.content}
-        </p>
-      `
-      )
-      .join("");
-  }
-
-  // ✅ Load on start and subscribe for updates
-  loadMessages();
-  client
-    .channel("chat")
-    .on("postgres_changes", { event: "*", schema: "public", table: "messages" }, loadMessages)
-    .subscribe();
-</script>
+  <footer>© 2025 MBK | Private Brotherhood Chat</footer>
 </body>
 </html>
-
-
-
-updated
