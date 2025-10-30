@@ -15,10 +15,8 @@
     body {
       margin: 0;
       font-family: "Courier New", monospace;
-      background: var(--bg) url('background.jpg') no-repeat center center fixed;
-      background-size: cover;
+      background: var(--bg) url('background.jpg') center top / contain no-repeat fixed;
       color: var(--od);
-      padding: 0;
       text-align: center;
     }
 
@@ -59,7 +57,7 @@
       color: #3CA832;
       text-decoration: none;
       font-weight: bold;
-      font-size: 1.1em;
+      font-size: 1.5em;
       letter-spacing: 1px;
       transition: all 0.3s ease;
       text-shadow: 0 0 10px #000;
@@ -74,36 +72,73 @@
     }
 
     main {
-      margin-top: 120px;
+      margin-top: 150px;
       padding: 40px 20px;
+      max-width: 1000px;
+      margin-left: auto;
+      margin-right: auto;
+      background: rgba(0,0,0,0.7);
+      border-radius: 20px;
+      box-shadow: 0 0 30px #3CA832;
     }
 
     h1 {
       font-size: 2.5em;
       color: #52ff4d;
       text-shadow: 0 0 25px #3CA832;
+      margin-bottom: 30px;
+    }
+
+    .member {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(255, 255, 255, 0.05);
+      margin: 20px 0;
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 0 20px #3CA832;
+      flex-wrap: wrap;
+    }
+
+    .member img {
+      border-radius: 15px;
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      border: 2px solid #3CA832;
       margin-bottom: 10px;
     }
 
-    .section {
-      max-width: 800px;
-      margin: 0 auto;
-      background: rgba(0, 0, 0, 0.6);
-      border: 1px solid #3CA832;
-      border-radius: 10px;
-      padding: 25px;
-      box-shadow: 0 0 25px #3CA832;
+    .member-info {
+      flex: 1;
+      padding-left: 20px;
+      text-align: left;
     }
 
-    p {
+    .member-info h2 {
+      color: #52ff4d;
+      margin-bottom: 10px;
+      text-shadow: 0 0 15px #3CA832;
+    }
+
+    .member-info p {
+      color: #e6e6e6;
+      line-height: 1.6em;
+    }
+
+    .add-bio {
+      margin-top: 40px;
+      padding: 20px;
+      border: 2px dashed #3CA832;
+      border-radius: 15px;
+      color: #e6e6e6;
       font-size: 1.1em;
-      color: #d3ffd3;
-      text-shadow: 0 0 10px #3CA832;
-      line-height: 1.5em;
+      line-height: 1.7em;
     }
 
     footer {
-      margin-top: 80px;
+      margin-top: 60px;
       font-size: 0.9em;
       opacity: 0.6;
       color: #3CA832;
@@ -111,6 +146,7 @@
     }
   </style>
 </head>
+
 <body>
   <nav>
     <div class="logo">MBK</div>
@@ -126,33 +162,53 @@
 
   <main>
     <h1>The Brotherhood</h1>
-    <div class="section">
-      <p>
-        Brotherhood isn’t built in words—it’s forged in loyalty, earned through struggle,
-        and proven by action. It’s not about blood—it’s about bond. Through every mile,
-        every ride, and every battle, we stand shoulder to shoulder. 
-      </p>
-      <p>
-        We ride together, fall together, rise together. This page honors those who live
-        by the code: <strong>My Brother’s Keeper</strong> — BBFFBB.
-      </p>
+
+    <div class="member">
+      <img src="member1.jpg" alt="Member 1">
+      <div class="member-info">
+        <h2>Thirsty</h2>
+        <p>
+          Loyal. Real. The heartbeat of the group.  
+          Always there when someone needs him — the voice that reminds everyone why this family stands strong.  
+          Keeps the fire lit and the purpose alive.
+        </p>
+      </div>
+    </div>
+
+    <div class="member">
+      <img src="member2.jpg" alt="Member 2">
+      <div class="member-info">
+        <h2>Sassy</h2>
+        <p>
+          The spirit of compassion.  
+          Always ready to help anyone in need — she keeps our kindness sharp and our hearts open.  
+          The balance between chaos and calm.
+        </p>
+      </div>
+    </div>
+
+    <div class="member">
+      <img src="member3.jpg" alt="Member 3">
+      <div class="member-info">
+        <h2>In Memory Of Our Fallen Brother</h2>
+        <p>
+          The one who started it all.  
+          This page, this brotherhood, this light — it all began with him.  
+          His strength and laughter built the foundation of who we are today.  
+          Though he’s gone from sight, he rides forever beside us.  
+          Until Valhalla, brother — your legacy lives on in every one of us.
+        </p>
+      </div>
+    </div>
+
+    <div class="add-bio">
+      Want to add your story?  
+      <br><br>
+      Each brother and sister can add a small piece of their journey here — a picture, a message, a story, or just a few words about what this family means to them.  
+      Because every story adds to the heartbeat of My Brother’s Keeper.
     </div>
   </main>
 
-  <footer>© 2025 MBK | BBFFBB</footer>
-
-  <!-- Engine sound (tap to start, mobile safe) -->
-  <audio id="engineSound" loop>
-    <source src="engine.mp3" type="audio/mpeg">
-  </audio>
-
-  <script>
-    const sound = document.getElementById('engineSound');
-    sound.volume = 0.3;
-
-    document.body.addEventListener('click', () => {
-      sound.play();
-    }, { once: true });
-  </script>
+  <footer>© 2025 My Brother’s Keeper | BBFFBB</footer>
 </body>
 </html>
