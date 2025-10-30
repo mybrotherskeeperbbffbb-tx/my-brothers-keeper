@@ -3,15 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MBK Brotherhood</title>
+  <title>Brotherhood | My Brother’s Keeper</title>
+  <meta name="theme-color" content="#3CA832" />
   <style>
+    :root {
+      --od: #3CA832;
+      --bg: #000;
+      --chrome: linear-gradient(135deg, #bfbfbf, #e6e6e6, #8a8a8a);
+    }
+
     body {
       margin: 0;
-      padding: 0;
-      background: black url('MBK-Background.jpg') no-repeat center center fixed;
-      background-size: cover;
-      color: #3CA832;
       font-family: "Courier New", monospace;
+      background: var(--bg) url('background.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: var(--od);
+      padding: 0;
       text-align: center;
     }
 
@@ -33,7 +40,7 @@
     nav .logo {
       font-size: 1.8em;
       font-weight: bold;
-      background: linear-gradient(90deg, #bfbfbf, #e6e6e6, #8a8a8a);
+      background: var(--chrome);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       text-shadow: 0 0 15px #3CA832;
@@ -67,76 +74,43 @@
     }
 
     main {
-      margin-top: 140px;
-      padding: 20px;
+      margin-top: 120px;
+      padding: 40px 20px;
     }
 
     h1 {
-      font-size: 2.3em;
+      font-size: 2.5em;
+      color: #52ff4d;
       text-shadow: 0 0 25px #3CA832;
       margin-bottom: 10px;
     }
 
-    p {
-      color: #d3ffd3;
-      text-shadow: 0 0 10px #3CA832;
+    .section {
       max-width: 800px;
-      margin: 0 auto 30px;
-    }
-
-    .crew {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 25px;
-      margin-top: 40px;
-    }
-
-    .member {
-      width: 250px;
-      background: rgba(0,0,0,0.8);
-      border: 2px solid #3CA832;
-      border-radius: 12px;
+      margin: 0 auto;
+      background: rgba(0, 0, 0, 0.6);
+      border: 1px solid #3CA832;
+      border-radius: 10px;
+      padding: 25px;
       box-shadow: 0 0 25px #3CA832;
-      padding: 15px;
-      transition: all 0.3s ease;
     }
 
-    .member:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 40px #52ff4d;
-    }
-
-    .member img {
-      width: 100%;
-      height: 250px;
-      object-fit: cover;
-      border-radius: 8px;
-      border: 2px solid #3CA832;
-    }
-
-    .member h2 {
-      color: #52ff4d;
-      text-shadow: 0 0 10px #3CA832;
-      font-size: 1.3em;
-      margin-top: 10px;
-    }
-
-    .member p {
-      font-size: 0.9em;
-      margin: 10px 0;
-      line-height: 1.4;
+    p {
+      font-size: 1.1em;
       color: #d3ffd3;
+      text-shadow: 0 0 10px #3CA832;
+      line-height: 1.5em;
     }
 
     footer {
-      margin-top: 60px;
+      margin-top: 80px;
       font-size: 0.9em;
       opacity: 0.6;
+      color: #3CA832;
+      text-shadow: 0 0 10px #3CA832;
     }
   </style>
 </head>
-
 <body>
   <nav>
     <div class="logo">MBK</div>
@@ -152,50 +126,33 @@
 
   <main>
     <h1>The Brotherhood</h1>
-    <p>
-      These are the brothers who make up the core of <strong>My Brother’s Keeper</strong>.
-      Every man carries his own story, his own road, and his own fire — but the bond remains one.
-    </p>
-
-    <div class="crew">
-      <div class="member">
-        <img src="brother1.jpg" alt="Brother 1">
-        <h2>Thirsty</h2>
-        <p>Founder and heart of MBK. The man who keeps the chrome shining and the spirit burning. BBFFBB.</p>
-      </div>
-
-      <div class="member">
-        <img src="brother2.jpg" alt="Brother 2">
-        <h2>EZ</h2>
-        <p>The quiet one with the loud bike. Always first to ride, last to quit.</p>
-      </div>
-
-      <div class="member">
-        <img src="brother3.jpg" alt="Brother 3">
-        <h2>Buston Brandon</h2>
-        <p>Brings the thunder and laughter — loyal to the code and never backs down.</p>
-      </div>
-
-      <div class="member">
-        <img src="brother4.jpg" alt="Brother 4">
-        <h2>Blue</h2>
-        <p>The enforcer with a heart — strength, respect, and loyalty in one man.</p>
-      </div>
-
-      <div class="member">
-        <img src="brother5.jpg" alt="Brother 5">
-        <h2>Nova</h2>
-        <p>Energy unmatched. Always ready to light the way and keep the crew together.</p>
-      </div>
-
-      <div class="member">
-        <img src="brother6.jpg" alt="Brother 6">
-        <h2>Athena</h2>
-        <p>The balance of fire and wisdom — keeper of the brotherhood’s legacy and light.</p>
-      </div>
+    <div class="section">
+      <p>
+        Brotherhood isn’t built in words—it’s forged in loyalty, earned through struggle,
+        and proven by action. It’s not about blood—it’s about bond. Through every mile,
+        every ride, and every battle, we stand shoulder to shoulder. 
+      </p>
+      <p>
+        We ride together, fall together, rise together. This page honors those who live
+        by the code: <strong>My Brother’s Keeper</strong> — BBFFBB.
+      </p>
     </div>
   </main>
 
   <footer>© 2025 MBK | BBFFBB</footer>
+
+  <!-- Engine sound (tap to start, mobile safe) -->
+  <audio id="engineSound" loop>
+    <source src="engine.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    const sound = document.getElementById('engineSound');
+    sound.volume = 0.3;
+
+    document.body.addEventListener('click', () => {
+      sound.play();
+    }, { once: true });
+  </script>
 </body>
 </html>
