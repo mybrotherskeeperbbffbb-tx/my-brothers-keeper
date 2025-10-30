@@ -11,14 +11,8 @@
   <link rel="apple-touch-icon" href="icon-192.png" />
   <meta name="theme-color" content="#00FF00" />
 
-  <!-- ✅ App Icons / Badge -->
-  <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
-  <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
-  <link rel="apple-touch-icon" href="icon-192.png">
-  <meta name="theme-color" content="#00FF00">
-
   <!-- ✅ Manifest for PWA install -->
-  <link rel="manifest" href="manifest.json">
+  <link rel="manifest" href="manifest.json" />
 
   <!-- ✅ Optional small favicon for browser tab -->
   <link rel="icon" href="favicon.ico" />
@@ -29,106 +23,86 @@
       background-color: black;
       background-image: url('splash.png');
       background-repeat: no-repeat;
-      background-position: center;
-      background-size: contain;
-      height: 100vh;
+      background-position: center center;
+      background-attachment: fixed;
+      background-size: cover;
       color: #3CA832;
       display: flex;
       justify-content: center;
       align-items: center;
       font-family: Impact, sans-serif;
       font-size: 2rem;
+      overflow: hidden;
+      height: 100vh;
+      opacity: 0;
+      transition: opacity 1.5s ease-in-out;
+    }
+
+    /* 🔥 Chrome Mirror Ribbon */
+    @keyframes shine {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        box-shadow: 0 0 12px #8ba96a, inset 0 0 6px #8ba96a;
+        transform: perspective(500px) rotateX(0deg);
+      }
+      50% {
+        box-shadow: 0 0 26px #d0e2b1, inset 0 0 12px #d0e2b1;
+        transform: perspective(500px) rotateX(5deg);
+      }
+    }
+
+    .chrome-button {
+      display: inline-block;
+      padding: 10px 22px;
+      color: #0c0c0c;
+      background: linear-gradient(120deg, #8ba96a 0%, #cde1a4 50%, #8ba96a 100%);
+      background-size: 200% auto;
+      border-radius: 14px;
+      border: 2px solid #3CA832;
+      text-shadow: 0 0 4px rgba(255,255,255,0.4);
+      box-shadow: 0 0 12px #8ba96a, inset 0 0 6px #8ba96a;
+      text-decoration: none;
+      font-weight: bold;
+      animation: shine 3s linear infinite, pulse 3s ease-in-out infinite;
+      transition: all 0.4s ease-in-out;
+      backdrop-filter: blur(3px);
+    }
+
+    .chrome-button:hover {
+      transform: scale(1.07) rotateX(3deg);
+      filter: brightness(120%);
     }
   </style>
 </head>
 
 <body>
-<!-- OD Green Mirror Chrome Ribbon Button -->
-<style>
-@keyframes shine {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
-}
+  <div style="text-align:center;">
+    <a href="chat.html" class="chrome-button">🖕 ENTER MBK CHAT ROOM 🖕</a>
+  </div>
 
-@keyframes pulse {
-  0%, 100% {
-    box-shadow: 0 0 12px #8ba96a, inset 0 0 6px #000;
-    transform: perspective(500px) rotateX(0deg);
-  }
-  50% {
-    box-shadow: 0 0 26px #d0e2b1, inset 0 0 12px #000;
-    transform: perspective(500px) rotateX(5deg);
-  }
-}
-</style>
+  <!-- 🔊 Sound Effect -->
+  <audio id="introSound" preload="auto">
+    <!-- Replace 'hum.mp3' with your actual audio file name -->
+    <source src="hum.mp3" type="audio/mpeg">
+  </audio>
 
-<div style="text-align:center; margin-top:40px;">
-  <a href="chat.html"
-     style="
-       display:inline-block;
-       padding:10px 22px;
-       color:#0c0c0c;
-       font-family:'Courier New', monospace;
-       font-weight:bold;
-       border-radius:6px;
-       text-decoration:none;
-       border:1px solid #a1b78b;
-       letter-spacing:1px;
-       text-shadow:
-         0 0 6px #6b8258,
-         0 0 2px #d0e2b1;
-       background: linear-gradient(120deg,
-         #2a2e25 0%,
-         #4e6040 15%,
-         #6c8054 35%,
-         #9eb67e 50%,
-         #6c8054 65%,
-         #4e6040 85%,
-         #2a2e25 100%);
-       background-size: 200% auto;
-       animation:
-         shine 6s linear infinite,
-         pulse 4s ease-in-out infinite;
-       box-shadow:
-         0 0 20px #9bb27b,
-         inset 0 0 10px rgba(255,255,255,0.2),
-         inset 0 -2px 10px rgba(0,0,0,0.8),
-         0 0 60px #4b5d3a;
-       transition: all 0.4s ease-in-out;
-       backdrop-filter: blur(3px);
-     "
-     onmouseover="this.style.transform='scale(1.07) rotateX(6deg)'; this.style.boxShadow='0 0 35px #cfe5b6, inset 0 0 15px rgba(255,255,255,0.3), 0 0 90px #a9c28e';"
-     onmouseout="this.style.transform='scale(1) rotateX(0deg)'; this.style.boxShadow='0 0 20px #9bb27b, inset 0 0 10px rgba(255,255,255,0.2), 0 0 60px #4b5d3a';">
-    🖕 ENTER MBK CHAT ROOM 🖕
-  </a>
-</div>
   <script>
-// Wait 2 seconds, then fade out splash
-window.addEventListener("load", () => {
-  const splash = document.getElementById("splash");
-  splash.style.transition = "opacity 1.5s ease-out";
-  splash.style.opacity = "1";
+    // Fade-in effect
+    window.addEventListener("load", () => {
+      document.body.style.opacity = 1;
 
-  // 🎧 Add hum sound on splash load
-  const audio = new Audio("hum.mp3");
-  audio.volume = 0.4; // soft chrome hum
-  audio.play().catch(err => console.log("Autoplay blocked:", err));
-
-  splash.animate(
-    [
-      { filter: "brightness(100%)" },
-      { filter: "brightness(200%)" },
-      { filter: "brightness(100%)" }
-    ],
-    { duration: 1500, iterations: 2 }
-  );
-  setTimeout(() => {
-    splash.style.opacity = "0";
-    setTimeout(() => splash.remove(), 1500);
-  }, 2000);
-});
-</script>
+      // Play intro sound
+      const audio = document.getElementById("introSound");
+      audio.volume = 0.6; // adjust 0.0 - 1.0
+      audio.play().catch(() => {
+        console.log("Autoplay blocked — will play on first tap");
+        document.body.addEventListener("click", () => audio.play(), { once: true });
+      });
+    });
+  </script>
 </body>
 </html>
-
-  
