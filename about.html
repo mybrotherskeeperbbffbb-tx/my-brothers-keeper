@@ -15,8 +15,7 @@
     body {
       margin: 0;
       font-family: "Courier New", monospace;
-      background: var(--bg) url('background.jpg') no-repeat center center fixed;
-      background-size: cover;
+      background: var(--bg) url('background.jpg') center top / contain no-repeat fixed;
       color: var(--od);
       text-align: center;
     }
@@ -58,7 +57,7 @@
       color: #3CA832;
       text-decoration: none;
       font-weight: bold;
-      font-size: 1.1em;
+      font-size: 1.5em;
       letter-spacing: 1px;
       transition: all 0.3s ease;
       text-shadow: 0 0 10px #000;
@@ -73,37 +72,33 @@
     }
 
     main {
-      margin-top: 120px;
+      margin-top: 150px;
       padding: 40px 20px;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+      background: rgba(0,0,0,0.7);
+      border-radius: 20px;
+      box-shadow: 0 0 30px #3CA832;
     }
 
     h1 {
       font-size: 2.5em;
       color: #52ff4d;
       text-shadow: 0 0 25px #3CA832;
-      margin-bottom: 30px;
+      margin-bottom: 20px;
     }
 
-    .content-box {
-      max-width: 800px;
-      margin: 0 auto;
-      background: rgba(0, 0, 0, 0.7);
-      border: 1px solid #3CA832;
-      border-radius: 10px;
-      padding: 30px;
-      box-shadow: 0 0 25px #3CA832;
-      color: #d3ffd3;
-      line-height: 1.6;
-      text-shadow: 0 0 10px #3CA832;
-    }
-
-    .highlight {
-      color: #52ff4d;
-      font-weight: bold;
+    p {
+      font-size: 1.2em;
+      line-height: 1.7em;
+      color: #e6e6e6;
+      text-shadow: 0 0 10px #000;
+      margin-bottom: 25px;
     }
 
     footer {
-      margin-top: 80px;
+      margin-top: 60px;
       font-size: 0.9em;
       opacity: 0.6;
       color: #3CA832;
@@ -125,37 +120,42 @@
   </nav>
 
   <main>
-    <h1>About Us</h1>
-    <div class="content-box">
-      <p>
-        <span class="highlight">My Brother’s Keeper</span> is more than a name — it’s a code.
-        We’re bound not by blood, but by honor, loyalty, and the shared roads that made us brothers.
-        What started as a small crew turned into a brotherhood built on respect, truth, and grit.
-      </p>
-      <p>
-        Every member stands for something: <span class="highlight">Brotherhood. Bond. Bloodline.</span>
-        We believe in giving back, lifting each other up, and never letting a brother fall alone.
-      </p>
-      <p>
-        Our mission goes beyond the ride — we serve our communities, we protect our families,
-        and we represent our colors with pride.
-      </p>
-      <p><em>We are MBK — Bound Forever. Forged by Brotherhood. BBFFBB.</em></p>
-    </div>
+    <h1>My Brother’s Keeper</h1>
+    <p>
+      We are not just a group — we are family.  
+      Every one of us has shared laughs, struggles, and miles together, and through it all we’ve built something deeper than friendship.  
+      This is a bond forged in loyalty, love, and respect — the kind that never fades, no matter the distance or time.
+    </p>
+
+    <p>
+      MBK stands for unity and compassion.  
+      Yes, some of us ride — but what truly drives us is our hearts.  
+      We stand together to feed the hungry, help the homeless, support veterans, and reach out to anyone who needs a hand.  
+      We believe in doing what we can, when we can — because sometimes, a small act of kindness is everything.
+    </p>
+
+    <p>
+      Above all, this brotherhood was built on love — for each other and for those who can’t stand alone.  
+      We’ve laughed together, fought through hard times, and we’ve mourned one of our own.  
+      This page, this mission, and this family are dedicated to him — our fallen brother — whose strength, laughter, and spirit will always ride with us.  
+      He may be gone from sight, but never from our hearts.  
+      Until Valhalla, brother — this one’s for you.
+    </p>
   </main>
 
-  <footer>© 2025 MBK | BBFFBB</footer>
+  <footer>© 2025 My Brother’s Keeper | BBFFBB</footer>
 
-  <!-- Engine sound -->
-  <audio id="engineSound" loop>
+  <!-- Engine Sound -->
+  <audio id="engineSound">
     <source src="engine.mp3" type="audio/mpeg">
   </audio>
 
   <script>
     const sound = document.getElementById('engineSound');
-    sound.volume = 0.3;
     document.body.addEventListener('click', () => {
+      sound.volume = 0.4;
       sound.play();
+      setTimeout(() => sound.pause(), 3500); // stops after 3.5 seconds
     }, { once: true });
   </script>
 </body>
