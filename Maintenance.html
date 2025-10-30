@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Maintenance | My Brother’s Keeper</title>
+  <style>
+    body {
+      background: black;
+      font-family: "Courier New", monospace;
+      color: #00ff00;
+      text-align: center;
+      padding: 30px;
+    }
+
+    nav {
+      background: rgba(0, 0, 0, 0.9);
+      padding: 10px 0;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      box-shadow: 0 0 10px #00ff00;
+    }
+
+    nav a {
+      color: #00ff00;
+      text-decoration: none;
+      margin: 0 15px;
+      font-weight: bold;
+      font-size: 1.3em;
+    }
+
+    nav a:hover {
+      color: white;
+      text-shadow: 0 0 10px #00ff00;
+    }
+
+    h1 {
+      margin-top: 40px;
+      font-size: 3em;
+      text-shadow: 0 0 15px #00ff00;
+    }
+
+    textarea {
+      width: 80%;
+      height: 300px;
+      background: black;
+      color: #00ff00;
+      border: 2px solid #00ff00;
+      border-radius: 10px;
+      margin-top: 20px;
+      padding: 10px;
+      font-size: 1.1em;
+    }
+
+    button {
+      margin-top: 20px;
+      background: #00ff00;
+      color: black;
+      font-weight: bold;
+      border: none;
+      border-radius: 10px;
+      padding: 10px 20px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: white;
+      color: black;
+    }
+
+    footer {
+      margin-top: 50px;
+      background: rgba(0, 0, 0, 0.9);
+      padding: 20px;
+      font-size: 1em;
+      color: #00ff00;
+      box-shadow: 0 0 10px #00ff00;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="brotherhood.html">Brotherhood</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="about.html">About Us</a>
+    <a href="admin.html">Admin</a>
+    <a href="chat.html">Chat</a>
+    <a href="maintenance.html">Maintenance</a>
+  </nav>
+
+  <h1>Maintenance & Updates</h1>
+  <p>You can edit your notes or draft updates here.</p>
+
+  <textarea placeholder="Write updates, notes, or text to add to other pages..."></textarea>
+  <br />
+  <button onclick="alert('Saved locally (not live)')">Save</button>
+
+  <footer>
+    © 2025 My Brother’s Keeper | BFFB
+  </footer>
+</body>
+</html>
