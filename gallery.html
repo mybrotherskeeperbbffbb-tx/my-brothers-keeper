@@ -15,8 +15,7 @@
     body {
       margin: 0;
       font-family: "Courier New", monospace;
-      background: var(--bg) url('background.jpg') no-repeat center center fixed;
-      background-size: cover;
+      background: var(--bg) url('background.jpg') center top / contain no-repeat fixed;
       color: var(--od);
       text-align: center;
     }
@@ -58,7 +57,7 @@
       color: #3CA832;
       text-decoration: none;
       font-weight: bold;
-      font-size: 1.1em;
+      font-size: 1.5em;
       letter-spacing: 1px;
       transition: all 0.3s ease;
       text-shadow: 0 0 10px #000;
@@ -73,8 +72,14 @@
     }
 
     main {
-      margin-top: 120px;
+      margin-top: 150px;
       padding: 40px 20px;
+      max-width: 1100px;
+      margin-left: auto;
+      margin-right: auto;
+      background: rgba(0,0,0,0.7);
+      border-radius: 20px;
+      box-shadow: 0 0 30px #3CA832;
     }
 
     h1 {
@@ -86,37 +91,40 @@
 
     .gallery-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
       gap: 20px;
-      max-width: 1000px;
-      margin: 0 auto;
     }
 
     .gallery-item {
-      border: 2px solid #3CA832;
-      border-radius: 10px;
+      position: relative;
       overflow: hidden;
-      box-shadow: 0 0 20px #3CA832;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      background: rgba(0, 0, 0, 0.7);
+      border-radius: 15px;
+      box-shadow: 0 0 15px #3CA832;
+      border: 2px solid #3CA832;
+      transition: transform 0.4s ease, box-shadow 0.3s ease;
     }
 
     .gallery-item:hover {
       transform: scale(1.05);
-      box-shadow: 0 0 40px #52ff4d;
+      box-shadow: 0 0 25px #52ff4d;
     }
 
     .gallery-item img {
       width: 100%;
       height: 250px;
       object-fit: cover;
-      border-bottom: 1px solid #3CA832;
+      display: block;
     }
 
     .caption {
+      background: rgba(0, 0, 0, 0.8);
+      color: #e6e6e6;
       padding: 10px;
-      color: #d3ffd3;
-      text-shadow: 0 0 10px #3CA832;
+      font-size: 1em;
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      text-shadow: 0 0 8px #000;
     }
 
     footer {
@@ -128,6 +136,7 @@
     }
   </style>
 </head>
+
 <body>
   <nav>
     <div class="logo">MBK</div>
@@ -142,38 +151,42 @@
   </nav>
 
   <main>
-    <h1>The Gallery</h1>
+    <h1>Family Moments & Memories</h1>
+
     <div class="gallery-grid">
       <div class="gallery-item">
-        <img src="background.jpg" alt="Brotherhood Emblem">
-        <div class="caption">The Brotherhood Seal</div>
+        <img src="gallery1.jpg" alt="Ride day">
+        <div class="caption">Ride Day — wind, laughter, and family.</div>
       </div>
 
       <div class="gallery-item">
-        <img src="appbadge.png" alt="MBK Badge">
-        <div class="caption">MBK Chrome Badge</div>
+        <img src="gallery2.jpg" alt="Community work">
+        <div class="caption">Feeding the hungry — small acts, big hearts.</div>
       </div>
 
       <div class="gallery-item">
-        <img src="Splash.jpg" alt="Brotherhood Splash">
-        <div class="caption">Mama Tried – Brotherhood Legacy</div>
+        <img src="gallery3.jpg" alt="Fallen brother tribute">
+        <div class="caption">In memory of our fallen — never forgotten.</div>
+      </div>
+
+      <div class="gallery-item">
+        <img src="gallery4.jpg" alt="Brotherhood night">
+        <div class="caption">Brotherhood night — stories, music, and peace.</div>
+      </div>
+
+      <div class="gallery-item">
+        <img src="gallery5.jpg" alt="Helping hands">
+        <div class="caption">Helping hands — together we rise.</div>
       </div>
     </div>
+
+    <p style="margin-top:40px; font-size:1.2em; color:#e6e6e6; line-height:1.7em;">
+      Every image here tells a story — a moment shared, a life touched, a memory made.  
+      As time moves on, this gallery will continue to grow — a living reflection of the hearts behind MBK.  
+      Because every face, every ride, every act of kindness is part of the same story — *our story*.
+    </p>
   </main>
 
-  <footer>© 2025 MBK | BBFFBB</footer>
-
-  <!-- Engine sound -->
-  <audio id="engineSound" loop>
-    <source src="engine.mp3" type="audio/mpeg">
-  </audio>
-
-  <script>
-    const sound = document.getElementById('engineSound');
-    sound.volume = 0.3;
-    document.body.addEventListener('click', () => {
-      sound.play();
-    }, { once: true });
-  </script>
+  <footer>© 2025 My Brother’s Keeper | BBFFBB</footer>
 </body>
 </html>
