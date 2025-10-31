@@ -6,19 +6,20 @@
   <title>Admin | My Brother’s Keeper</title>
   <style>
     body {
-      background: url('background.jpg') no-repeat center center fixed;
-      background-size: cover;
+      background: black;
+      color: #00ff00;
       font-family: "Courier New", monospace;
-      color: white;
       text-align: center;
+      margin: 0;
     }
 
     nav {
-      background: rgba(0, 0, 0, 0.8);
+      background: rgba(0, 0, 0, 0.9);
       padding: 10px 0;
       position: sticky;
       top: 0;
       z-index: 10;
+      box-shadow: 0 0 15px #00ff00;
     }
 
     nav a {
@@ -30,59 +31,59 @@
     }
 
     nav a:hover {
-      color: #fff;
-      text-shadow: 0 0 8px #00ff00;
+      color: white;
+      text-shadow: 0 0 10px #00ff00;
     }
 
     h1 {
+      margin-top: 50px;
       font-size: 3em;
-      margin-top: 40px;
       text-shadow: 0 0 15px #00ff00;
     }
 
-    .admin-box {
-      background: rgba(0, 0, 0, 0.7);
+    #lockZone {
+      margin: 60px auto;
       width: 300px;
-      margin: 100px auto;
-      padding: 25px;
-      border-radius: 15px;
-      box-shadow: 0 0 20px #00ff00;
+      height: 300px;
+      border: 3px solid #00ff00;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      box-shadow: 0 0 25px #00ff00;
     }
 
-    input {
-      display: block;
-      width: 90%;
-      margin: 10px auto;
-      padding: 10px;
-      border: none;
-      border-radius: 5px;
-      background: black;
-      color: #00ff00;
-      text-align: center;
+    #key {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(145deg, #444, #ccc);
+      border-radius: 50%;
+      cursor: grab;
+      box-shadow: 0 0 25px #00ff00;
+      transition: transform 0.3s ease;
     }
 
-    button {
-      background: #00ff00;
-      color: black;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 5px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background 0.3s;
+    #key.dragging {
+      cursor: grabbing;
+      transform: scale(1.1);
     }
 
-    button:hover {
-      background: #fff;
-      color: black;
+    #unlocked {
+      display: none;
+      font-size: 1.5em;
+      color: white;
+      text-shadow: 0 0 15px #00ff00;
+      margin-top: 20px;
     }
 
     footer {
-      margin-top: 50px;
-      background: rgba(0, 0, 0, 0.8);
+      margin-top: 60px;
+      background: rgba(0, 0, 0, 0.9);
       padding: 20px;
       font-size: 1em;
       color: #00ff00;
+      box-shadow: 0 0 15px #00ff00;
     }
   </style>
 </head>
@@ -94,29 +95,54 @@
     <a href="about.html">About Us</a>
     <a href="admin.html">Admin</a>
     <a href="chat.html">Chat</a>
+    <a href="maintenance.html">Maintenance</a>
   </nav>
 
   <h1>Admin Access</h1>
 
-  <div class="admin-box">
-    <p>Authorized members only</p>
-    <input type="password" id="key" placeholder="Enter Access Key" />
-    <button onclick="checkKey()">Enter</button>
+  <div id="lockZone">
+    <div id="key"></div>
   </div>
 
+  <div id="unlocked">
+    🔓 Welcome Admin — Site Controls Active  
+    <br /><br />
+    <button onclick="alert('Feature coming soon: manage posts, bios, and gallery!')">Manage Site</button>
+  </div>
+
+  <audio id="engine" src="engine.mp3"></audio>
+
   <script>
-    function checkKey() {
-      const key = document.getElementById('key').value.trim();
-      if (key === "MBK2025") {
-        alert("Access granted. Welcome, Brother.");
-      } else {
-        alert("Access denied.");
+    const key = document.getElementById('key');
+    const lockZone = document.getElementById('lockZone');
+    const unlocked = document.getElementById('unlocked');
+    const engine = document.getElementById('engine');
+    let isDragging = false;
+
+    key.addEventListener('mousedown', () => {
+      isDragging = true;
+      key.classList.add('dragging');
+    });
+
+    document.addEventListener('mouseup', () => {
+      if (isDragging) {
+        isDragging = false;
+        key.classList.remove('dragging');
+        // simulate unlock
+        unlockAdmin();
       }
+    });
+
+    function unlockAdmin() {
+      lockZone.style.display = 'none';
+      unlocked.style.display = 'block';
+      engine.play();
+      setTimeout(() => engine.pause(), 4500);
     }
   </script>
 
   <footer>
-    © 2025 MBK | BFFB
+    © 2025 My Brother’s Keeper | Admin
   </footer>
 </body>
 </html>
