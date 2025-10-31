@@ -4,29 +4,27 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>My Brother’s Keeper | Home</title>
-  <link rel="manifest" href="manifest.json">
-  <link rel="icon" href="favicon.ico" />
   <style>
     body {
-      background: url('background.jpg') no-repeat center center fixed;
-      background-size: cover;
-      color: #00ff00;
+      margin: 0;
+      background-color: black;
+      color: #00ff66;
       font-family: "Courier New", monospace;
       text-align: center;
-      margin: 0;
+      overflow-x: hidden;
     }
 
     nav {
-      background: rgba(0, 0, 0, 0.9);
+      background: rgba(0, 0, 0, 0.95);
       padding: 10px 0;
       position: sticky;
       top: 0;
+      box-shadow: 0 0 15px #00ff66;
       z-index: 10;
-      box-shadow: 0 0 15px #00ff00;
     }
 
     nav a {
-      color: #00ff00;
+      color: #00ff66;
       text-decoration: none;
       margin: 0 15px;
       font-weight: bold;
@@ -35,75 +33,113 @@
 
     nav a:hover {
       color: white;
-      text-shadow: 0 0 10px #00ff00;
+      text-shadow: 0 0 15px #00ff66;
+    }
+
+    header {
+      height: 100vh;
+      background: url("background.jpg") center/cover no-repeat;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-shadow: 0 0 25px #00ff66;
     }
 
     h1 {
-      margin-top: 50px;
-      font-size: 3em;
-      text-shadow: 0 0 15px #00ff00;
+      font-size: 3.5em;
+      color: white;
+      margin: 0;
     }
 
     h2 {
+      font-size: 2em;
+      margin-top: 10px;
+      color: #00ff66;
+    }
+
+    .mission {
+      background: rgba(0, 0, 0, 0.9);
+      border-top: 2px solid #00ff66;
+      border-bottom: 2px solid #00ff66;
+      padding: 50px 20px;
+      box-shadow: 0 0 25px #00ff66;
+    }
+
+    .mission p {
       font-size: 1.5em;
-      color: #00ff00;
-      text-shadow: 0 0 10px #00ff00;
-      margin-bottom: 20px;
+      color: white;
+      text-shadow: 0 0 15px #00ff66;
+      max-width: 900px;
+      margin: 0 auto;
+      line-height: 1.8em;
+      text-align: justify;
     }
 
     footer {
+      margin-top: 40px;
       background: rgba(0, 0, 0, 0.9);
       padding: 20px;
-      font-size: 1em;
-      color: #00ff00;
-      box-shadow: 0 0 10px #00ff00;
-      margin-top: 40px;
+      color: #00ff66;
+      box-shadow: 0 0 15px #00ff66;
+    }
+
+    @media (max-width: 700px) {
+      h1 { font-size: 2.4em; }
+      h2 { font-size: 1.6em; }
+      .mission p { font-size: 1.2em; }
     }
   </style>
 </head>
+
 <body>
   <nav>
     <a href="index.html">Home</a>
     <a href="brotherhood.html">Brotherhood</a>
     <a href="gallery.html">Gallery</a>
     <a href="about.html">About Us</a>
-    <a href="admin.html">Admin</a>
     <a href="chat.html">Chat</a>
+    <a href="admin.html">Admin</a>
     <a href="maintenance.html">Maintenance</a>
   </nav>
 
-  <h1>Welcome to My Brother’s Keeper</h1>
-  <h2>The Brotherhood. The Bond. The Bloodline.</h2>
+  <header>
+    <h1>My Brother’s Keeper</h1>
+    <h2>Family. Loyalty. Legacy.</h2>
+  </header>
 
-  <audio id="engine" src="engine.mp3"></audio>
+  <section class="mission">
+    <p>
+      We are My Brother’s Keeper — a family forged in loyalty, love, and purpose.
+      What began as a bond between friends has grown into a mission: to feed the hungry,
+      shelter the cold, lift the broken, and stand for those who’ve been forgotten.
+      We do it not for recognition, but for the love of our fallen brother — whose dream
+      of unity and kindness lives on in every act of compassion we share.
+    </p>
 
+    <p style="margin-top:25px;">
+      We are not a club. We are not a gang. We are a family that gives, serves, and rides for good.
+      Every event, every drive, and every mile we travel is a step toward making this world a little brighter.
+      Until Valhalla, Brother. 💚
+    </p>
+  </section>
+
+  <footer>© 2025 My Brother’s Keeper | Built with Loyalty</footer>
+
+  <!-- Rev engine sound -->
+  <audio id="engineSound" src="engine.mp3"></audio>
   <script>
-    // Rev twice, then stop
-    window.addEventListener('load', () => {
-      const engine = document.getElementById('engine');
-      let revs = 0;
-      const playRev = () => {
-        if (revs < 2) {
-          engine.currentTime = 0;
-          engine.play().then(() => {
-            revs++;
-            setTimeout(playRev, 2000);
-          });
-        }
-      };
-      setTimeout(playRev, 800);
-    });
-
-    // Register Service Worker
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('service-worker.js')
-        .then(() => console.log('Service Worker registered'))
-        .catch(err => console.log('Service Worker failed:', err));
+    const engine = document.getElementById("engineSound");
+    let revs = 0;
+    function revEngine() {
+      if (revs < 2) {
+        engine.currentTime = 0;
+        engine.play();
+        revs++;
+        setTimeout(revEngine, 3500);
+      }
     }
+    window.onload = revEngine;
   </script>
-
-  <footer>
-    © 2025 My Brother’s Keeper | BFFB
-  </footer>
 </body>
 </html>
