@@ -8,23 +8,22 @@
     body {
       margin: 0;
       background-color: black;
-      color: #3ca832;
+      color: #00ff66;
       font-family: "Courier New", monospace;
       text-align: center;
-      overflow: hidden;
     }
 
     nav {
-      background: rgba(0, 0, 0, 0.9);
+      background: rgba(0, 0, 0, 0.95);
       padding: 10px 0;
       position: sticky;
       top: 0;
       z-index: 10;
-      box-shadow: 0 0 15px #3ca832;
+      box-shadow: 0 0 15px #00ff66;
     }
 
     nav a {
-      color: #3ca832;
+      color: #00ff66;
       text-decoration: none;
       margin: 0 15px;
       font-weight: bold;
@@ -33,76 +32,60 @@
 
     nav a:hover {
       color: white;
-      text-shadow: 0 0 10px #3ca832;
+      text-shadow: 0 0 15px #00ff66;
     }
 
     h1 {
       margin-top: 40px;
       font-size: 3em;
-      text-shadow: 0 0 15px #3ca832;
+      text-shadow: 0 0 30px #00ff66;
     }
 
-    .lock-area {
-      margin-top: 100px;
-    }
-
-    .lock {
-      width: 120px;
-      height: 120px;
-      margin: 0 auto;
-      background: radial-gradient(circle, #3ca832 10%, #000 80%);
-      border: 3px solid #3ca832;
-      border-radius: 50%;
-      box-shadow: 0 0 20px #3ca832;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      cursor: grab;
-    }
-
-    .lock img {
-      width: 60px;
-      height: 60px;
-      filter: drop-shadow(0 0 8px #3ca832);
-    }
-
-    .unlock {
-      animation: unlockGlow 2s forwards;
-    }
-
-    @keyframes unlockGlow {
-      0% { transform: rotate(0deg) scale(1); box-shadow: 0 0 10px #3ca832; }
-      25% { transform: rotate(-15deg) scale(1.05); }
-      50% { transform: rotate(15deg) scale(1.05); }
-      75% { transform: rotate(-10deg) scale(1.08); }
-      100% { transform: rotate(0deg) scale(1); box-shadow: 0 0 30px #00ff00; }
-    }
-
-    #maintenance-panel {
-      display: none;
-      background: rgba(0, 0, 0, 0.9);
-      border: 2px solid #3ca832;
+    .container {
       width: 90%;
       max-width: 700px;
       margin: 50px auto;
+      background: rgba(0, 0, 0, 0.95);
+      border: 2px solid #00ff66;
+      border-radius: 15px;
+      box-shadow: 0 0 25px #00ff66;
       padding: 30px;
-      border-radius: 20px;
-      box-shadow: 0 0 25px #3ca832;
     }
 
-    #maintenance-panel h2 {
-      color: white;
-      text-shadow: 0 0 10px #3ca832;
-      font-size: 1.8em;
+    input, textarea {
+      width: 90%;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #00ff66;
+      background: black;
+      color: #00ff66;
+      font-size: 1.1em;
+      margin: 10px 0;
+    }
+
+    button {
+      padding: 10px 15px;
+      background: #00ff66;
+      color: black;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      font-size: 1.1em;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #66ff66;
+      box-shadow: 0 0 10px #00ff66;
     }
 
     footer {
       margin-top: 80px;
-      background: rgba(0, 0, 0, 0.9);
+      background: rgba(0,0,0,0.9);
       padding: 20px;
       font-size: 1em;
-      color: #3ca832;
-      box-shadow: 0 0 15px #3ca832;
+      color: #00ff66;
+      box-shadow: 0 0 15px #00ff66;
     }
   </style>
 </head>
@@ -118,50 +101,48 @@
     <a href="maintenance.html">Maintenance</a>
   </nav>
 
-  <h1>Maintenance Access</h1>
+  <h1>Maintenance & Updates</h1>
 
-  <div class="lock-area">
-    <div class="lock" id="lock">
-      <img src="https://cdn-icons-png.flaticon.com/512/61/61457.png" alt="Lock Icon" id="key-icon" />
-    </div>
-    <p style="color: #3ca832; font-size: 1.3em; margin-top: 20px;">
-      Drag the key to unlock the maintenance panel
+  <div class="container">
+    <p style="font-size:1.2em; margin-bottom:25px;">
+      Post updates, fixes, or notes here.  
+      (Future version will let admins post and edit live updates.)
     </p>
+
+    <input type="text" id="updateTitle" placeholder="Title of update..." />
+    <textarea id="updateText" rows="5" placeholder="Describe the maintenance or update..."></textarea>
+    <button onclick="postUpdate()">Post Update</button>
+
+    <div id="updatesList" style="margin-top:30px; text-align:left;"></div>
   </div>
 
-  <div id="maintenance-panel">
-    <h2>Maintenance Panel</h2>
-    <p>🧰 Here you’ll be able to make changes, add content, or perform updates.</p>
-    <p>Coming soon — full edit tools and admin access will appear here.</p>
-  </div>
-
-  <audio id="engine-sound" src="https://www.soundjay.com/mechanical/sounds/motorcycle-rev-1.mp3" preload="auto"></audio>
-
-  <footer>
-    © 2025 My Brother’s Keeper | Maintenance Mode
-  </footer>
+  <footer>© 2025 My Brother’s Keeper | Maintenance Panel</footer>
 
   <script>
-    const lock = document.getElementById("lock");
-    const panel = document.getElementById("maintenance-panel");
-    const engine = document.getElementById("engine-sound");
+    function postUpdate() {
+      const title = document.getElementById("updateTitle").value.trim();
+      const text = document.getElementById("updateText").value.trim();
+      const list = document.getElementById("updatesList");
 
-    lock.addEventListener("click", () => {
-      lock.classList.add("unlock");
-
-      if (navigator.vibrate) {
-        navigator.vibrate([150, 100, 150]);
+      if (!title || !text) {
+        alert("Please enter both title and description.");
+        return;
       }
 
-      // Rev twice then stop
-      engine.play();
-      setTimeout(() => engine.play(), 2000);
+      const date = new Date().toLocaleString();
+      const newUpdate = document.createElement("div");
+      newUpdate.innerHTML = `
+        <div style="border:1px solid #00ff66; border-radius:10px; padding:15px; margin-bottom:15px;">
+          <h3 style="margin:0; color:#00ff66;">${title}</h3>
+          <small style="color:gray;">Posted ${date}</small>
+          <p>${text}</p>
+        </div>
+      `;
+      list.prepend(newUpdate);
 
-      setTimeout(() => {
-        panel.style.display = "block";
-        lock.style.display = "none";
-      }, 4000);
-    });
+      document.getElementById("updateTitle").value = "";
+      document.getElementById("updateText").value = "";
+    }
   </script>
 </body>
 </html>
