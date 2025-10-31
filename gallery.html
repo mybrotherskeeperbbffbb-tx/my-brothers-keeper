@@ -2,110 +2,108 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gallery | My Brother’s Keeper</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MBK Gallery</title>
   <style>
-    body {
-      margin: 0;
-      background-color: black;
-      color: #00ff66;
-      font-family: "Courier New", monospace;
-      text-align: center;
-    }
+    :root{ --od:#00ff00; --bg:#000; }
+    *{box-sizing:border-box}
+    body{ margin:0; background:var(--bg); color:var(--od); font-family:"Courier New", monospace; }
+    nav{ position:sticky; top:0; z-index:10; background:rgba(0,0,0,.9); padding:10px; text-align:center; box-shadow:0 0 10px var(--od); }
+    nav a{ color:var(--od); text-decoration:none; margin:0 15px; font-weight:bold }
+    nav a:hover{ color:#fff; text-shadow:0 0 10px var(--od) }
+    .wrap{ max-width:1100px; margin:20px auto; padding:16px }
+    h1{ text-align:center; text-shadow:0 0 18px var(--od) }
 
-    nav {
-      background: rgba(0, 0, 0, 0.95);
-      padding: 10px 0;
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      box-shadow: 0 0 15px #00ff66;
+    .grid{ display:grid; grid-template-columns: repeat(auto-fill, minmax(220px,1fr)); gap:14px; }
+    .tile{
+      background:#050; border:1px solid #074; border-radius:12px; overflow:hidden;
+      box-shadow:0 0 12px #083;
     }
+    .tile img{ width:100%; height:240px; object-fit:cover; display:block; background:#000; }
+    .tile a{ display:block; padding:8px; color:#9f9; text-decoration:none; text-align:center }
+    .tile a:hover{ color:#fff; text-shadow:0 0 8px var(--od) }
 
-    nav a {
-      color: #00ff66;
-      text-decoration: none;
-      margin: 0 15px;
-      font-weight: bold;
-      font-size: 1.2em;
-    }
-
-    nav a:hover {
-      color: white;
-      text-shadow: 0 0 15px #00ff66;
-    }
-
-    h1 {
-      margin-top: 40px;
-      font-size: 3em;
-      text-shadow: 0 0 30px #00ff66;
-    }
-
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-      width: 90%;
-      max-width: 1200px;
-      margin: 40px auto;
-    }
-
-    .photo {
-      position: relative;
-      overflow: hidden;
-      border-radius: 15px;
-      border: 2px solid #00ff66;
-      box-shadow: 0 0 25px #00ff66;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .photo:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 35px #00ff66;
-    }
-
-    .photo img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    footer {
-      margin-top: 80px;
-      background: rgba(0,0,0,0.9);
-      padding: 20px;
-      font-size: 1em;
-      color: #00ff66;
-      box-shadow: 0 0 15px #00ff66;
-    }
-
-    @media (max-width: 700px) {
-      h1 { font-size: 2.2em; }
-    }
+    .panel{ margin-top:28px; padding:16px; border:1px solid #074; border-radius:12px; background:linear-gradient(180deg,#050,#0b0b0b); box-shadow:0 0 18px #083; }
+    .status{ padding:10px 0; border-bottom:1px dashed #084 }
+    .time{ opacity:.7; font-size:.9rem }
+    footer{ text-align:center; padding:35px 10px; color:var(--od); opacity:.8 }
   </style>
 </head>
-
 <body>
   <nav>
     <a href="index.html">Home</a>
     <a href="brotherhood.html">Brotherhood</a>
     <a href="gallery.html">Gallery</a>
     <a href="about.html">About Us</a>
-    <a href="chat.html">Chat</a>
     <a href="admin.html">Admin</a>
     <a href="maintenance.html">Maintenance</a>
   </nav>
 
-  <h1>MBK Family Gallery</h1>
+  <div class="wrap">
+    <h1>MBK Gallery</h1>
 
-  <div class="gallery">
-    <!-- 💚 Drop your image URLs or file paths here -->
-    <div class="photo"><img src="gallery1.jpg" alt="MBK moment 1"></div>
-    <div class="photo"><img src="gallery2.jpg" alt="MBK moment 2"></div>
-    <div class="photo"><img src="gallery3.jpg" alt="MBK moment 3"></div>
-    <div class="photo"><img src="gallery4.jpg" alt="MBK moment 4"></div>
+    <section class="grid" id="grid"></section>
+
+    <section class="panel">
+      <h2>Latest Updates</h2>
+      <div id="feed"></div>
+    </section>
   </div>
 
-  <footer>© 2025 My Brother’s Keeper | Family Forever</footer>
+  <footer>© 2025 MBK | BFFB</footer>
+
+  <!-- Supabase + Config -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+
+  <script>
+    if (!window.MBK_SUPABASE_URL || !window.MBK_SUPABASE_ANON){
+      document.getElementById('grid').innerHTML = "<p>Configure Supabase in config.js</p>";
+    }
+
+    const supabase = window.supabase.createClient(
+      window.MBK_SUPABASE_URL,
+      window.MBK_SUPABASE_ANON
+    );
+    const BUCKET = window.MBK_BUCKET || "gallery";
+
+    // ---- Load images from Storage
+    async function loadImages(){
+      const grid = document.getElementById('grid');
+      grid.innerHTML = "<p>Loading photos…</p>";
+
+      const { data:list, error } = await supabase.storage.from(BUCKET).list("", { limit:1000, sortBy:{ column:"name", order:"desc" }});
+      if (error){ grid.innerHTML = "<p>Could not load images.</p>"; return; }
+
+      const tiles = (list || []).map(item => {
+        const { data:pub } = supabase.storage.from(BUCKET).getPublicUrl(item.name);
+        return `
+          <div class="tile">
+            <img loading="lazy" src="${pub.publicUrl}" alt="">
+            <a href="${pub.publicUrl}" target="_blank">Open</a>
+          </div>`;
+      });
+      grid.innerHTML = tiles.join("") || "<p>No photos yet. Upload from the Admin page.</p>";
+    }
+
+    // ---- Load statuses (latest 25)
+    async function loadStatuses(){
+      const feed = document.getElementById('feed');
+      const { data, error } = await supabase.from('statuses').select('*').order('created_at', { ascending:false }).limit(25);
+      if (error){ feed.innerHTML = "<p>Could not load updates.</p>"; return; }
+      if (!data?.length){ feed.innerHTML = "<p>No updates yet.</p>"; return; }
+
+      feed.innerHTML = data.map(r => `
+        <div class="status">
+          <div>${escapeHtml(r.content || "")}</div>
+          <div class="time">${new Date(r.created_at).toLocaleString()}</div>
+        </div>`).join("");
+    }
+
+    function escapeHtml(s){ return (s||"").replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+
+    loadImages();
+    loadStatuses();
+  </script>
 </body>
 </html>
