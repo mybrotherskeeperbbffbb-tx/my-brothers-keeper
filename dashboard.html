@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MBK Control Panel</title>
+  <style>
+    body {
+      background-color: black;
+      color: #00ff66;
+      font-family: "Courier New", monospace;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav {
+      background: rgba(0, 0, 0, 0.95);
+      padding: 10px 0;
+      box-shadow: 0 0 15px #00ff66;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    nav a {
+      color: #00ff66;
+      text-decoration: none;
+      margin: 0 15px;
+      font-weight: bold;
+      font-size: 1.1em;
+    }
+
+    nav a:hover {
+      color: white;
+      text-shadow: 0 0 10px #00ff66;
+    }
+
+    #loginScreen, #dashboard {
+      display: none;
+      padding: 30px;
+    }
+
+    .box {
+      border: 2px solid #00ff66;
+      border-radius: 12px;
+      padding: 25px;
+      margin: 25px auto;
+      width: 90%;
+      max-width: 600px;
+      background: rgba(0,0,0,0.85);
+      box-shadow: 0 0 25px #00ff66;
+    }
+
+    input, textarea {
+      width: 80%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #00ff66;
+      border-radius: 5px;
+      background: black;
+      color: #00ff66;
+    }
+
+    button {
+      padding: 10px 20px;
+      background: #00ff66;
+      color: black;
+      font-weight: bold;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: white;
+      color: black;
+    }
+
+    footer {
+      margin-top: 40px;
+      padding: 10px;
+      border-top: 1px solid #00ff66;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="brotherhood.html">Brotherhood</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="about.html">About Us</a>
+    <a href="chat.html">Chat</a>
+    <a href="maintenance.html">Maintenance</a>
+  </nav>
+
+  <div id="loginScreen" class="box">
+    <h2>🔐 Admin Access</h2>
+    <p>Enter your MBK Admin Key:</p>
+    <input type="password" id="adminKey" placeholder="Enter Key" />
+    <button onclick="checkKey()">Unlock</button>
+    <p id="errorMsg" style="color:red; display:none;">Incorrect key, try again.</p>
+  </div>
+
+  <div id="dashboard">
+    <h1>💚 MBK Control Panel 💚</h1>
+
+    <div class="box">
+      <h3>📸 Upload Photo</h3>
+      <input type="file" id="photoUpload" accept="image/*" />
+      <button onclick="uploadPhoto()">Upload</button>
+    </div>
+
+    <div class="box">
+      <h3>🗒️ Post Status Update</h3>
+      <textarea id="statusText" rows="4" placeholder="What's going on today..."></textarea><br>
+      <button onclick="postStatus()">Post</button>
+    </div>
+
+    <div class="box">
+      <h3>🛠️ Maintenance Actions</h3>
+      <button onclick="alert('Feature coming soon!')">Edit Page Content</button>
+      <button onclick="alert('Feature coming soon!')">Add/Remove Section</button>
+      <button onclick="alert('Feature coming soon!')">Toggle Sound/Effects</button>
+    </div>
+  </div>
+
+  <footer>© 2025 My Brother’s Keeper | Admin Dashboard</footer>
+
+  <script>
+    const ADMIN_KEY = "MBK2025";
+
+    function checkKey() {
+      const inputKey = document.getElementById("adminKey").value.trim();
+      if (inputKey === ADMIN_KEY) {
+        document.getElementById("loginScreen").style.display = "none";
+        document.getElementById("dashboard").style.display = "block";
+      } else {
+        document.getElementById("errorMsg").style.display = "block";
+      }
+    }
+
+    function uploadPhoto() {
+      alert("Photo upload feature will connect to your Supabase soon!");
+    }
+
+    function postStatus() {
+      const text = document.getElementById("statusText").value.trim();
+      if (!text) return alert("Write something first!");
+      alert("Status posted: " + text);
+      document.getElementById("statusText").value = "";
+    }
+
+    // Show login by default
+    document.getElementById("loginScreen").style.display = "block";
+  </script>
+</body>
+</html>
