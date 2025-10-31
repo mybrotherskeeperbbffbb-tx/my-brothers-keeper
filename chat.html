@@ -67,4 +67,125 @@
       text-shadow: 0 0 10px #3ca832;
     }
 
-    input
+    input {
+      padding: 10px;
+      width: 70%;
+      border: 1px solid #3ca832;
+      border-radius: 5px;
+      background-color: black;
+      color: #3ca832;
+      font-size: 1.1em;
+    }
+
+    button {
+      padding: 10px 15px;
+      background-color: #3ca832;
+      color: black;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      font-size: 1.1em;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #66ff66;
+    }
+
+    footer {
+      margin-top: 60px;
+      background: rgba(0, 0, 0, 0.9);
+      padding: 20px;
+      font-size: 1em;
+      color: #3ca832;
+      box-shadow: 0 0 15px #3ca832;
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="brotherhood.html">Brotherhood</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="about.html">About Us</a>
+    <a href="chat.html">Chat</a>
+    <a href="admin.html">Admin</a>
+    <a href="maintenance.html">Maintenance</a>
+  </nav>
+
+  <h2>💚 MBK Chat Room 💚</h2>
+  <div id="messages"></div>
+  <div>
+    <input id="msgInput" placeholder="Type your message..." />
+    <button onclick="sendMessage()">Send</button>
+  </div>
+
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+  <script>
+    const { createClient } = supabase;
+    const supabaseUrl = "https://xfgbsioinhnfyrhtpcdr.supabase.co";
+    const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhmZ2JzaW9pbmhuZnlyaHRwY2RyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjE2OTc0MzAsImV4cCI6MjA3NzI3MzQzMH0.tqVeukQ0uSf4d8G_IR_UE0OZq4aWpUW-velnx3mXzdQ";
+    const client = createClient(supabaseUrl, supabaseKey);
+
+    async function sendMessage() {
+      const content = document.getElementById("msgInput").value.trim();
+      if (!content) return;
+
+      let nickname = localStorage.getItem("mbk_nickname");
+      if (!nickname) {
+        nickname = prompt("Enter your road name:", "Brother") || "Brother";
+        localStorage.setItem("mbk_nickname", nickname);
+      }
+
+      const { error } = await client.from("messages").insert({
+        content,
+        nickname,
+      });
+
+      if (error) {
+        console.error("Error sending message:", error);
+        alert("Could not send message — check console for details.");
+        return;
+      }
+
+      document.getElementById("msgInput").value = "";
+    }
+
+    async function loadMessages() {
+      const { data, error } = await client
+        .from("messages")
+        .select("*")
+        .order("created_at", { ascending: true });
+
+      if (error) {
+        console.error("Error loading messages:", error);
+        return;
+      }
+
+      const list = document.getElementById("messages");
+      list.innerHTML = (data || [])
+        .map(
+          (m) => `
+          <div class="msg">
+            <b>${m.nickname || "Brother"}:</b> ${m.content}
+          </div>
+        `
+        )
+        .join("");
+      list.scrollTop = list.scrollHeight;
+    }
+
+    loadMessages();
+
+    client
+      .channel("chat")
+      .on("postgres_changes", { event: "*", schema: "public", table: "messages" }, loadMessages)
+      .subscribe();
+  </script>
+
+  <footer>
+    © 2025 My Brother’s Keeper | Chat Room
+  </footer>
+</body>
+</html>
