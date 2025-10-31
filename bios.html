@@ -1,15 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Brotherhood Bios | MBK</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meet the Crew | My Brother’s Keeper</title>
   <style>
-    body {margin:0;font-family:'Courier New',monospace;color:#00ff66;background:url('background.jpg')center center/cover no-repeat fixed;text-align:center;}
-    nav {background:rgba(0,0,0,0.85);padding:12px;font-size:20px;box-shadow:0 0 15px #00ff66;}
-    nav a {color:#00ff66;margin:0 18px;text-decoration:none;text-shadow:0 0 6px #00ff66;}
-    .bio-card {background:rgba(0,0,0,0.6);margin:30px auto;padding:20px;max-width:600px;border-radius:10px;box-shadow:0 0 10px #00ff66;}
-    h2 {text-shadow:0 0 12px #00ff66;}
+    body {
+      background-color: black;
+      color: #00ff00;
+      font-family: "Courier New", monospace;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav {
+      background: rgba(0, 0, 0, 0.9);
+      padding: 10px 0;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      box-shadow: 0 0 15px #00ff00;
+    }
+
+    nav a {
+      color: #00ff00;
+      text-decoration: none;
+      margin: 0 15px;
+      font-weight: bold;
+      font-size: 1.2em;
+    }
+
+    nav a:hover {
+      color: white;
+      text-shadow: 0 0 10px #00ff00;
+    }
+
+    h1 {
+      margin-top: 40px;
+      font-size: 3em;
+      text-shadow: 0 0 15px #00ff00;
+    }
+
+    .crew-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 40px;
+      margin: 60px auto;
+      width: 90%;
+      max-width: 1000px;
+    }
+
+    .member {
+      background: rgba(0, 0, 0, 0.8);
+      border: 2px solid #00ff00;
+      border-radius: 15px;
+      padding: 20px;
+      width: 250px;
+      box-shadow: 0 0 25px #00ff00;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .member:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 40px #00ff00;
+    }
+
+    .member img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 10px;
+      border: 2px solid #00ff00;
+    }
+
+    .member h2 {
+      color: #00ff00;
+      margin-top: 15px;
+      font-size: 1.5em;
+      text-shadow: 0 0 10px #00ff00;
+    }
+
+    .member p {
+      font-size: 1em;
+      color: white;
+      line-height: 1.5;
+      margin: 10px 0 0 0;
+    }
+
+    footer {
+      margin-top: 80px;
+      background: rgba(0, 0, 0, 0.9);
+      padding: 20px;
+      font-size: 1em;
+      color: #00ff00;
+      box-shadow: 0 0 15px #00ff00;
+    }
   </style>
 </head>
 <body>
@@ -20,20 +108,41 @@
     <a href="about.html">About Us</a>
     <a href="admin.html">Admin</a>
     <a href="chat.html">Chat</a>
+    <a href="maintenance.html">Maintenance</a>
   </nav>
-  <h1>The Brotherhood</h1>
-  <div class="bio-card">
-    <h2>Thirsty</h2>
-    <p>Founder. Dreamer. Brother. The one who keeps the flame alive. Always leading with loyalty and love.</p>
+
+  <h1>Meet the Crew</h1>
+
+  <div class="crew-container">
+    <div class="member">
+      <img src="crew1.jpg" alt="Crew Member 1">
+      <h2>Thirsty</h2>
+      <p>
+        The heartbeat of MBK — loyal, fierce, and grounded in purpose. 
+        Dedicated to keeping the brotherhood alive and true to the mission.
+      </p>
+    </div>
+
+    <div class="member">
+      <img src="crew2.jpg" alt="Crew Member 2">
+      <h2>Blue</h2>
+      <p>
+        Calm but unshakable — a protector of both the crew and the community. 
+        Always ready to lend a hand or stand tall when it counts.
+      </p>
+    </div>
+
+    <div class="member">
+      <img src="crew3.jpg" alt="Crew Member 3">
+      <h2>Athena</h2>
+      <p>
+        The spirit of strength and compassion. Always pushing MBK to serve and love harder.
+      </p>
+    </div>
   </div>
-  <div class="bio-card">
-    <h2>EZ</h2>
-    <p>The calm in the storm, the hand on your shoulder, and the voice of reason when the road gets hard.</p>
-  </div>
-  <div class="bio-card">
-    <h2>Nova</h2>
-    <p>Fearless heart, endless compassion. Never backs down from the fight to do good.</p>
-  </div>
-  <footer>© 2025 MBK | Brothers For Brothers</footer>
+
+  <footer>
+    © 2025 My Brother’s Keeper | Crew Bios
+  </footer>
 </body>
 </html>
