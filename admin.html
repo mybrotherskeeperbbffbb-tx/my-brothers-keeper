@@ -3,14 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Admin | My Brother’s Keeper</title>
+  <title>Admin Access | My Brother’s Keeper</title>
   <style>
     body {
-      background: black;
+      background-color: black;
       color: #00ff00;
       font-family: "Courier New", monospace;
       text-align: center;
       margin: 0;
+      padding: 0;
+      overflow: hidden;
     }
 
     nav {
@@ -36,45 +38,69 @@
     }
 
     h1 {
-      margin-top: 50px;
+      margin-top: 40px;
       font-size: 3em;
       text-shadow: 0 0 15px #00ff00;
     }
 
-    #lockZone {
-      margin: 60px auto;
-      width: 300px;
-      height: 300px;
-      border: 3px solid #00ff00;
+    .lock-area {
+      margin: 80px auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #lock {
+      width: 120px;
+      height: 120px;
+      background: radial-gradient(circle, #0f0 0%, #030 80%);
       border-radius: 50%;
+      box-shadow: 0 0 25px #00ff00;
       display: flex;
       align-items: center;
       justify-content: center;
-      position: relative;
-      box-shadow: 0 0 25px #00ff00;
+      transition: all 0.3s ease;
+      font-size: 2em;
+      cursor: pointer;
+    }
+
+    #lock.unlocked {
+      background: radial-gradient(circle, #00ff00 0%, #004400 80%);
+      box-shadow: 0 0 40px #00ff00;
+      transform: scale(1.1);
     }
 
     #key {
       width: 80px;
       height: 80px;
-      background: linear-gradient(145deg, #444, #ccc);
+      background: radial-gradient(circle, #555 0%, #000 80%);
       border-radius: 50%;
-      cursor: grab;
-      box-shadow: 0 0 25px #00ff00;
-      transition: transform 0.3s ease;
-    }
-
-    #key.dragging {
-      cursor: grabbing;
-      transform: scale(1.1);
-    }
-
-    #unlocked {
-      display: none;
+      box-shadow: 0 0 20px #00ff00;
+      position: absolute;
+      bottom: 120px;
+      left: calc(50% - 40px);
       font-size: 1.5em;
-      color: white;
-      text-shadow: 0 0 15px #00ff00;
-      margin-top: 20px;
+      color: #00ff00;
+      line-height: 80px;
+      cursor: grab;
+      user-select: none;
+      text-shadow: 0 0 10px #00ff00;
+    }
+
+    #adminPanel {
+      display: none;
+      margin-top: 50px;
+      background: rgba(0, 0, 0, 0.9);
+      border: 3px solid #00ff00;
+      border-radius: 20px;
+      width: 80%;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 30px;
+      box-shadow: 0 0 30px #00ff00;
+      text-align: left;
     }
 
     footer {
@@ -84,6 +110,9 @@
       font-size: 1em;
       color: #00ff00;
       box-shadow: 0 0 15px #00ff00;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
     }
   </style>
 </head>
@@ -100,49 +129,56 @@
 
   <h1>Admin Access</h1>
 
-  <div id="lockZone">
-    <div id="key"></div>
+  <div class="lock-area">
+    <div id="lock">🔒</div>
+    <div id="key" draggable="true">🔑</div>
   </div>
 
-  <div id="unlocked">
-    🔓 Welcome Admin — Site Controls Active  
-    <br /><br />
-    <button onclick="alert('Feature coming soon: manage posts, bios, and gallery!')">Manage Site</button>
+  <div id="adminPanel">
+    <h2 style="text-align:center; text-shadow:0 0 15px #00ff00;">Control Panel</h2>
+    <ul style="font-size:1.3em; list-style:none; color:white; line-height:1.8;">
+      <li>🧩 Edit or update pages</li>
+      <li>🖼️ Replace background or logos</li>
+      <li>💬 Review chat messages</li>
+      <li>📸 Approve gallery photos</li>
+      <li>🔐 Manage user access</li>
+    </ul>
   </div>
 
-  <audio id="engine" src="engine.mp3"></audio>
+  <audio id="engineSound" src="engine.mp3"></audio>
+
+  <footer>
+    © 2025 My Brother’s Keeper | Admin Access
+  </footer>
 
   <script>
-    const key = document.getElementById('key');
-    const lockZone = document.getElementById('lockZone');
-    const unlocked = document.getElementById('unlocked');
-    const engine = document.getElementById('engine');
-    let isDragging = false;
+    const lock = document.getElementById("lock");
+    const key = document.getElementById("key");
+    const panel = document.getElementById("adminPanel");
+    const engine = document.getElementById("engineSound");
 
-    key.addEventListener('mousedown', () => {
-      isDragging = true;
-      key.classList.add('dragging');
-    });
-
-    document.addEventListener('mouseup', () => {
-      if (isDragging) {
-        isDragging = false;
-        key.classList.remove('dragging');
-        // simulate unlock
+    key.addEventListener("dragend", function (e) {
+      const lockRect = lock.getBoundingClientRect();
+      if (
+        e.clientX > lockRect.left &&
+        e.clientX < lockRect.right &&
+        e.clientY > lockRect.top &&
+        e.clientY < lockRect.bottom
+      ) {
         unlockAdmin();
       }
     });
 
     function unlockAdmin() {
-      lockZone.style.display = 'none';
-      unlocked.style.display = 'block';
+      lock.classList.add("unlocked");
+      lock.innerHTML = "🔓";
+      engine.currentTime = 0;
       engine.play();
-      setTimeout(() => engine.pause(), 4500);
+      setTimeout(() => engine.play(), 1200);
+      setTimeout(() => {
+        panel.style.display = "block";
+      }, 2000);
     }
   </script>
-
-  <footer>
-    © 2025 My Brother’s Keeper | Admin
-  </footer>
 </body>
 </html>
