@@ -3,22 +3,24 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Chat | My Brother’s Keeper</title>
+  <title>MBK Chat Room</title>
   <style>
     body {
-      background: url('background.jpg') no-repeat center center fixed;
-      background-size: cover;
+      background: black;
+      color: #00ff00;
       font-family: "Courier New", monospace;
-      color: white;
       text-align: center;
+      margin: 0;
+      padding: 30px;
     }
 
     nav {
-      background: rgba(0, 0, 0, 0.8);
+      background: rgba(0, 0, 0, 0.9);
       padding: 10px 0;
       position: sticky;
       top: 0;
       z-index: 10;
+      box-shadow: 0 0 15px #00ff00;
     }
 
     nav a {
@@ -30,56 +32,68 @@
     }
 
     nav a:hover {
-      color: #fff;
-      text-shadow: 0 0 8px #00ff00;
+      color: white;
+      text-shadow: 0 0 10px #00ff00;
     }
 
     h1 {
+      margin-top: 30px;
       font-size: 3em;
-      margin-top: 40px;
       text-shadow: 0 0 15px #00ff00;
     }
 
-    .chat-box {
-      background: rgba(0, 0, 0, 0.7);
-      width: 80%;
-      max-width: 600px;
-      margin: 50px auto;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 20px #00ff00;
+    #messages {
+      border: 2px solid #00ff00;
+      border-radius: 15px;
+      padding: 15px;
+      height: 400px;
+      overflow-y: auto;
+      background: rgba(0, 0, 0, 0.8);
+      margin: 30px auto;
+      max-width: 700px;
       text-align: left;
-    }
-
-    input, button {
-      width: 100%;
-      padding: 10px;
-      border: none;
-      border-radius: 5px;
-      margin-top: 10px;
+      box-shadow: 0 0 25px #00ff00;
     }
 
     input {
+      padding: 10px;
+      width: 65%;
+      border: 1px solid #00ff00;
+      border-radius: 8px;
       background: black;
       color: #00ff00;
+      font-size: 1em;
     }
 
     button {
-      background: #00ff00;
+      padding: 10px 20px;
+      margin-left: 10px;
+      background-color: #00ff00;
       color: black;
+      border: none;
+      border-radius: 8px;
       font-weight: bold;
       cursor: pointer;
+      box-shadow: 0 0 15px #00ff00;
+    }
+
+    button:hover {
+      background-color: white;
+      color: black;
+      box-shadow: 0 0 25px white;
     }
 
     footer {
-      margin-top: 50px;
-      background: rgba(0, 0, 0, 0.8);
+      margin-top: 60px;
+      background: rgba(0, 0, 0, 0.9);
       padding: 20px;
       font-size: 1em;
       color: #00ff00;
+      box-shadow: 0 0 15px #00ff00;
     }
   </style>
 </head>
+
 <body>
   <nav>
     <a href="index.html">Home</a>
@@ -88,21 +102,81 @@
     <a href="about.html">About Us</a>
     <a href="admin.html">Admin</a>
     <a href="chat.html">Chat</a>
+    <a href="maintenance.html">Maintenance</a>
   </nav>
 
-  <h1>Brotherhood Chat</h1>
-  <p>Real talk, real love, real loyalty.</p>
+  <h1>💬 MBK Chat Room 💬</h1>
+  <div id="messages"></div>
+  <input id="msgInput" placeholder="Type your message..." />
+  <button onclick="sendMessage()">Send</button>
 
-  <div class="chat-box">
-    <p><strong>Thirsty:</strong> Ride safe, brothers.</p>
-    <p><strong>Blue:</strong> Always, my man.</p>
-    <p><strong>Athena:</strong> Family before everything 💚</p>
-    <input type="text" placeholder="Type your message..." />
-    <button>Send</button>
-  </div>
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+  <script>
+    const { createClient } = supabase;
+
+    const supabaseUrl = "https://xfgbsioinhnfyrhtpcdr.supabase.co";
+    const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhmZ2JzaW9pbmhuZnlyaHRwY2RyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjE2OTc0MzAsImV4cCI6MjA3NzI3MzQzMH0.tqVeukQ0uSf4d8G_IR_UE0OZq4aWpUW-velnx3mXzdQ";
+    const client = createClient(supabaseUrl, supabaseKey);
+
+    async function sendMessage() {
+      const content = document.getElementById("msgInput").value.trim();
+      if (!content) return;
+
+      let nickname = localStorage.getItem("mbk_nickname");
+      if (!nickname) {
+        nickname = prompt("Enter your road name:", "Brother") || "Brother";
+        localStorage.setItem("mbk_nickname", nickname);
+      }
+
+      const { error } = await client.from("messages").insert({
+        content,
+        user_email: "none",
+        nickname,
+      });
+
+      if (error) {
+        console.error("Error sending message:", error);
+        alert("Could not send message — check console for details.");
+        return;
+      }
+
+      document.getElementById("msgInput").value = "";
+      loadMessages();
+    }
+
+    async function loadMessages() {
+      const { data, error } = await client
+        .from("messages")
+        .select("*")
+        .order("created_at", { ascending: true });
+
+      if (error) {
+        console.error("Error loading messages:", error);
+        return;
+      }
+
+      const list = document.getElementById("messages");
+      list.innerHTML = (data || [])
+        .map(
+          (m) => `
+            <p style="color:#00ff00;">
+              <b>${m.nickname || "Brother"}:</b> ${m.content}
+            </p>
+          `
+        )
+        .join("");
+    }
+
+    loadMessages();
+
+    client
+      .channel("chat")
+      .on("postgres_changes", { event: "*", schema: "public", table: "messages" }, loadMessages)
+      .subscribe();
+  </script>
 
   <footer>
-    © 2025 MBK | BFFB
+    © 2025 My Brother’s Keeper | Chat Room
   </footer>
 </body>
 </html>
