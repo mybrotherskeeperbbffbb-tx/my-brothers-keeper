@@ -6,25 +6,24 @@
   <title>Gallery | My Brother’s Keeper</title>
   <style>
     body {
+      margin: 0;
       background-color: black;
-      color: #00ff00;
+      color: #00ff66;
       font-family: "Courier New", monospace;
       text-align: center;
-      margin: 0;
-      padding: 0;
     }
 
     nav {
-      background: rgba(0, 0, 0, 0.9);
+      background: rgba(0, 0, 0, 0.95);
       padding: 10px 0;
       position: sticky;
       top: 0;
       z-index: 10;
-      box-shadow: 0 0 15px #00ff00;
+      box-shadow: 0 0 15px #00ff66;
     }
 
     nav a {
-      color: #00ff00;
+      color: #00ff66;
       text-decoration: none;
       margin: 0 15px;
       font-weight: bold;
@@ -33,13 +32,13 @@
 
     nav a:hover {
       color: white;
-      text-shadow: 0 0 10px #00ff00;
+      text-shadow: 0 0 15px #00ff66;
     }
 
     h1 {
       margin-top: 40px;
       font-size: 3em;
-      text-shadow: 0 0 15px #00ff00;
+      text-shadow: 0 0 30px #00ff66;
     }
 
     .gallery {
@@ -47,50 +46,66 @@
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 20px;
       width: 90%;
-      margin: 60px auto;
+      max-width: 1200px;
+      margin: 40px auto;
     }
 
-    .gallery img {
-      width: 100%;
-      height: 250px;
-      object-fit: cover;
-      border: 2px solid #00ff00;
+    .photo {
+      position: relative;
+      overflow: hidden;
       border-radius: 15px;
-      box-shadow: 0 0 25px #00ff00;
+      border: 2px solid #00ff66;
+      box-shadow: 0 0 25px #00ff66;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
-    .gallery img:hover {
-      transform: scale(1.1);
-      box-shadow: 0 0 40px #00ff00;
+    .photo:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 35px #00ff66;
+    }
+
+    .photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
     footer {
       margin-top: 80px;
-      background: rgba(0, 0, 0, 0.9);
+      background: rgba(0,0,0,0.9);
       padding: 20px;
       font-size: 1em;
-      color: #00ff00;
-      box-shadow: 0 0 15px #00ff00;
+      color: #00ff66;
+      box-shadow: 0 0 15px #00ff66;
+    }
+
+    @media (max-width: 700px) {
+      h1 { font-size: 2.2em; }
     }
   </style>
 </head>
+
 <body>
   <nav>
     <a href="index.html">Home</a>
     <a href="brotherhood.html">Brotherhood</a>
     <a href="gallery.html">Gallery</a>
     <a href="about.html">About Us</a>
-    <a href="admin.html">Admin</a>
     <a href="chat.html">Chat</a>
+    <a href="admin.html">Admin</a>
     <a href="maintenance.html">Maintenance</a>
   </nav>
 
-  <h1>Gallery</h1>
+  <h1>MBK Family Gallery</h1>
 
   <div class="gallery">
-    <img src="photo1.jpg" alt="MBK Event 1">
-    <img src="photo2.jpg" alt="MBK Event 2">
-    <img src="photo3.jpg" alt="MBK Event 3">
-    <img src="photo4.jpg" alt="MBK Event 4">
-    <img
+    <!-- 💚 Drop your image URLs or file paths here -->
+    <div class="photo"><img src="gallery1.jpg" alt="MBK moment 1"></div>
+    <div class="photo"><img src="gallery2.jpg" alt="MBK moment 2"></div>
+    <div class="photo"><img src="gallery3.jpg" alt="MBK moment 3"></div>
+    <div class="photo"><img src="gallery4.jpg" alt="MBK moment 4"></div>
+  </div>
+
+  <footer>© 2025 My Brother’s Keeper | Family Forever</footer>
+</body>
+</html>
