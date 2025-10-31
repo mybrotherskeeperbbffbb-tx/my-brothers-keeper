@@ -26,7 +26,10 @@
       font-weight: bold;
       font-size: 1.1em;
     }
-    nav a:hover { color:white; text-shadow:0 0 10px #00ff66; }
+    nav a:hover {
+      color:white;
+      text-shadow:0 0 10px #00ff66;
+    }
 
     .box {
       border: 2px solid #00ff66;
@@ -38,6 +41,7 @@
       background: rgba(0,0,0,0.85);
       box-shadow: 0 0 25px #00ff66;
     }
+
     input, textarea {
       width: 80%;
       padding: 10px;
@@ -47,6 +51,7 @@
       background: black;
       color: #00ff66;
     }
+
     button {
       padding:10px 20px;
       background:#00ff66;
@@ -56,7 +61,23 @@
       border-radius:5px;
       cursor:pointer;
     }
-    button:hover { background:white; color:black; }
+
+    button:hover {
+      background:white;
+      color:black;
+    }
+
+    #preview {
+      margin-top: 15px;
+      display: none;
+    }
+
+    #preview img {
+      max-width: 100%;
+      border: 2px solid #00ff66;
+      border-radius: 10px;
+      box-shadow: 0 0 20px #00ff66;
+    }
   </style>
 </head>
 
@@ -83,8 +104,8 @@
 
     <div class="box">
       <h3>📸 Upload Photo</h3>
-      <input type="file" id="photo" accept="image/*" />
-      <button onclick="alert('Upload feature coming soon!')">Upload</button>
+      <input type="file" id="photo" accept="image/*" onchange="previewImage(event)" />
+      <div id="preview"><img id="previewImg" src="" alt="Preview" /></div>
     </div>
 
     <div class="box">
@@ -111,11 +132,24 @@
         document.getElementById("wrong").style.display="block";
       }
     }
+
     function postStatus(){
       const t=document.getElementById("status").value.trim();
       if(!t) return alert("Write something first!");
       alert("Status posted: "+t);
       document.getElementById("status").value="";
+    }
+
+    function previewImage(event){
+      const file = event.target.files[0];
+      if(!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e){
+        const img = document.getElementById("previewImg");
+        img.src = e.target.result;
+        document.getElementById("preview").style.display = "block";
+      }
+      reader.readAsDataURL(file);
     }
   </script>
 </body>
