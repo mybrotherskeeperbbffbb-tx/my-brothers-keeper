@@ -6,16 +6,19 @@
   <title>My Brother’s Keeper</title>
 
   <style>
-    body {
+    /* ===== BASE BODY ===== */
+    html, body {
       margin: 0;
       padding: 0;
+      height: 100%;
+      overflow: hidden;
       font-family: 'Courier New', monospace;
+      background: #000;
       color: #00ff99;
       text-align: center;
-      overflow: hidden;
-      background-color: #000;
     }
 
+    /* ===== BREATHING BACKGROUND ===== */
     body::before {
       content: "";
       position: fixed;
@@ -25,15 +28,17 @@
       height: 100%;
       background: url('background.jpg') no-repeat center center fixed;
       background-size: contain;
-      animation: pulseBackground 18s ease-in-out infinite alternate;
+      animation: pulseBackground 14s ease-in-out infinite alternate;
       z-index: 0;
+      filter: brightness(1.1);
     }
 
     @keyframes pulseBackground {
-      0% { background-size: contain; filter: brightness(1); }
-      100% { background-size: 110%; filter: brightness(1.25); }
+      0% { filter: brightness(1) saturate(1); transform: scale(1); }
+      100% { filter: brightness(1.25) saturate(1.4); transform: scale(1.08); }
     }
 
+    /* ===== LAYERED SMOKE ===== */
     .smoke-back, .smoke-front {
       position: fixed;
       top: 0;
@@ -43,23 +48,21 @@
       pointer-events: none;
       mix-blend-mode: screen;
       z-index: 1;
-      transition: background-position 0.3s ease-out;
+      background-size: 200% 200%;
+      transition: background-position 0.25s ease-out;
     }
 
     .smoke-back {
-      background: radial-gradient(circle at 30% 30%, rgba(0,255,100,0.08), transparent 80%),
-                  radial-gradient(circle at 70% 70%, rgba(0,255,100,0.04), transparent 80%),
-                  radial-gradient(circle at 50% 50%, rgba(0,255,100,0.06), transparent 85%);
-      background-size: 200% 200%;
-      animation: smokeDriftBack 120s ease-in-out infinite;
+      background: radial-gradient(circle at 30% 30%, rgba(0,255,100,0.06), transparent 80%),
+                  radial-gradient(circle at 70% 70%, rgba(0,255,100,0.04), transparent 80%);
+      animation: smokeDriftBack 90s linear infinite;
     }
 
     .smoke-front {
-      background: radial-gradient(circle at 20% 80%, rgba(0,255,100,0.1), transparent 70%),
-                  radial-gradient(circle at 80% 20%, rgba(0,255,100,0.12), transparent 70%),
-                  radial-gradient(circle at 60% 40%, rgba(0,255,100,0.07), transparent 80%);
-      background-size: 200% 200%;
-      animation: smokeDriftFront 60s ease-in-out infinite;
+      background: radial-gradient(circle at 50% 50%, rgba(0,255,100,0.12), transparent 70%),
+                  radial-gradient(circle at 20% 80%, rgba(0,255,100,0.1), transparent 70%),
+                  radial-gradient(circle at 80% 20%, rgba(0,255,100,0.08), transparent 70%);
+      animation: smokeDriftFront 45s linear infinite;
     }
 
     @keyframes smokeDriftBack {
@@ -74,36 +77,47 @@
       100% { background-position: 50% 0%; }
     }
 
+    /* ===== NAVBAR ===== */
     header {
       position: relative;
-      z-index: 4;
+      z-index: 3;
       background-color: rgba(0, 0, 0, 0.85);
       padding: 10px 0;
-      box-shadow: 0 0 20px #00ff66;
+      box-shadow: 0 0 15px #00ff66;
     }
 
     header nav a {
       color: #00ff66;
       text-decoration: none;
-      margin: 0 15px;
-      font-size: 1rem;
+      margin: 0 12px;
+      font-size: 0.95rem;
       transition: 0.3s;
     }
 
     header nav a:hover {
-      text-shadow: 0 0 15px #00ff66;
+      text-shadow: 0 0 12px #00ff66;
     }
 
+    /* ===== CENTER TEXT ===== */
     .content {
       position: relative;
-      z-index: 4;
-      margin-top: 15%;
+      z-index: 3;
+      margin-top: 18%;
       text-shadow: 0 0 15px #00ff66;
     }
 
-    h1 { font-size: 2.3rem; margin-bottom: 0.5rem; }
-    h2 { font-size: 1.2rem; font-weight: normal; }
+    h1 {
+      font-size: 2.2rem;
+      margin-bottom: 0.3rem;
+    }
 
+    h2 {
+      font-size: 1rem;
+      font-weight: normal;
+      color: #00ff66;
+    }
+
+    /* ===== FOOTER ===== */
     footer {
       position: fixed;
       bottom: 0;
@@ -113,12 +127,13 @@
       font-size: 0.8rem;
       color: #00ff66;
       box-shadow: 0 0 10px #00ff66;
-      z-index: 4;
+      z-index: 3;
     }
 
+    /* ===== MOBILE TWEAKS ===== */
     @media (max-width: 768px) {
-      h1 { font-size: 1.7rem; }
-      h2 { font-size: 1rem; }
+      h1 { font-size: 1.6rem; }
+      h2 { font-size: 0.9rem; }
       .content { margin-top: 35%; }
     }
   </style>
@@ -152,16 +167,23 @@
     const front = document.querySelector('.smoke-front');
 
     function moveSmoke(x, y) {
-      const percentX = (x / window.innerWidth) * 100;
-      const percentY = (y / window.innerHeight) * 100;
-      back.style.backgroundPosition = `${percentX / 3}% ${percentY / 3}%`;
-      front.style.backgroundPosition = `${percentX}% ${percentY}%`;
+      const px = (x / window.innerWidth - 0.5) * 30;
+      const py = (y / window.innerHeight - 0.5) * 30;
+      back.style.backgroundPosition = `${50 + px / 3}% ${50 + py / 3}%`;
+      front.style.backgroundPosition = `${50 + px}% ${50 + py}%`;
     }
 
     window.addEventListener('mousemove', e => moveSmoke(e.clientX, e.clientY));
     window.addEventListener('touchmove', e => {
       const touch = e.touches[0];
       moveSmoke(touch.clientX, touch.clientY);
+    });
+
+    // Force animations after load on GitHub Pages
+    window.addEventListener('load', () => {
+      document.body.offsetHeight; // trigger reflow
+      back.style.animationPlayState = 'running';
+      front.style.animationPlayState = 'running';
     });
   </script>
 </body>
