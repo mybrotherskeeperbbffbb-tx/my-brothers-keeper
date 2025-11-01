@@ -3,144 +3,166 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My Brother’s Keeper | Home</title>
+  <title>My Brother’s Keeper</title>
+
   <style>
     body {
       margin: 0;
-      background-color: black;
-      color: #00ff66;
-      font-family: "Courier New", monospace;
+      padding: 0;
+      font-family: 'Courier New', monospace;
+      color: #00ff99;
       text-align: center;
-      overflow-x: hidden;
+      overflow: hidden;
+      background-color: #000;
     }
 
-    nav {
-      background: rgba(0, 0, 0, 0.95);
-      padding: 10px 0;
-      position: sticky;
+    body::before {
+      content: "";
+      position: fixed;
       top: 0;
-      box-shadow: 0 0 15px #00ff66;
-      z-index: 10;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('background.jpg') no-repeat center center fixed;
+      background-size: contain;
+      animation: pulseBackground 18s ease-in-out infinite alternate;
+      z-index: 0;
     }
 
-    nav a {
-      color: #00ff66;
-      text-decoration: none;
-      margin: 0 15px;
-      font-weight: bold;
-      font-size: 1.2em;
-      transition: 0.3s;
+    @keyframes pulseBackground {
+      0% { background-size: contain; filter: brightness(1); }
+      100% { background-size: 110%; filter: brightness(1.25); }
     }
 
-    nav a:hover {
-      color: white;
-      text-shadow: 0 0 15px #00ff66;
+    .smoke-back, .smoke-front {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      mix-blend-mode: screen;
+      z-index: 1;
+      transition: background-position 0.3s ease-out;
+    }
+
+    .smoke-back {
+      background: radial-gradient(circle at 30% 30%, rgba(0,255,100,0.08), transparent 80%),
+                  radial-gradient(circle at 70% 70%, rgba(0,255,100,0.04), transparent 80%),
+                  radial-gradient(circle at 50% 50%, rgba(0,255,100,0.06), transparent 85%);
+      background-size: 200% 200%;
+      animation: smokeDriftBack 120s ease-in-out infinite;
+    }
+
+    .smoke-front {
+      background: radial-gradient(circle at 20% 80%, rgba(0,255,100,0.1), transparent 70%),
+                  radial-gradient(circle at 80% 20%, rgba(0,255,100,0.12), transparent 70%),
+                  radial-gradient(circle at 60% 40%, rgba(0,255,100,0.07), transparent 80%);
+      background-size: 200% 200%;
+      animation: smokeDriftFront 60s ease-in-out infinite;
+    }
+
+    @keyframes smokeDriftBack {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    @keyframes smokeDriftFront {
+      0% { background-position: 50% 0%; }
+      50% { background-position: 50% 100%; }
+      100% { background-position: 50% 0%; }
     }
 
     header {
-      height: 100vh;
-      background: url("background.jpg") center/cover no-repeat;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-shadow: 0 0 25px #00ff66;
+      position: relative;
+      z-index: 4;
+      background-color: rgba(0, 0, 0, 0.85);
+      padding: 10px 0;
+      box-shadow: 0 0 20px #00ff66;
     }
 
-    h1 {
-      font-size: 3.5em;
-      color: white;
-      margin: 0;
-    }
-
-    h2 {
-      font-size: 2em;
-      margin-top: 10px;
+    header nav a {
       color: #00ff66;
+      text-decoration: none;
+      margin: 0 15px;
+      font-size: 1rem;
+      transition: 0.3s;
     }
 
-    .mission {
-      background: rgba(0, 0, 0, 0.9);
-      border-top: 2px solid #00ff66;
-      border-bottom: 2px solid #00ff66;
-      padding: 50px 20px;
-      box-shadow: 0 0 25px #00ff66;
-    }
-
-    .mission p {
-      font-size: 1.5em;
-      color: white;
+    header nav a:hover {
       text-shadow: 0 0 15px #00ff66;
-      max-width: 900px;
-      margin: 0 auto;
-      line-height: 1.8em;
-      text-align: justify;
     }
+
+    .content {
+      position: relative;
+      z-index: 4;
+      margin-top: 15%;
+      text-shadow: 0 0 15px #00ff66;
+    }
+
+    h1 { font-size: 2.3rem; margin-bottom: 0.5rem; }
+    h2 { font-size: 1.2rem; font-weight: normal; }
 
     footer {
-      margin-top: 40px;
-      background: rgba(0, 0, 0, 0.9);
-      padding: 20px;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.85);
+      padding: 10px;
+      font-size: 0.8rem;
       color: #00ff66;
-      box-shadow: 0 0 15px #00ff66;
+      box-shadow: 0 0 10px #00ff66;
+      z-index: 4;
     }
 
-    @media (max-width: 700px) {
-      h1 { font-size: 2.4em; }
-      h2 { font-size: 1.6em; }
-      .mission p { font-size: 1.2em; }
+    @media (max-width: 768px) {
+      h1 { font-size: 1.7rem; }
+      h2 { font-size: 1rem; }
+      .content { margin-top: 35%; }
     }
   </style>
 </head>
 
 <body>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="brotherhood.html">Brotherhood</a>
-    <a href="gallery.html">Gallery</a>
-    <a href="about.html">About Us</a>
-    <a href="chat.html">Chat</a>
-    <a href="maintenance.html">Maintenance</a>
-    <a href="dashboard.html">Dashboard</a>
-  </nav>
-
   <header>
-    <h1>My Brother’s Keeper</h1>
-    <h2>Family. Loyalty. Legacy.</h2>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="brotherhood.html">Brotherhood</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="about.html">About Us</a>
+      <a href="chat.html">Chat</a>
+      <a href="maintenance.html">Maintenance</a>
+      <a href="dashboard.html">Dashboard</a>
+    </nav>
   </header>
 
-  <section class="mission">
-    <p>
-      We are My Brother’s Keeper — a family forged in loyalty, love, and purpose.
-      What began as a bond between friends has grown into a mission: to feed the hungry,
-      shelter the cold, lift the broken, and stand for those who’ve been forgotten.
-      We do it not for recognition, but for the love of our fallen brother — whose dream
-      of unity and kindness lives on in every act of compassion we share.
-    </p>
+  <div class="smoke-back"></div>
+  <div class="smoke-front"></div>
 
-    <p style="margin-top:25px;">
-      We are not a club. We are not a gang. We are a family that gives, serves, and rides for good.
-      Every event, every drive, and every mile we travel is a step toward making this world a little brighter.
-      Until Valhalla, Brother. 💚
-    </p>
-  </section>
+  <div class="content">
+    <h1>My Brother’s Keeper</h1>
+    <h2>Family. Loyalty. Legacy.</h2>
+  </div>
 
-  <footer>© 2025 My Brother’s Keeper | Built with Loyalty</footer>
+  <footer>© 2025 MBK | BFFB</footer>
 
-  <!-- Rev engine sound -->
-  <audio id="engineSound" src="engine.mp3"></audio>
   <script>
-    const engine = document.getElementById("engineSound");
-    let revs = 0;
-    function revEngine() {
-      if (revs < 2) {
-        engine.currentTime = 0;
-        engine.play();
-        revs++;
-        setTimeout(revEngine, 3500);
-      }
+    const back = document.querySelector('.smoke-back');
+    const front = document.querySelector('.smoke-front');
+
+    function moveSmoke(x, y) {
+      const percentX = (x / window.innerWidth) * 100;
+      const percentY = (y / window.innerHeight) * 100;
+      back.style.backgroundPosition = `${percentX / 3}% ${percentY / 3}%`;
+      front.style.backgroundPosition = `${percentX}% ${percentY}%`;
     }
-    window.onload = revEngine;
+
+    window.addEventListener('mousemove', e => moveSmoke(e.clientX, e.clientY));
+    window.addEventListener('touchmove', e => {
+      const touch = e.touches[0];
+      moveSmoke(touch.clientX, touch.clientY);
+    });
   </script>
 </body>
 </html>
