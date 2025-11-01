@@ -2,31 +2,70 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>MBK Gallery</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gallery | My Brother’s Keeper</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
   <style>
-    :root{ --od:#00ff00; --bg:#000; }
-    *{box-sizing:border-box}
-    body{ margin:0; background:var(--bg); color:var(--od); font-family:"Courier New", monospace; }
-    nav{ position:sticky; top:0; z-index:10; background:rgba(0,0,0,.9); padding:10px; text-align:center; box-shadow:0 0 10px var(--od); }
-    nav a{ color:var(--od); text-decoration:none; margin:0 15px; font-weight:bold }
-    nav a:hover{ color:#fff; text-shadow:0 0 10px var(--od) }
-    .wrap{ max-width:1100px; margin:20px auto; padding:16px }
-    h1{ text-align:center; text-shadow:0 0 18px var(--od) }
-
-    .grid{ display:grid; grid-template-columns: repeat(auto-fill, minmax(220px,1fr)); gap:14px; }
-    .tile{
-      background:#050; border:1px solid #074; border-radius:12px; overflow:hidden;
-      box-shadow:0 0 12px #083;
+    body {
+      background: black;
+      color: #00ff00;
+      font-family: "Courier New", monospace;
+      text-align: center;
+      margin: 0;
+      padding: 20px;
     }
-    .tile img{ width:100%; height:240px; object-fit:cover; display:block; background:#000; }
-    .tile a{ display:block; padding:8px; color:#9f9; text-decoration:none; text-align:center }
-    .tile a:hover{ color:#fff; text-shadow:0 0 8px var(--od) }
-
-    .panel{ margin-top:28px; padding:16px; border:1px solid #074; border-radius:12px; background:linear-gradient(180deg,#050,#0b0b0b); box-shadow:0 0 18px #083; }
-    .status{ padding:10px 0; border-bottom:1px dashed #084 }
-    .time{ opacity:.7; font-size:.9rem }
-    footer{ text-align:center; padding:35px 10px; color:var(--od); opacity:.8 }
+    nav {
+      background: rgba(0, 0, 0, 0.9);
+      padding: 10px 0;
+      box-shadow: 0 0 15px #00ff00;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    nav a {
+      color: #00ff00;
+      text-decoration: none;
+      margin: 0 15px;
+      font-weight: bold;
+    }
+    nav a:hover {
+      color: white;
+      text-shadow: 0 0 10px #00ff00;
+    }
+    h1 {
+      text-shadow: 0 0 20px #00ff00;
+    }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+    .photo {
+      background: rgba(0, 0, 0, 0.9);
+      border: 2px solid #00ff00;
+      border-radius: 10px;
+      box-shadow: 0 0 20px #00ff00;
+      overflow: hidden;
+      transition: transform 0.3s ease;
+    }
+    .photo:hover {
+      transform: scale(1.05);
+    }
+    .photo img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    footer {
+      margin-top: 40px;
+      font-size: 1em;
+      color: #00ff00;
+      background: rgba(0, 0, 0, 0.9);
+      padding: 10px;
+      box-shadow: 0 0 10px #00ff00;
+    }
   </style>
 </head>
 <body>
@@ -36,74 +75,56 @@
     <a href="gallery.html">Gallery</a>
     <a href="about.html">About Us</a>
     <a href="admin.html">Admin</a>
+    <a href="chat.html">Chat</a>
     <a href="maintenance.html">Maintenance</a>
   </nav>
 
-  <div class="wrap">
-    <h1>MBK Gallery</h1>
-
-    <section class="grid" id="grid"></section>
-
-    <section class="panel">
-      <h2>Latest Updates</h2>
-      <div id="feed"></div>
-    </section>
-  </div>
+  <h1>📸 MBK Gallery</h1>
+  <div id="gallery" class="gallery"></div>
 
   <footer>© 2025 MBK | BFFB</footer>
 
-  <!-- Supabase + Config -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="config.js"></script>
-
   <script>
-    if (!window.MBK_SUPABASE_URL || !window.MBK_SUPABASE_ANON){
-      document.getElementById('grid').innerHTML = "<p>Configure Supabase in config.js</p>";
-    }
-
+    // Initialize Supabase
     const supabase = window.supabase.createClient(
       window.MBK_SUPABASE_URL,
       window.MBK_SUPABASE_ANON
     );
-    const BUCKET = window.MBK_BUCKET || "gallery";
 
-    // ---- Load images from Storage
-    async function loadImages(){
-      const grid = document.getElementById('grid');
-      grid.innerHTML = "<p>Loading photos…</p>";
+    // Load gallery images
+    async function loadGallery() {
+      const { data, error } = await supabase.storage
+        .from(window.MBK_BUCKET)
+        .list("", { limit: 100, sortBy: { column: "created_at", order: "desc" } });
 
-      const { data:list, error } = await supabase.storage.from(BUCKET).list("", { limit:1000, sortBy:{ column:"name", order:"desc" }});
-      if (error){ grid.innerHTML = "<p>Could not load images.</p>"; return; }
+      const gallery = document.getElementById("gallery");
+      gallery.innerHTML = "";
 
-      const tiles = (list || []).map(item => {
-        const { data:pub } = supabase.storage.from(BUCKET).getPublicUrl(item.name);
-        return `
-          <div class="tile">
-            <img loading="lazy" src="${pub.publicUrl}" alt="">
-            <a href="${pub.publicUrl}" target="_blank">Open</a>
-          </div>`;
-      });
-      grid.innerHTML = tiles.join("") || "<p>No photos yet. Upload from the Admin page.</p>";
+      if (error) {
+        gallery.innerHTML = "<p>Could not load images.</p>";
+        console.error(error);
+        return;
+      }
+
+      for (const file of data) {
+        const { data: urlData } = await supabase.storage
+          .from(window.MBK_BUCKET)
+          .getPublicUrl(file.name);
+
+        const img = document.createElement("img");
+        img.src = urlData.publicUrl;
+        img.alt = file.name;
+
+        const wrapper = document.createElement("div");
+        wrapper.className = "photo";
+        wrapper.appendChild(img);
+        gallery.appendChild(wrapper);
+      }
     }
 
-    // ---- Load statuses (latest 25)
-    async function loadStatuses(){
-      const feed = document.getElementById('feed');
-      const { data, error } = await supabase.from('statuses').select('*').order('created_at', { ascending:false }).limit(25);
-      if (error){ feed.innerHTML = "<p>Could not load updates.</p>"; return; }
-      if (!data?.length){ feed.innerHTML = "<p>No updates yet.</p>"; return; }
-
-      feed.innerHTML = data.map(r => `
-        <div class="status">
-          <div>${escapeHtml(r.content || "")}</div>
-          <div class="time">${new Date(r.created_at).toLocaleString()}</div>
-        </div>`).join("");
-    }
-
-    function escapeHtml(s){ return (s||"").replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
-
-    loadImages();
-    loadStatuses();
+    // Reload automatically every 10 seconds
+    loadGallery();
+    setInterval(loadGallery, 10000);
   </script>
 </body>
 </html>
