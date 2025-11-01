@@ -3,68 +3,87 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gallery | My Brother’s Keeper</title>
+  <title>MBK Gallery | My Brother’s Keeper</title>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="config.js"></script>
   <style>
     body {
-      background: black;
+      background-color: black;
       color: #00ff00;
       font-family: "Courier New", monospace;
       text-align: center;
       margin: 0;
-      padding: 20px;
+      padding: 0;
     }
+
     nav {
       background: rgba(0, 0, 0, 0.9);
       padding: 10px 0;
-      box-shadow: 0 0 15px #00ff00;
+      box-shadow: 0 0 20px #00ff00;
       position: sticky;
       top: 0;
       z-index: 10;
     }
+
     nav a {
       color: #00ff00;
       text-decoration: none;
       margin: 0 15px;
       font-weight: bold;
+      font-size: 1.2em;
     }
+
     nav a:hover {
       color: white;
       text-shadow: 0 0 10px #00ff00;
     }
+
     h1 {
       text-shadow: 0 0 20px #00ff00;
+      margin-top: 30px;
     }
-    .gallery {
+
+    .gallery-container {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 20px;
       padding: 20px;
+      margin: 20px auto;
+      max-width: 1000px;
     }
-    .photo {
-      background: rgba(0, 0, 0, 0.9);
+
+    .gallery-item {
+      background: rgba(0, 255, 0, 0.1);
       border: 2px solid #00ff00;
       border-radius: 10px;
       box-shadow: 0 0 20px #00ff00;
-      overflow: hidden;
-      transition: transform 0.3s ease;
+      padding: 10px;
+      transition: transform 0.3s, box-shadow 0.3s;
     }
-    .photo:hover {
+
+    .gallery-item:hover {
       transform: scale(1.05);
+      box-shadow: 0 0 40px #00ff00;
     }
-    .photo img {
+
+    .gallery-item img {
       width: 100%;
-      height: auto;
+      border-radius: 8px;
       display: block;
     }
+
     footer {
-      margin-top: 40px;
-      font-size: 1em;
-      color: #00ff00;
       background: rgba(0, 0, 0, 0.9);
-      padding: 10px;
-      box-shadow: 0 0 10px #00ff00;
+      padding: 15px;
+      margin-top: 30px;
+      color: #00ff00;
+      font-size: 1em;
+      box-shadow: 0 0 20px #00ff00;
+    }
+
+    .loading {
+      font-size: 1.3em;
+      text-shadow: 0 0 10px #00ff00;
     }
   </style>
 </head>
@@ -79,52 +98,53 @@
     <a href="maintenance.html">Maintenance</a>
   </nav>
 
-  <h1>📸 MBK Gallery</h1>
-  <div id="gallery" class="gallery"></div>
+  <h1>💚 MBK Gallery 💚</h1>
+  <div id="gallery" class="gallery-container">
+    <p class="loading">Loading images from the Brotherhood cloud...</p>
+  </div>
 
   <footer>© 2025 MBK | BFFB</footer>
 
   <script>
-    // Initialize Supabase
     const supabase = window.supabase.createClient(
       window.MBK_SUPABASE_URL,
       window.MBK_SUPABASE_ANON
     );
 
-    // Load gallery images
     async function loadGallery() {
+      const galleryDiv = document.getElementById("gallery");
+      galleryDiv.innerHTML = '<p class="loading">Loading...</p>';
+
       const { data, error } = await supabase.storage
         .from(window.MBK_BUCKET)
-        .list("", { limit: 100, sortBy: { column: "created_at", order: "desc" } });
-
-      const gallery = document.getElementById("gallery");
-      gallery.innerHTML = "";
+        .list("", { limit: 100 });
 
       if (error) {
-        gallery.innerHTML = "<p>Could not load images.</p>";
-        console.error(error);
+        console.error("Error loading gallery:", error);
+        galleryDiv.innerHTML = "<p>Could not load images.</p>";
         return;
       }
 
+      if (!data || data.length === 0) {
+        galleryDiv.innerHTML = "<p>No images uploaded yet.</p>";
+        return;
+      }
+
+      galleryDiv.innerHTML = "";
+
       for (const file of data) {
-        const { data: urlData } = await supabase.storage
+        const { data: urlData } = supabase.storage
           .from(window.MBK_BUCKET)
           .getPublicUrl(file.name);
 
-        const img = document.createElement("img");
-        img.src = urlData.publicUrl;
-        img.alt = file.name;
-
-        const wrapper = document.createElement("div");
-        wrapper.className = "photo";
-        wrapper.appendChild(img);
-        gallery.appendChild(wrapper);
+        const imgDiv = document.createElement("div");
+        imgDiv.classList.add("gallery-item");
+        imgDiv.innerHTML = `<img src="${urlData.publicUrl}" alt="${file.name}" />`;
+        galleryDiv.appendChild(imgDiv);
       }
     }
 
-    // Reload automatically every 10 seconds
     loadGallery();
-    setInterval(loadGallery, 10000);
   </script>
 </body>
 </html>
